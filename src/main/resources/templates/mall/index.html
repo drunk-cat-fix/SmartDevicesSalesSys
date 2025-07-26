@@ -72,6 +72,8 @@
                 </div>
             </th:block>
         </th:block>
+        
+
         <!-- 未配置热销商品则显示默认 -->
         <th:block th:if="${#lists.isEmpty(hotGoodses)}">
             <div class="hot-image">
@@ -117,7 +119,7 @@
             <th:block th:if="${#lists.isEmpty(newGoodses)}">
                 <li>
                     <a href="##">
-                        <img src="./mall/image/sub_banner/m6.jpg" alt=""/>
+                        <img src="/mall/image/sub_banner/m6.jpg" alt=""/>
                         <p class="name">华为平板 M6</p>
                         <p class="discount">醇香音质 身临其境</p>
                         <p class="price">1499元起</p>
