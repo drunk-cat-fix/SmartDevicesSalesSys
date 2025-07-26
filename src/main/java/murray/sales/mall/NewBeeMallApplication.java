@@ -13,10 +13,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
+ * @author Murray
+ * @email murray50325487@gmail.com
  */
 @MapperScan("murray.sales.mall.dao")
 @SpringBootApplication
