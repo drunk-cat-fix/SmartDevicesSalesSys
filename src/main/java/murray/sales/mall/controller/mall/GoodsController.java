@@ -9,7 +9,7 @@
 package murray.sales.mall.controller.mall;
 
 import murray.sales.mall.common.Constants;
-import murray.sales.mall.common.NewBeeMallException;
+import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallGoodsDetailVO;
 import murray.sales.mall.controller.vo.SearchPageCategoryVO;
@@ -74,11 +74,11 @@ public class GoodsController {
     @GetMapping("/goods/detail/{goodsId}")
     public String detailPage(@PathVariable("goodsId") Long goodsId, HttpServletRequest request) {
         if (goodsId < 1) {
-            NewBeeMallException.fail("参数异常");
+            SalesSystemException.fail("参数异常");
         }
         NewBeeMallGoods goods = newBeeMallGoodsService.getNewBeeMallGoodsById(goodsId);
         if (Constants.SELL_STATUS_UP != goods.getGoodsSellStatus()) {
-            NewBeeMallException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
+            SalesSystemException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
         }
         NewBeeMallGoodsDetailVO goodsDetailVO = new NewBeeMallGoodsDetailVO();
         BeanUtil.copyProperties(goods, goodsDetailVO);

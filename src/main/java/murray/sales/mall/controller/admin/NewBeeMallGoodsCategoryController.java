@@ -9,7 +9,7 @@
 package murray.sales.mall.controller.admin;
 
 import murray.sales.mall.common.NewBeeMallCategoryLevelEnum;
-import murray.sales.mall.common.NewBeeMallException;
+import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.entity.GoodsCategory;
 import murray.sales.mall.service.NewBeeMallCategoryService;
@@ -42,7 +42,7 @@ public class NewBeeMallGoodsCategoryController {
     @GetMapping("/categories")
     public String categoriesPage(HttpServletRequest request, @RequestParam("categoryLevel") Byte categoryLevel, @RequestParam("parentId") Long parentId, @RequestParam("backParentId") Long backParentId) {
         if (categoryLevel == null || categoryLevel < 1 || categoryLevel > 3) {
-            NewBeeMallException.fail("参数异常");
+            SalesSystemException.fail("参数异常");
         }
         request.setAttribute("path", "newbee_mall_category");
         request.setAttribute("parentId", parentId);

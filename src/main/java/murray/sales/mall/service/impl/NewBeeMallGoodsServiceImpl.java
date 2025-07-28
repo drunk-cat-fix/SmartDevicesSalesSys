@@ -9,7 +9,7 @@
 package murray.sales.mall.service.impl;
 
 import murray.sales.mall.common.NewBeeMallCategoryLevelEnum;
-import murray.sales.mall.common.NewBeeMallException;
+import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallSearchGoodsVO;
 import murray.sales.mall.dao.GoodsCategoryMapper;
@@ -101,7 +101,7 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
     public NewBeeMallGoods getNewBeeMallGoodsById(Long id) {
         NewBeeMallGoods newBeeMallGoods = goodsMapper.selectByPrimaryKey(id);
         if (newBeeMallGoods == null) {
-            NewBeeMallException.fail(ServiceResultEnum.GOODS_NOT_EXIST.getResult());
+            SalesSystemException.fail(ServiceResultEnum.GOODS_NOT_EXIST.getResult());
         }
         return newBeeMallGoods;
     }

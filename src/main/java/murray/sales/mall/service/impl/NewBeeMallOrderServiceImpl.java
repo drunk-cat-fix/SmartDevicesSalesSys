@@ -10,7 +10,6 @@ package murray.sales.mall.service.impl;
 
 import murray.sales.mall.common.*;
 import murray.sales.mall.controller.vo.*;
-import murray.sales.mall.common.*;
 import murray.sales.mall.dao.NewBeeMallGoodsMapper;
 import murray.sales.mall.dao.NewBeeMallOrderItemMapper;
 import murray.sales.mall.dao.NewBeeMallOrderMapper;
@@ -24,7 +23,6 @@ import murray.sales.mall.util.BeanUtil;
 import murray.sales.mall.util.NumberUtil;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.PageResult;
-import murray.sales.mall.controller.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -196,18 +194,18 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
                 .collect(Collectors.toList());
         if (!CollectionUtils.isEmpty(goodsListNotSelling)) {
             //goodsListNotSelling 对象非空则表示有下架商品
-            NewBeeMallException.fail(goodsListNotSelling.get(0).getGoodsName() + "已下架，无法生成订单");
+            SalesSystemException.fail(goodsListNotSelling.get(0).getGoodsName() + "已下架，无法生成订单");
         }
         Map<Long, NewBeeMallGoods> newBeeMallGoodsMap = newBeeMallGoods.stream().collect(Collectors.toMap(NewBeeMallGoods::getGoodsId, Function.identity(), (entity1, entity2) -> entity1));
         //判断商品库存
         for (NewBeeMallShoppingCartItemVO shoppingCartItemVO : myShoppingCartItems) {
             //查出的商品中不存在购物车中的这条关联商品数据，直接返回错误提醒
             if (!newBeeMallGoodsMap.containsKey(shoppingCartItemVO.getGoodsId())) {
-                NewBeeMallException.fail(ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult());
+                SalesSystemException.fail(ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult());
             }
             //存在数量大于库存的情况，直接返回错误提醒
             if (shoppingCartItemVO.getGoodsCount() > newBeeMallGoodsMap.get(shoppingCartItemVO.getGoodsId()).getStockNum()) {
-                NewBeeMallException.fail(ServiceResultEnum.SHOPPING_ITEM_COUNT_ERROR.getResult());
+                SalesSystemException.fail(ServiceResultEnum.SHOPPING_ITEM_COUNT_ERROR.getResult());
             }
         }
         //删除购物项
@@ -216,7 +214,7 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
                 List<StockNumDTO> stockNumDTOS = BeanUtil.copyList(myShoppingCartItems, StockNumDTO.class);
                 int updateStockNumResult = newBeeMallGoodsMapper.updateStockNum(stockNumDTOS);
                 if (updateStockNumResult < 1) {
-                    NewBeeMallException.fail(ServiceResultEnum.SHOPPING_ITEM_COUNT_ERROR.getResult());
+                    SalesSystemException.fail(ServiceResultEnum.SHOPPING_ITEM_COUNT_ERROR.getResult());
                 }
                 //生成订单号
                 String orderNo = NumberUtil.genOrderNo();
@@ -231,7 +229,7 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
                     priceTotal += newBeeMallShoppingCartItemVO.getGoodsCount() * newBeeMallShoppingCartItemVO.getSellingPrice();
                 }
                 if (priceTotal < 1) {
-                    NewBeeMallException.fail(ServiceResultEnum.ORDER_PRICE_ERROR.getResult());
+                    SalesSystemException.fail(ServiceResultEnum.ORDER_PRICE_ERROR.getResult());
                 }
                 newBeeMallOrder.setTotalPrice(priceTotal);
                 //订单body字段，用来作为生成支付单描述信息，暂时未接入第三方支付接口，故该字段暂时设为空字符串
@@ -254,13 +252,13 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
                         //所有操作成功后，将订单号返回，以供Controller方法跳转到订单详情
                         return orderNo;
                     }
-                    NewBeeMallException.fail(ServiceResultEnum.ORDER_PRICE_ERROR.getResult());
+                    SalesSystemException.fail(ServiceResultEnum.ORDER_PRICE_ERROR.getResult());
                 }
-                NewBeeMallException.fail(ServiceResultEnum.DB_ERROR.getResult());
+                SalesSystemException.fail(ServiceResultEnum.DB_ERROR.getResult());
             }
-            NewBeeMallException.fail(ServiceResultEnum.DB_ERROR.getResult());
+            SalesSystemException.fail(ServiceResultEnum.DB_ERROR.getResult());
         }
-        NewBeeMallException.fail(ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult());
+        SalesSystemException.fail(ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult());
         return ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult();
     }
 
@@ -268,16 +266,16 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
     public NewBeeMallOrderDetailVO getOrderDetailByOrderNo(String orderNo, Long userId) {
         NewBeeMallOrder newBeeMallOrder = newBeeMallOrderMapper.selectByOrderNo(orderNo);
         if (newBeeMallOrder == null) {
-            NewBeeMallException.fail(ServiceResultEnum.ORDER_NOT_EXIST_ERROR.getResult());
+            SalesSystemException.fail(ServiceResultEnum.ORDER_NOT_EXIST_ERROR.getResult());
         }
         //验证是否是当前userId下的订单，否则报错
         if (!userId.equals(newBeeMallOrder.getUserId())) {
-            NewBeeMallException.fail(ServiceResultEnum.NO_PERMISSION_ERROR.getResult());
+            SalesSystemException.fail(ServiceResultEnum.NO_PERMISSION_ERROR.getResult());
         }
         List<NewBeeMallOrderItem> orderItems = newBeeMallOrderItemMapper.selectByOrderId(newBeeMallOrder.getOrderId());
         //获取订单项数据
         if (CollectionUtils.isEmpty(orderItems)) {
-            NewBeeMallException.fail(ServiceResultEnum.ORDER_ITEM_NOT_EXIST_ERROR.getResult());
+            SalesSystemException.fail(ServiceResultEnum.ORDER_ITEM_NOT_EXIST_ERROR.getResult());
         }
         List<NewBeeMallOrderItemVO> newBeeMallOrderItemVOS = BeanUtil.copyList(orderItems, NewBeeMallOrderItemVO.class);
         NewBeeMallOrderDetailVO newBeeMallOrderDetailVO = new NewBeeMallOrderDetailVO();
@@ -331,7 +329,7 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
         if (newBeeMallOrder != null) {
             //验证是否是当前userId下的订单，否则报错
             if (!userId.equals(newBeeMallOrder.getUserId())) {
-                NewBeeMallException.fail(ServiceResultEnum.NO_PERMISSION_ERROR.getResult());
+                SalesSystemException.fail(ServiceResultEnum.NO_PERMISSION_ERROR.getResult());
             }
             //订单状态判断
             if (newBeeMallOrder.getOrderStatus().intValue() == NewBeeMallOrderStatusEnum.ORDER_SUCCESS.getOrderStatus()
@@ -422,7 +420,7 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
         //执行恢复库存的操作
         int updateStockNumResult = newBeeMallGoodsMapper.recoverStockNum(stockNumDTOS);
         if (updateStockNumResult < 1) {
-            NewBeeMallException.fail(ServiceResultEnum.CLOSE_ORDER_ERROR.getResult());
+            SalesSystemException.fail(ServiceResultEnum.CLOSE_ORDER_ERROR.getResult());
             return false;
         } else {
             return true;

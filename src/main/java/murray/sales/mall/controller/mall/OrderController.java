@@ -9,7 +9,7 @@
 package murray.sales.mall.controller.mall;
 
 import murray.sales.mall.common.Constants;
-import murray.sales.mall.common.NewBeeMallException;
+import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.NewBeeMallOrderStatusEnum;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallOrderDetailVO;
@@ -70,11 +70,11 @@ public class OrderController {
         List<NewBeeMallShoppingCartItemVO> myShoppingCartItems = newBeeMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
         if (!StringUtils.hasText(user.getAddress().trim())) {
             //无收货地址
-            NewBeeMallException.fail(ServiceResultEnum.NULL_ADDRESS_ERROR.getResult());
+            SalesSystemException.fail(ServiceResultEnum.NULL_ADDRESS_ERROR.getResult());
         }
         if (CollectionUtils.isEmpty(myShoppingCartItems)) {
             //购物车中无数据则跳转至错误页
-            NewBeeMallException.fail(ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult());
+            SalesSystemException.fail(ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult());
         }
         //保存订单并返回订单号
         String saveOrderResult = newBeeMallOrderService.saveOrder(user, myShoppingCartItems);
@@ -112,11 +112,11 @@ public class OrderController {
         NewBeeMallOrder newBeeMallOrder = newBeeMallOrderService.getNewBeeMallOrderByOrderNo(orderNo);
         //判断订单userId
         if (!user.getUserId().equals(newBeeMallOrder.getUserId())) {
-            NewBeeMallException.fail(ServiceResultEnum.NO_PERMISSION_ERROR.getResult());
+            SalesSystemException.fail(ServiceResultEnum.NO_PERMISSION_ERROR.getResult());
         }
         //判断订单状态
         if (newBeeMallOrder.getOrderStatus().intValue() != NewBeeMallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
-            NewBeeMallException.fail(ServiceResultEnum.ORDER_STATUS_ERROR.getResult());
+            SalesSystemException.fail(ServiceResultEnum.ORDER_STATUS_ERROR.getResult());
         }
         request.setAttribute("orderNo", orderNo);
         request.setAttribute("totalPrice", newBeeMallOrder.getTotalPrice());
@@ -129,11 +129,11 @@ public class OrderController {
         NewBeeMallOrder newBeeMallOrder = newBeeMallOrderService.getNewBeeMallOrderByOrderNo(orderNo);
         //判断订单userId
         if (!user.getUserId().equals(newBeeMallOrder.getUserId())) {
-            NewBeeMallException.fail(ServiceResultEnum.NO_PERMISSION_ERROR.getResult());
+            SalesSystemException.fail(ServiceResultEnum.NO_PERMISSION_ERROR.getResult());
         }
         //判断订单状态
         if (newBeeMallOrder.getOrderStatus().intValue() != NewBeeMallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
-            NewBeeMallException.fail(ServiceResultEnum.ORDER_STATUS_ERROR.getResult());
+            SalesSystemException.fail(ServiceResultEnum.ORDER_STATUS_ERROR.getResult());
         }
         request.setAttribute("orderNo", orderNo);
         request.setAttribute("totalPrice", newBeeMallOrder.getTotalPrice());

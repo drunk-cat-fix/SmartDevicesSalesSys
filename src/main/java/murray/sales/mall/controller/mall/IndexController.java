@@ -10,7 +10,7 @@ package murray.sales.mall.controller.mall;
 
 import murray.sales.mall.common.Constants;
 import murray.sales.mall.common.IndexConfigTypeEnum;
-import murray.sales.mall.common.NewBeeMallException;
+import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.controller.vo.NewBeeMallIndexCarouselVO;
 import murray.sales.mall.controller.vo.NewBeeMallIndexCategoryVO;
 import murray.sales.mall.controller.vo.NewBeeMallIndexConfigGoodsVO;
@@ -41,7 +41,7 @@ public class IndexController {
     public String indexPage(HttpServletRequest request) {
         List<NewBeeMallIndexCategoryVO> categories = newBeeMallCategoryService.getCategoriesForIndex();
         if (CollectionUtils.isEmpty(categories)) {
-            NewBeeMallException.fail("分类数据不完善");
+            SalesSystemException.fail("分类数据不完善");
         }
         List<NewBeeMallIndexCarouselVO> carousels = newBeeMallCarouselService.getCarouselsForIndex(Constants.INDEX_CAROUSEL_NUMBER);
         List<NewBeeMallIndexConfigGoodsVO> hotGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_HOT.getType(), Constants.INDEX_GOODS_HOT_NUMBER);

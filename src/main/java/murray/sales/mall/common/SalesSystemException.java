@@ -8,22 +8,22 @@
  */
 package murray.sales.mall.common;
 
-public class NewBeeMallException extends RuntimeException {
+public class SalesSystemException extends RuntimeException {
 
-    public NewBeeMallException() {
+    public SalesSystemException() {
     }
 
-    public NewBeeMallException(String message) {
+    public SalesSystemException(String message) {
         super(message);
     }
 
     /**
-     * 丢出一个异常
+     * Throw an Exception
      *
      * @param message
      */
     public static void fail(String message) {
-        throw new NewBeeMallException(message);
+        throw new SalesSystemException(message);
     }
 
 }

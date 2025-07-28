@@ -10,7 +10,7 @@ package murray.sales.mall.controller.admin;
 
 import murray.sales.mall.common.Constants;
 import murray.sales.mall.common.NewBeeMallCategoryLevelEnum;
-import murray.sales.mall.common.NewBeeMallException;
+import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.entity.GoodsCategory;
 import murray.sales.mall.entity.NewBeeMallGoods;
@@ -71,7 +71,7 @@ public class NewBeeMallGoodsController {
                 return "admin/newbee_mall_goods_edit";
             }
         }
-        NewBeeMallException.fail("分类数据不完善");
+        SalesSystemException.fail("分类数据不完善");
         return null;
     }
 

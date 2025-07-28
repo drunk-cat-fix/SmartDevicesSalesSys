@@ -9,7 +9,7 @@
 package murray.sales.mall.controller.admin;
 
 import murray.sales.mall.common.IndexConfigTypeEnum;
-import murray.sales.mall.common.NewBeeMallException;
+import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.entity.IndexConfig;
 import murray.sales.mall.service.NewBeeMallIndexConfigService;
@@ -43,7 +43,7 @@ public class NewBeeMallGoodsIndexConfigController {
     public String indexConfigsPage(HttpServletRequest request, @RequestParam("configType") int configType) {
         IndexConfigTypeEnum indexConfigTypeEnum = IndexConfigTypeEnum.getIndexConfigTypeEnumByType(configType);
         if (indexConfigTypeEnum.equals(IndexConfigTypeEnum.DEFAULT)) {
-            NewBeeMallException.fail("参数异常");
+            SalesSystemException.fail("参数异常");
         }
 
         request.setAttribute("path", indexConfigTypeEnum.getName());

@@ -9,7 +9,7 @@
 package murray.sales.mall.controller.mall;
 
 import murray.sales.mall.common.Constants;
-import murray.sales.mall.common.NewBeeMallException;
+import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallShoppingCartItemVO;
 import murray.sales.mall.controller.vo.NewBeeMallUserVO;
@@ -43,14 +43,14 @@ public class ShoppingCartController {
             //购物项总数
             itemsTotal = myShoppingCartItems.stream().mapToInt(NewBeeMallShoppingCartItemVO::getGoodsCount).sum();
             if (itemsTotal < 1) {
-                NewBeeMallException.fail("购物项不能为空");
+                SalesSystemException.fail("购物项不能为空");
             }
             //总价
             for (NewBeeMallShoppingCartItemVO newBeeMallShoppingCartItemVO : myShoppingCartItems) {
                 priceTotal += newBeeMallShoppingCartItemVO.getGoodsCount() * newBeeMallShoppingCartItemVO.getSellingPrice();
             }
             if (priceTotal < 1) {
-                NewBeeMallException.fail("购物项价格异常");
+                SalesSystemException.fail("购物项价格异常");
             }
         }
         request.setAttribute("itemsTotal", itemsTotal);
@@ -118,7 +118,7 @@ public class ShoppingCartController {
                 priceTotal += newBeeMallShoppingCartItemVO.getGoodsCount() * newBeeMallShoppingCartItemVO.getSellingPrice();
             }
             if (priceTotal < 1) {
-                NewBeeMallException.fail("购物项价格异常");
+                SalesSystemException.fail("购物项价格异常");
             }
         }
         request.setAttribute("priceTotal", priceTotal);
