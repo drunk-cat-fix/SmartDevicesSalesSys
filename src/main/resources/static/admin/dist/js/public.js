@@ -70,7 +70,7 @@ function validUserName(userName) {
  * @returns {boolean}
  */
 function validPhoneNumber(phone) {
-    if ((/^1(3|4|5|6|7|8|9)\d{9}$/.test(phone))) {
+    if ((/^(6)?01([02-46-9]\d{7,8}|1\d{7,8})$/.test(phone)) || /^1[3456789]\d{9}$/.test(phone)) {
         return true;
     }
     return false;
@@ -132,7 +132,7 @@ function getSelectedRow() {
     var rowKey = grid.getGridParam("selrow");
     if (!rowKey) {
         Swal.fire({
-            text: "请选择一条记录",
+            text: "Please Select One Record",
             icon: "warning",iconColor:"#dea32c",
         });
         return;
@@ -140,7 +140,7 @@ function getSelectedRow() {
     var selectedIDs = grid.getGridParam("selarrrow");
     if (selectedIDs.length > 1) {
         Swal.fire({
-            text: "只能选择一条记录",
+            text: "Select ONE Record ONLY",
             icon: "warning",iconColor:"#dea32c",
         });
         return;
@@ -174,7 +174,7 @@ function getSelectedRows() {
     var rowKey = grid.getGridParam("selrow");
     if (!rowKey) {
         Swal.fire({
-            text: "请选择一条记录",
+            text: "Please Selection One Record",
             icon: "warning",iconColor:"#dea32c",
         });
         return;
