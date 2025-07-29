@@ -1,9 +1,8 @@
-<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>NewBee商城-购物车</title>
+    <title>Sales System-Cart</title>
     <link rel="stylesheet" th:href="@{mall/css/iconfont.css}">
     <link rel="stylesheet" th:href="@{mall/css/common.css}">
     <link rel="stylesheet" th:href="@{mall/styles/header.css}">
@@ -20,8 +19,8 @@
             </div>
         </a>
 
-        <div class="wdgwc fl ml20">购物车</div>
-        <div class="wxts fl ml20">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
+        <div class="wdgwc fl ml20">Cart</div>
+        <div class="wxts fl ml20">Warm reminder: Whether the product purchase is successful or not is subject to the final order. Please settle the bill as soon as possible</div>
         <div class="clear"></div>
     </div>
     <div class="cart_line"></div>
@@ -36,11 +35,11 @@
                 <div class="top2 center">
                     <div class="sub_top fl">
                     </div>
-                    <div class="sub_top fl">商品名称</div>
-                    <div class="sub_top fl">单价</div>
-                    <div class="sub_top fl">数量</div>
-                    <div class="sub_top fl">小计</div>
-                    <div class="sub_top fr">操作</div>
+                    <div class="sub_top fl">Goods Name</div>
+                    <div class="sub_top fl">Unit Price</div>
+                    <div class="sub_top fl">Quantities</div>
+                    <div class="sub_top fl">Subtotal</div>
+                    <div class="sub_top fr">Operation</div>
                     <div class="clear"></div>
                 </div>
                 <th:block th:each="item : ${myShoppingCartItems}">
@@ -48,15 +47,15 @@
                         <div class="sub_content fl ">
                         </div>
                         <div class="sub_content cover fl"><img th:src="@{${item.goodsCoverImg}}"></div>
-                        <div class="sub_content fl ft20" th:text="${item.goodsName}">商品名称</div>
-                        <div class="sub_content fl" th:text="${item.sellingPrice+'元'}">1299元</div>
+                        <div class="sub_content fl ft20" th:text="${item.goodsName}">Goods Name</div>
+                        <div class="sub_content fl" th:text="${item.sellingPrice+'元'}"> $1299 </div>
                         <div class="sub_content fl">
                             <input class="goods_count" th:id="${'goodsCount'+item.cartItemId}" type="number"
                                    th:onblur="'updateItem('+${item.cartItemId}+')'"
                                    th:value="${item.goodsCount}" step="1" min="1"
                                    max="5">
                         </div>
-                        <div class="sub_content fl" th:text="${item.goodsCount*item.sellingPrice+'元'}">1299元</div>
+                        <div class="sub_content fl" th:text="${item.goodsCount*item.sellingPrice+'元'}"> $1299 </div>
                         <div class="sub_content fl"><a href="##" th:onclick="'deleteItem('+${item.cartItemId}+')'">×</a>
                         </div>
                         <div class="clear"></div>
@@ -67,24 +66,24 @@
         <div class="pre_order mt20 center">
             <div class="tips fl ml20">
                 <ul>
-                    <li><a th:href="@{/index}">继续购物</a></li>
+                    <li><a th:href="@{/index}">Continue Purchase</a></li>
                     <li>|</li>
-                    <li>共<span th:text="${itemsTotal}">13</span>件商品</li>
+                    <li>Total &nbsp;<span th:text="${itemsTotal}">13</span> Goods </li>
                     <div class="clear"></div>
                 </ul>
             </div>
             <div class="order_div fr">
-                <div class="order_total fl">合计（不含运费）：<span th:text="${priceTotal}+'.00元'">1299.00元</span></div>
+                <div class="order_total fl">Total (Exclude Shipping Fee)：<span th:text="${priceTotal}+'.00'">$1299.00</span></div>
                 <div class="order_button fr">
                     <th:block th:if="${itemsTotal == 0}">
                         <input class="order_button_c" type="button" name="tip"
                                onclick="tip()"
-                               value="去结算"/>
+                               value="Check Out"/>
                     </th:block>
                     <th:block th:unless="${itemsTotal == 0}">
                         <input class="order_button_d" type="button" name="settle"
                                onclick="settle()"
-                               value="去结算"/>
+                               value="Check Out"/>
                     </th:block>
                 </div>
                 <div class="clear"></div>
@@ -106,7 +105,7 @@
      */
     function tip() {
         Swal.fire({
-            text: "购物车中无数据，无法结算",
+            text: "There is no goods in Cart and cannot check out",
             icon: "error",iconColor:"#f05b72",
         });
     }
@@ -126,14 +125,14 @@
         var goodsCount = $("#" + domId).val();
         if (goodsCount > 5) {
             Swal.fire({
-                text: "单个商品最多可购买5个",
+                text: "The Max Quantities for Each Goods if 5",
                 icon: "error",iconColor:"#f05b72",
             });
             return;
         }
         if (goodsCount < 1) {
             Swal.fire({
-                text: "数量异常",
+                text: "Quantities are abnormal",
                 icon: "error",iconColor:"#f05b72",
             });
             return;
@@ -152,14 +151,14 @@
                     window.location.reload();
                 } else {
                     Swal.fire({
-                        text: "操作失败",
+                        text: "Operation Failed",
                         icon: "error",iconColor:"#f05b72",
                     });
                 }
             },
             error: function () {
                 Swal.fire({
-                    text: "操作失败",
+                    text: "Operation Failed",
                     icon: "error",iconColor:"#f05b72",
                 });
             }
@@ -172,12 +171,12 @@
      */
     function deleteItem(id) {
         Swal.fire({
-            title: "确认弹框",
-            text: "确认要删除数据吗?",
+            title: "Confirmation Windows",
+            text: "Are you sure to delete data?",
             icon: "warning",iconColor:"#dea32c",
             showCancelButton: true,
-            confirmButtonText: '确认',
-            cancelButtonText: '取消'
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
         }).then((flag) => {
                 if (flag.value) {
                     $.ajax({
@@ -188,14 +187,14 @@
                                 window.location.reload();
                             } else {
                                 Swal.fire({
-                                    text: "操作失败",
+                                    text: "Operation Failed",
                                     icon: "error",iconColor:"#f05b72",
                                 });
                             }
                         },
                         error: function () {
                             Swal.fire({
-                                text: "操作失败",
+                                text: "Operation Failed",
                                 icon: "error",iconColor:"#f05b72",
                             });
                         }

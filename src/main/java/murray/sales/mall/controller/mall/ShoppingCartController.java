@@ -43,14 +43,14 @@ public class ShoppingCartController {
             //购物项总数
             itemsTotal = myShoppingCartItems.stream().mapToInt(NewBeeMallShoppingCartItemVO::getGoodsCount).sum();
             if (itemsTotal < 1) {
-                SalesSystemException.fail("购物项不能为空");
+                SalesSystemException.fail("The shopping items cannot be empty");
             }
             //总价
             for (NewBeeMallShoppingCartItemVO newBeeMallShoppingCartItemVO : myShoppingCartItems) {
                 priceTotal += newBeeMallShoppingCartItemVO.getGoodsCount() * newBeeMallShoppingCartItemVO.getSellingPrice();
             }
             if (priceTotal < 1) {
-                SalesSystemException.fail("购物项价格异常");
+                SalesSystemException.fail("The price of shopping items is abnormal");
             }
         }
         request.setAttribute("itemsTotal", itemsTotal);
