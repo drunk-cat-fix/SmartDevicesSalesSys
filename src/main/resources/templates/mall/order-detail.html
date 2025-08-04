@@ -75,7 +75,7 @@
                                                 <div class="progress"><span class="text">Place Order</span></div>
                                                 <div class="info"
                                                      th:text="${#dates.format(orderDetailVO.createTime, 'dd-MM-yyyy HH:mm:ss')}">
-                                                    02月07日
+                                                    07/02
                                                 </div>
                                                 </li>
                                                 <th:block th:if="${orderDetailVO.orderStatus<1}">
@@ -149,7 +149,7 @@
                                                 </p>
                                             </td>
                                             <td class="col col-price"><p class="price"
-                                                                         th:text="${item.sellingPrice+'元 x '+item.goodsCount}">
+                                                                         th:text="${item.sellingPrice+'MYR x '+item.goodsCount}">
                                                 1299元 × 1</p></td>
                                             <td class="col col-actions">
                                             </td>
@@ -190,7 +190,7 @@
                                     <tbody>
                                     <tr>
                                         <th>Shipping Fee：</th>
-                                        <td><span class="num">0</span> $ </td>
+                                        <td><span class="num">0</span> MYR </td>
                                     </tr>
                                     <tr>
                                         <th class="total">Total Amount：</th>

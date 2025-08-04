@@ -20,10 +20,10 @@
             <div class="uc-box uc-main-box">
                 <div class="uc-content-box order-view-box">
                     <div class="box-hd">
-                        <h1 class="title">填写并核对订单信息</h1>
+                        <h1 class="title">Fill in and Check Orders` information</h1>
                         <div class="more clearfix">
                             <div class="actions">
-                                <a id="saveOrder" class="btn btn-small btn-primary" title="提交订单">提交订单</a>
+                                <a id="saveOrder" class="btn btn-small btn-primary" title="Place Order">Place Order</a>
                             </div>
                         </div>
                     </div>
@@ -35,23 +35,23 @@
                                     <div class="order-progress">
                                         <ol class="progress-list clearfix progress-list-5">
                                             <li class="step step-done">
-                                                <div class="progress"><span class="text">购物车</span></div>
+                                                <div class="progress"><span class="text">Cart</span></div>
                                                 <div class="info"></div>
                                             </li>
                                             <li class="step step-active">
-                                                <div class="progress"><span class="text">下单</span></div>
+                                                <div class="progress"><span class="text">Place Order</span></div>
                                                 <div class="info"></div>
                                             </li>
                                             <li class="step">
-                                                <div class="progress"><span class="text">付款</span></div>
+                                                <div class="progress"><span class="text">Payment</span></div>
                                                 <div class="info"></div>
                                             </li>
                                             <li class="step">
-                                                <div class="progress"><span class="text">出库</span></div>
+                                                <div class="progress"><span class="text">Out Of Warehouse</span></div>
                                                 <div class="info"></div>
                                             </li>
                                             <li class="step">
-                                                <div class="progress"><span class="text">交易成功</span></div>
+                                                <div class="progress"><span class="text">Transaction Successful</span></div>
                                                 <div class="info"></div>
                                             </li>
                                         </ol>
@@ -77,8 +77,8 @@
                                                 </p>
                                             </td>
                                             <td class="col col-price"><p class="price"
-                                                                         th:text="${item.sellingPrice+'元 x '+item.goodsCount}">
-                                                1299元 × 1</p></td>
+                                                                         th:text="${item.sellingPrice+'MYR x '+item.goodsCount}">
+                                                1299 MYR × 1</p></td>
                                             <td class="col col-actions">
                                             </td>
                                         </tr>
@@ -87,30 +87,30 @@
                                 </table>
                             </div>
                             <div id="editAddr" class="order-detail-info">
-                                <h3>收货信息</h3>
+                                <h3>Receiving Infomation</h3>
                                 <table class="info-table">
                                     <tbody>
                                     <tr>
-                                        <th>收货地址：</th>
+                                        <th>Address:</th>
                                         <td class="user_address_label"
-                                            th:text="${session.newBeeMallUser.address==''?'无':session.newBeeMallUser.address}">
-                                            newbee
+                                            th:text="${session.newBeeMallUser.address==''?'Null':session.newBeeMallUser.address}">
+                                            Sales
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                                 <div class="actions">
                                     <a class="btn btn-small btn-line-gray J_editAddr"
-                                       href="javascript:openUpdateModal();">修改</a>
+                                       href="javascript:openUpdateModal();">Change</a>
                                 </div>
                             </div>
                             <div id="editTime" class="order-detail-info">
-                                <h3>支付方式</h3>
+                                <h3>Payment Method</h3>
                                 <table class="info-table">
                                     <tbody>
                                     <tr>
-                                        <th>支付方式：</th>
-                                        <td>在线支付</td>
+                                        <th>Payment Method</th>
+                                        <td>Online Payment</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -121,16 +121,16 @@
                                 <table class="total-table">
                                     <tbody>
                                     <tr>
-                                        <th>商品总价：</th>
-                                        <td><span class="num" th:text="${priceTotal+'.00'}">1299.00</span>元</td>
+                                        <th>Total</th>
+                                        <td><span class="num" th:text="${priceTotal+'.00'}">1299.00</span>&nbsp;&nbsp;MYR</td>
                                     </tr>
                                     <tr>
-                                        <th>运费：</th>
-                                        <td><span class="num">0</span>元</td>
+                                        <th>Shipping Fee:</th>
+                                        <td><span class="num">0</span>MYR</td>
                                     </tr>
                                     <tr>
-                                        <th class="total">应付金额：</th>
-                                        <td class="total"><span class="num" th:text="${priceTotal+'.00'}">1299.00</span>元
+                                        <th class="total">Payable:</th>
+                                        <td class="total"><span class="num" th:text="${priceTotal+'.00'}">1299.00</span>&nbsp;&nbsp;MYR
                                         </td>
                                     </tr>
                                     </tbody>
@@ -148,22 +148,22 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h6 class="modal-title" id="personalInfoModalLabel">地址修改</h6>
+                        <h6 class="modal-title" id="personalInfoModalLabel">Address Change</h6>
                     </div>
                     <div class="modal-body">
                         <form id="personalInfoForm">
                             <div class="form-group">
                                 <input type="hidden" id="userId" th:value="${session.newBeeMallUser.userId}">
-                                <label for="address" class="control-label">收货地址:</label>
+                                <label for="address" class="control-label">Receiveing Address</label>
                                 <input type="text" class="form-control" id="address" name="address"
-                                       placeholder="请输入收货地址" th:value="${session.newBeeMallUser.address}"
+                                       placeholder="Please Enter" th:value="${session.newBeeMallUser.address}"
                                        required="true">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="saveButton">Confirm</button>
                     </div>
                 </div>
             </div>
@@ -183,16 +183,16 @@
 <script type="text/javascript">
     $('#saveOrder').click(function () {
         var userAddress = $(".user_address_label").html();
-        if (userAddress == '' || userAddress == '无') {
+        if (userAddress == '' || userAddress == 'Null') {
             Swal.fire({
-                text: "请填写收货信息",
+                text: "Filling in Receiving Info",
                 icon: "error",iconColor:"#f05b72",
             });
             return;
         }
         if (userAddress.trim().length < 10) {
             Swal.fire({
-                text: "请输入正确的收货信息",
+                text: "Please Enter the Correct Receiving Info",
                 icon: "error",iconColor:"#f05b72",
             });
             return;
@@ -232,7 +232,7 @@
             },
             error: function () {
                 Swal.fire({
-                    text: '操作失败',
+                    text: 'Operation Failed',
                     icon: "error",iconColor:"#f05b72",
                 });
             }

@@ -9,18 +9,16 @@
 package murray.sales.mall.common;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
+ * @author Murray
+ * @email murray50325487@gmail.com
  * @apiNote 分类级别
  */
 public enum NewBeeMallCategoryLevelEnum {
 
     DEFAULT(0, "ERROR"),
-    LEVEL_ONE(1, "一级分类"),
-    LEVEL_TWO(2, "二级分类"),
-    LEVEL_THREE(3, "三级分类");
+    LEVEL_ONE(1, "First Level"),
+    LEVEL_TWO(2, "Second Level"),
+    LEVEL_THREE(3, "Third Level");
 
     private int level;
 

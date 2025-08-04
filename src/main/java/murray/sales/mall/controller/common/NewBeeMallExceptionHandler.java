@@ -1,11 +1,3 @@
-/**
- * 严肃声明：
- * 开源版本请务必保留此注释头信息，若删除我方将保留所有法律责任追究！
- * 本系统已申请软件著作权，受国家版权局知识产权以及国家计算机软件著作权保护！
- * 可正常分享和学习源码，不得用于违法犯罪活动，违者必究！
- * Copyright (c) 2019-2020 十三 all rights reserved.
- * 版权所有，侵权必究！
- */
 package murray.sales.mall.controller.common;
 
 import murray.sales.mall.common.SalesSystemException;
@@ -17,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * newbee-mall全局异常处理
+ * Sales System全局异常处理
  */
 @RestControllerAdvice
 public class NewBeeMallExceptionHandler {
@@ -31,7 +23,7 @@ public class NewBeeMallExceptionHandler {
             result.setMessage(e.getMessage());
         } else {
             e.printStackTrace();
-            result.setMessage("未知异常");
+            result.setMessage("Unknown Exception");
         }
         //检查请求是否为ajax, 如果是 ajax 请求则返回 Result json串, 如果不是 ajax 请求则返回 error 视图
         String contentTypeHeader = req.getHeader("Content-Type");
@@ -46,8 +38,8 @@ public class NewBeeMallExceptionHandler {
             modelAndView.addObject("message", e.getMessage());
             modelAndView.addObject("url", req.getRequestURL());
             modelAndView.addObject("stackTrace", e.getStackTrace());
-            modelAndView.addObject("author", "十三");
-            modelAndView.addObject("ltd", "新蜂商城");
+            modelAndView.addObject("author", "Murray");
+            modelAndView.addObject("ltd", "Sales System");
             modelAndView.setViewName("error/error");
             return modelAndView;
         }

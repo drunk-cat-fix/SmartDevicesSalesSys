@@ -9,10 +9,8 @@
 package murray.sales.mall.common;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
+ * @author Muray
+ * @email murray50325487@.gmail.com
  * @apiNote 订单状态:0.支付中 1.支付成功 -1.支付失败
  */
 public enum PayStatusEnum {

@@ -1,11 +1,3 @@
-/**
- * 严肃声明：
- * 开源版本请务必保留此注释头信息，若删除我方将保留所有法律责任追究！
- * 本系统已申请软件著作权，受国家版权局知识产权以及国家计算机软件著作权保护！
- * 可正常分享和学习源码，不得用于违法犯罪活动，违者必究！
- * Copyright (c) 2019-2020 十三 all rights reserved.
- * 版权所有，侵权必究！
- */
 package murray.sales.mall.controller.common;
 
 import murray.sales.mall.common.Constants;
@@ -34,10 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
+ * @author Murray
+ * @email murray50325487@gmail.com
  */
 @Controller
 @RequestMapping("/admin")
@@ -52,7 +42,7 @@ public class UploadController {
         String fileName = file.getOriginalFilename();
         BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
         if (bufferedImage == null) {
-            return ResultGenerator.genFailResult("请上传图片类型的文件");
+            return ResultGenerator.genFailResult("Please upload image type file");
         }
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         //生成文件名称通用方法
@@ -67,7 +57,7 @@ public class UploadController {
         try {
             if (!fileDirectory.exists()) {
                 if (!fileDirectory.mkdir()) {
-                    throw new IOException("文件夹创建失败,路径为：" + fileDirectory);
+                    throw new IOException("Create Dir failed, Path：" + fileDirectory);
                 }
             }
             file.transferTo(destFile);
@@ -76,7 +66,7 @@ public class UploadController {
             return resultSuccess;
         } catch (IOException e) {
             e.printStackTrace();
-            return ResultGenerator.genFailResult("文件上传失败");
+            return ResultGenerator.genFailResult("Upload File Failed");
         }
     }
 
@@ -90,7 +80,7 @@ public class UploadController {
             int total = 0;
             while (iter.hasNext()) {
                 if (total > 5) {
-                    return ResultGenerator.genFailResult("最多上传5张图片");
+                    return ResultGenerator.genFailResult("Max 5 images");
                 }
                 total += 1;
                 MultipartFile file = multiRequest.getFile(iter.next());

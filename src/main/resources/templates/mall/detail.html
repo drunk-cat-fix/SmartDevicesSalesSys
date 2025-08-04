@@ -26,32 +26,32 @@
             <div class="h3 ml20 mt20" th:text="${goodsDetail.goodsName}">NewBeeMall</div>
             <div class="sub_title mr40 ml20 mt10" th:text="${goodsDetail.goodsIntro}">NewBeeMall</div>
             <div class="item_price mr40 ml20 mt10">
-                <th:block th:text="${goodsDetail.sellingPrice}+'.00 元'"></th:block>
+                <th:block th:text="${goodsDetail.sellingPrice}+'.00 MYR'"></th:block>
                 <del>
-                    <th:block th:text="${goodsDetail.originalPrice}+'.00 元'"></th:block>
+                    <th:block th:text="${goodsDetail.originalPrice}+'.00 MYR'"></th:block>
                 </del>
             </div>
 
             <div class="order">
-                <input class="car" type="button" th:onclick="'saveAndGoCart('+${goodsDetail.goodsId}+')'" value="立即选购"/>
-                <input class="car" type="button" th:onclick="'saveToCart('+${goodsDetail.goodsId}+')'" value="加入购物车"/>
+                <input class="car" type="button" th:onclick="'saveAndGoCart('+${goodsDetail.goodsId}+')'" value="Buy Now"/>
+                <input class="car" type="button" th:onclick="'saveToCart('+${goodsDetail.goodsId}+')'" value="Add into Cart"/>
             </div>
             <div class="tb-extra ml20" id="J_tbExtra">
                 <dl>
-                    <dt>承诺</dt>
-                    <dd><a class="J_Cont" title="满足7天无理由退换货申请的前提下，包邮商品需要买家承担退货邮费，非包邮商品需要买家承担发货和退货邮费。" href="#"
-                           target="_blank"><img th:src="@{/mall/image/7d.jpg}">7天无理由</a></dd>
+                    <dt>Service&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+                    <dd>&nbsp;&nbsp;&nbsp;&nbsp;<a class="J_Cont" title="7 Days without reason" href="#"
+                           target="_blank"><img th:src="@{/mall/image/7d.jpg}">&nbsp;&nbsp; days without reason</a></dd>
                 </dl>
                 <dl>
-                    <dt>支付</dt>
-                    <dd><a href="##" target="_blank"><img th:src="@{/mall/image/hua.png}">蚂蚁花呗</a><a href="##"
+                    <dt>Payment</dt>
+                    <dd><a href="##" target="_blank"><img th:src="@{/mall/image/TNG_logo.png}">TNG</a><a href="##"
                                                                                                      target="_blank"><img
-                            th:src="@{/mall/image/card.png}">信用卡支付</a><a href="##" target="_blank"><img
-                            th:src="@{/mall/image/ji.png}">集分宝</a></dd>
+                            th:src="@{/mall/image/credit_card_logo.jpg}">Debit Card</a><a href="##" target="_blank"><img
+                            th:src="@{/mall/image/bigpay_logo.jpeg}">BIGPAY</a></dd>
                 </dl>
                 <dl>
-                    <dt>支持</dt>
-                    <dd>折旧变现，买新更省钱。<a style="float:none;text-decoration: underline;" href="##">详情</a></dd>
+                    <dt>Support</dt>
+                    <dd>Old for new devices<a style="float:none;text-decoration: underline;" href="##">&nbsp;</a></dd>
                 </dl>
 
             </div>
@@ -87,12 +87,12 @@
             success: function (result) {
                 if (result.resultCode == 200) {
                     Swal.fire({
-                        title: "确认框",
-                        text: "添加成功",
+                        title: "Confirmation Windows",
+                        text: "Add Successfully!",
                         icon: "success",iconColor:"#1d953f",
                         showCancelButton: true,
-                        confirmButtonText: '确认',
-                        cancelButtonText: '取消'
+                        confirmButtonText: 'Confirm',
+                        cancelButtonText: 'Cancel'
                     }).then((flag) => {
                            if (flag.value) {
                                 window.location.reload();
@@ -108,7 +108,7 @@
             },
             error: function () {
                 Swal.fire({
-                    text: "操作失败",
+                    text: "Operation Failed",
                     icon: "error",iconColor:"#f05b72",
                 });
             }
@@ -132,12 +132,12 @@
             success: function (result) {
                 if (result.resultCode == 200) {
                     Swal.fire({
-                        title: "确认框",
-                        text: "已将商品加入购物车",
+                        title: "Confirmation Windows",
+                        text: "Add Goods into Cart Successfully",
                         icon: "success",iconColor:"#1d953f",
                         showCancelButton: true,
-                        confirmButtonText: '去购物车结算',
-                        cancelButtonText: '留在当前页'
+                        confirmButtonText: 'Go to Cart',
+                        cancelButtonText: 'Stay in this page'
                     }).then((flag) => {
                             if (flag.value) {
                                 window.location.href = '/shop-cart';
@@ -153,7 +153,7 @@
             },
             error: function () {
                 Swal.fire({
-                    text: "操作失败",
+                    text: "Operation Failed",
                     icon: "error",iconColor:"#f05b72",
                 });
             }

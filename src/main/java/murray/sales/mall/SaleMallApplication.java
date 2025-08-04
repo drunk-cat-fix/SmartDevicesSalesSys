@@ -18,8 +18,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @MapperScan("murray.sales.mall.dao")
 @SpringBootApplication
-public class NewBeeMallApplication {
+public class SaleMallApplication {
     public static void main(String[] args) {
-        SpringApplication.run(NewBeeMallApplication.class, args);
+        SpringApplication.run(SaleMallApplication.class, args);
     }
 }
