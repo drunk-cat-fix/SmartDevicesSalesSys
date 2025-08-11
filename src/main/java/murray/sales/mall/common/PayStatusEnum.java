@@ -15,9 +15,9 @@ package murray.sales.mall.common;
  */
 public enum PayStatusEnum {
 
-    DEFAULT(-1, "支付失败"),
-    PAY_ING(0, "支付中"),
-    PAY_SUCCESS(1, "支付成功");
+    DEFAULT(-1, "Payment Failed"),
+    PAY_ING(0, "Paying"),
+    PAY_SUCCESS(1, "Payment Successful");
 
     private int payStatus;
 

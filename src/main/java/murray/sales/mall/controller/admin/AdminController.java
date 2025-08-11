@@ -22,10 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
+ * @author Murray
+ * @email murray50325487@gmail.com
  */
 @Controller
 @RequestMapping("/admin")
@@ -57,16 +55,16 @@ public class AdminController {
                         @RequestParam("verifyCode") String verifyCode,
                         HttpSession session) {
         if (!StringUtils.hasText(verifyCode)) {
-            session.setAttribute("errorMsg", "验证码不能为空");
+            session.setAttribute("errorMsg", "The code cannot be empty!");
             return "admin/login";
         }
         if (!StringUtils.hasText(userName) || !StringUtils.hasText(password)) {
-            session.setAttribute("errorMsg", "用户名或密码不能为空");
+            session.setAttribute("errorMsg", "Username or Password cannot be empty!");
             return "admin/login";
         }
         ShearCaptcha shearCaptcha = (ShearCaptcha) session.getAttribute("verifyCode");
         if (shearCaptcha == null || !shearCaptcha.verify(verifyCode)) {
-            session.setAttribute("errorMsg", "验证码错误");
+            session.setAttribute("errorMsg", "The code is incorrect!");
             return "admin/login";
         }
         AdminUser adminUser = adminUserService.login(userName, password);
@@ -77,7 +75,7 @@ public class AdminController {
             //session.setMaxInactiveInterval(60 * 60 * 2);
             return "redirect:/admin/index";
         } else {
-            session.setAttribute("errorMsg", "登录失败");
+            session.setAttribute("errorMsg", "Login Failed");
             return "admin/login";
         }
     }
@@ -100,7 +98,7 @@ public class AdminController {
     public String passwordUpdate(HttpServletRequest request, @RequestParam("originalPassword") String originalPassword,
                                  @RequestParam("newPassword") String newPassword) {
         if (!StringUtils.hasText(originalPassword) || !StringUtils.hasText(newPassword)) {
-            return "参数不能为空";
+            return "Params cannot be empty!";
         }
         Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
         if (adminUserService.updatePassword(loginUserId, originalPassword, newPassword)) {
@@ -110,7 +108,7 @@ public class AdminController {
             request.getSession().removeAttribute("errorMsg");
             return ServiceResultEnum.SUCCESS.getResult();
         } else {
-            return "修改失败";
+            return "Modify failed";
         }
     }
 
@@ -119,13 +117,13 @@ public class AdminController {
     public String nameUpdate(HttpServletRequest request, @RequestParam("loginUserName") String loginUserName,
                              @RequestParam("nickName") String nickName) {
         if (!StringUtils.hasText(loginUserName) || !StringUtils.hasText(nickName)) {
-            return "参数不能为空";
+            return "Params cannot be empty!";
         }
         Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
         if (adminUserService.updateName(loginUserId, loginUserName, nickName)) {
             return ServiceResultEnum.SUCCESS.getResult();
         } else {
-            return "修改失败";
+            return "Modify Failed";
         }
     }
 

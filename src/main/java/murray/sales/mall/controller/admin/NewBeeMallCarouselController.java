@@ -25,10 +25,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
+ * @author Murray
+ * @email murray50325487@gmail.com
  */
 @Controller
 @RequestMapping("/admin")
@@ -50,7 +48,7 @@ public class NewBeeMallCarouselController {
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
         if (ObjectUtils.isEmpty(params.get("page")) || ObjectUtils.isEmpty(params.get("limit"))) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Params Exception！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         return ResultGenerator.genSuccessResult(newBeeMallCarouselService.getCarouselPage(pageUtil));
@@ -64,7 +62,7 @@ public class NewBeeMallCarouselController {
     public Result save(@RequestBody Carousel carousel) {
         if (!StringUtils.hasText(carousel.getCarouselUrl())
                 || Objects.isNull(carousel.getCarouselRank())) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Params Exception！");
         }
         String result = newBeeMallCarouselService.saveCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
@@ -84,7 +82,7 @@ public class NewBeeMallCarouselController {
         if (Objects.isNull(carousel.getCarouselId())
                 || !StringUtils.hasText(carousel.getCarouselUrl())
                 || Objects.isNull(carousel.getCarouselRank())) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Params Exception！");
         }
         String result = newBeeMallCarouselService.updateCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
@@ -114,12 +112,12 @@ public class NewBeeMallCarouselController {
     @ResponseBody
     public Result delete(@RequestBody Integer[] ids) {
         if (ids.length < 1) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Params Exception！");
         }
         if (newBeeMallCarouselService.deleteBatch(ids)) {
             return ResultGenerator.genSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("删除失败");
+            return ResultGenerator.genFailResult("Delete Failed");
         }
     }
 

@@ -3,14 +3,14 @@ package murray.sales.mall.common;
 /**
  * @author Muray
  * @email murray50325487@.gmail.com
- * @apiNote 订单状态:0.无 1.支付宝 2.微信支付
+ * @apiNote 订单状态:0.Null 1.TNG 2.Bigpay
  */
 public enum PayTypeEnum {
 
     DEFAULT(-1, "ERROR"),
-    NOT_PAY(0, "无"),
-    ALI_PAY(1, "支付宝"),
-    WEIXIN_PAY(2, "微信支付");
+    NOT_PAY(0, "Null"),
+    ALI_PAY(1, "TNG"),
+    WEIXIN_PAY(2, "Bigpay");
 
     private int payType;
 
