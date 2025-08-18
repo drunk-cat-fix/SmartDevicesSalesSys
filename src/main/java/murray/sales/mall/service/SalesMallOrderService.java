@@ -4,7 +4,7 @@ import murray.sales.mall.controller.vo.NewBeeMallOrderDetailVO;
 import murray.sales.mall.controller.vo.NewBeeMallOrderItemVO;
 import murray.sales.mall.controller.vo.NewBeeMallShoppingCartItemVO;
 import murray.sales.mall.controller.vo.NewBeeMallUserVO;
-import murray.sales.mall.entity.NewBeeMallOrder;
+import murray.sales.mall.entity.SalesMallOrder;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.PageResult;
 
@@ -22,10 +22,10 @@ public interface SalesMallOrderService {
     /**
      * 订单信息修改
      *
-     * @param newBeeMallOrder
+     * @param salesMallOrder
      * @return
      */
-    String updateOrderInfo(NewBeeMallOrder newBeeMallOrder);
+    String updateOrderInfo(SalesMallOrder salesMallOrder);
 
     /**
      * 配货
@@ -75,7 +75,7 @@ public interface SalesMallOrderService {
      * @param orderNo
      * @return
      */
-    NewBeeMallOrder getNewBeeMallOrderByOrderNo(String orderNo);
+    SalesMallOrder getNewBeeMallOrderByOrderNo(String orderNo);
 
     /**
      * 我的订单列表

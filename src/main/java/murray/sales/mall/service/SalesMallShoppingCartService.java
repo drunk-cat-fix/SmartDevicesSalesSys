@@ -1,7 +1,7 @@
 package murray.sales.mall.service;
 
 import murray.sales.mall.controller.vo.NewBeeMallShoppingCartItemVO;
-import murray.sales.mall.entity.NewBeeMallShoppingCartItem;
+import murray.sales.mall.entity.SalesMallShoppingCartItem;
 
 import java.util.List;
 
@@ -10,18 +10,18 @@ public interface SalesMallShoppingCartService {
     /**
      * 保存商品至购物车中
      *
-     * @param newBeeMallShoppingCartItem
+     * @param salesMallShoppingCartItem
      * @return
      */
-    String saveNewBeeMallCartItem(NewBeeMallShoppingCartItem newBeeMallShoppingCartItem);
+    String saveNewBeeMallCartItem(SalesMallShoppingCartItem salesMallShoppingCartItem);
 
     /**
      * 修改购物车中的属性
      *
-     * @param newBeeMallShoppingCartItem
+     * @param salesMallShoppingCartItem
      * @return
      */
-    String updateNewBeeMallCartItem(NewBeeMallShoppingCartItem newBeeMallShoppingCartItem);
+    String updateNewBeeMallCartItem(SalesMallShoppingCartItem salesMallShoppingCartItem);
 
     /**
      * 获取购物项详情
@@ -29,7 +29,7 @@ public interface SalesMallShoppingCartService {
      * @param newBeeMallShoppingCartItemId
      * @return
      */
-    NewBeeMallShoppingCartItem getNewBeeMallCartItemById(Long newBeeMallShoppingCartItemId);
+    SalesMallShoppingCartItem getNewBeeMallCartItemById(Long newBeeMallShoppingCartItemId);
 
     /**
      * 删除购物车中的商品

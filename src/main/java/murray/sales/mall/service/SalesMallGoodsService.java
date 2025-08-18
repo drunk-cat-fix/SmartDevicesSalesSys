@@ -1,6 +1,6 @@
 package murray.sales.mall.service;
 
-import murray.sales.mall.entity.NewBeeMallGoods;
+import murray.sales.mall.entity.SalesMallGoods;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.PageResult;
 
@@ -21,15 +21,15 @@ public interface SalesMallGoodsService {
      * @param goods
      * @return
      */
-    String saveNewBeeMallGoods(NewBeeMallGoods goods);
+    String saveNewBeeMallGoods(SalesMallGoods goods);
 
     /**
      * 批量新增商品数据
      *
-     * @param newBeeMallGoodsList
+     * @param salesMallGoodsList
      * @return
      */
-    void batchSaveNewBeeMallGoods(List<NewBeeMallGoods> newBeeMallGoodsList);
+    void batchSaveNewBeeMallGoods(List<SalesMallGoods> salesMallGoodsList);
 
     /**
      * 修改商品信息
@@ -37,7 +37,7 @@ public interface SalesMallGoodsService {
      * @param goods
      * @return
      */
-    String updateNewBeeMallGoods(NewBeeMallGoods goods);
+    String updateNewBeeMallGoods(SalesMallGoods goods);
 
     /**
      * 获取商品详情
@@ -45,7 +45,7 @@ public interface SalesMallGoodsService {
      * @param id
      * @return
      */
-    NewBeeMallGoods getNewBeeMallGoodsById(Long id);
+    SalesMallGoods getNewBeeMallGoodsById(Long id);
 
     /**
      * 批量修改销售状态(上架下架)

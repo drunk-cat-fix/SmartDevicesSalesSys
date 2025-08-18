@@ -10,7 +10,7 @@ package murray.sales.mall.entity;
 
 import java.util.Date;
 
-public class NewBeeMallOrderItem {
+public class SalesMallOrderItem {
     private Long orderItemId;
 
     private Long orderId;

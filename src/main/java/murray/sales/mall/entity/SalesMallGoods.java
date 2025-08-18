@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class NewBeeMallGoods {
+public class SalesMallGoods {
     private Long goodsId;
 
     private String goodsName;

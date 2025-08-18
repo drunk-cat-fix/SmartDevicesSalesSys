@@ -7,7 +7,7 @@ import murray.sales.mall.controller.vo.NewBeeMallSearchGoodsVO;
 import murray.sales.mall.dao.GoodsCategoryMapper;
 import murray.sales.mall.dao.NewBeeMallGoodsMapper;
 import murray.sales.mall.entity.GoodsCategory;
-import murray.sales.mall.entity.NewBeeMallGoods;
+import murray.sales.mall.entity.SalesMallGoods;
 import murray.sales.mall.service.SalesMallGoodsService;
 import murray.sales.mall.util.BeanUtil;
 import murray.sales.mall.util.SalesMallUtils;
@@ -31,14 +31,14 @@ public class SalesMallGoodsServiceImpl implements SalesMallGoodsService {
 
     @Override
     public PageResult getNewBeeMallGoodsPage(PageQueryUtil pageUtil) {
-        List<NewBeeMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsList(pageUtil);
+        List<SalesMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsList(pageUtil);
         int total = goodsMapper.getTotalNewBeeMallGoods(pageUtil);
         PageResult pageResult = new PageResult(goodsList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 
     @Override
-    public String saveNewBeeMallGoods(NewBeeMallGoods goods) {
+    public String saveNewBeeMallGoods(SalesMallGoods goods) {
         GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(goods.getGoodsCategoryId());
         // 分类不存在或者不是三级分类，则该参数字段异常
         if (goodsCategory == null || goodsCategory.getCategoryLevel().intValue() != SalesMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
@@ -57,24 +57,24 @@ public class SalesMallGoodsServiceImpl implements SalesMallGoodsService {
     }
 
     @Override
-    public void batchSaveNewBeeMallGoods(List<NewBeeMallGoods> newBeeMallGoodsList) {
-        if (!CollectionUtils.isEmpty(newBeeMallGoodsList)) {
-            goodsMapper.batchInsert(newBeeMallGoodsList);
+    public void batchSaveNewBeeMallGoods(List<SalesMallGoods> salesMallGoodsList) {
+        if (!CollectionUtils.isEmpty(salesMallGoodsList)) {
+            goodsMapper.batchInsert(salesMallGoodsList);
         }
     }
 
     @Override
-    public String updateNewBeeMallGoods(NewBeeMallGoods goods) {
+    public String updateNewBeeMallGoods(SalesMallGoods goods) {
         GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(goods.getGoodsCategoryId());
         // 分类不存在或者不是三级分类，则该参数字段异常
         if (goodsCategory == null || goodsCategory.getCategoryLevel().intValue() != SalesMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
             return ServiceResultEnum.GOODS_CATEGORY_ERROR.getResult();
         }
-        NewBeeMallGoods temp = goodsMapper.selectByPrimaryKey(goods.getGoodsId());
+        SalesMallGoods temp = goodsMapper.selectByPrimaryKey(goods.getGoodsId());
         if (temp == null) {
             return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
-        NewBeeMallGoods temp2 = goodsMapper.selectByCategoryIdAndName(goods.getGoodsName(), goods.getGoodsCategoryId());
+        SalesMallGoods temp2 = goodsMapper.selectByCategoryIdAndName(goods.getGoodsName(), goods.getGoodsCategoryId());
         if (temp2 != null && !temp2.getGoodsId().equals(goods.getGoodsId())) {
             //name和分类id相同且不同id 不能继续修改
             return ServiceResultEnum.SAME_GOODS_EXIST.getResult();
@@ -90,12 +90,12 @@ public class SalesMallGoodsServiceImpl implements SalesMallGoodsService {
     }
 
     @Override
-    public NewBeeMallGoods getNewBeeMallGoodsById(Long id) {
-        NewBeeMallGoods newBeeMallGoods = goodsMapper.selectByPrimaryKey(id);
-        if (newBeeMallGoods == null) {
+    public SalesMallGoods getNewBeeMallGoodsById(Long id) {
+        SalesMallGoods salesMallGoods = goodsMapper.selectByPrimaryKey(id);
+        if (salesMallGoods == null) {
             SalesSystemException.fail(ServiceResultEnum.GOODS_NOT_EXIST.getResult());
         }
-        return newBeeMallGoods;
+        return salesMallGoods;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class SalesMallGoodsServiceImpl implements SalesMallGoodsService {
 
     @Override
     public PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil) {
-        List<NewBeeMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsListBySearch(pageUtil);
+        List<SalesMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsListBySearch(pageUtil);
         int total = goodsMapper.getTotalNewBeeMallGoodsBySearch(pageUtil);
         List<NewBeeMallSearchGoodsVO> newBeeMallSearchGoodsVOS = new ArrayList<>();
         if (!CollectionUtils.isEmpty(goodsList)) {

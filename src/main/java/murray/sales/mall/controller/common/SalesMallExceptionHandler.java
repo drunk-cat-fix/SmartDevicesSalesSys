@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  * Sales System全局异常处理
  */
 @RestControllerAdvice
-public class NewBeeMallExceptionHandler {
+public class SalesMallExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public Object handleException(Exception e, HttpServletRequest req) {

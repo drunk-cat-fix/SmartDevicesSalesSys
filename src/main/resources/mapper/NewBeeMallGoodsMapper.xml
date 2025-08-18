@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="murray.sales.mall.dao.NewBeeMallGoodsMapper">
-    <resultMap id="BaseResultMap" type="murray.sales.mall.entity.NewBeeMallGoods">
+    <resultMap id="BaseResultMap" type="murray.sales.mall.entity.SalesMallGoods">
         <id column="goods_id" jdbcType="BIGINT" property="goodsId"/>
         <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
         <result column="goods_intro" jdbcType="VARCHAR" property="goodsIntro"/>
@@ -18,7 +18,7 @@
         <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="murray.sales.mall.entity.NewBeeMallGoods">
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="murray.sales.mall.entity.SalesMallGoods">
         <result column="goods_detail_content" jdbcType="LONGVARCHAR" property="goodsDetailContent"/>
     </resultMap>
     <sql id="Base_Column_List">
@@ -36,7 +36,7 @@
         goods_detail_content,original_price,
         selling_price, stock_num)
         VALUES
-        <foreach collection="newBeeMallGoodsList" item="goods" separator=",">
+        <foreach collection="salesMallGoodsList" item="goods" separator=",">
             (#{goods.goodsName},#{goods.goodsIntro},#{goods.goodsCategoryId},#{goods.goodsCoverImg},#{goods.goodsCarousel},#{goods.goodsDetailContent},#{goods.originalPrice},#{goods.sellingPrice},#{goods.stockNum})
         </foreach>
     </insert>
@@ -185,7 +185,7 @@
     delete from tb_goods_info
     where goods_id = #{goodsId,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="murray.sales.mall.entity.NewBeeMallGoods">
+    <insert id="insert" parameterType="murray.sales.mall.entity.SalesMallGoods">
     insert into tb_goods_info (goods_id, goods_name, goods_intro,
       goods_cover_img, goods_carousel, original_price, 
       selling_price, stock_num, tag, 
@@ -199,7 +199,7 @@
       #{updateUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{goodsDetailContent,jdbcType=LONGVARCHAR}
       )
   </insert>
-    <insert id="insertSelective" parameterType="murray.sales.mall.entity.NewBeeMallGoods">
+    <insert id="insertSelective" parameterType="murray.sales.mall.entity.SalesMallGoods">
         insert into tb_goods_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="goodsId != null">
@@ -302,7 +302,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="murray.sales.mall.entity.NewBeeMallGoods">
+    <update id="updateByPrimaryKeySelective" parameterType="murray.sales.mall.entity.SalesMallGoods">
         update tb_goods_info
         <set>
             <if test="goodsName != null">
@@ -353,7 +353,7 @@
         </set>
         where goods_id = #{goodsId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="murray.sales.mall.entity.NewBeeMallGoods">
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="murray.sales.mall.entity.SalesMallGoods">
     update tb_goods_info
     set goods_name = #{goodsName,jdbcType=VARCHAR},
       goods_intro = #{goodsIntro,jdbcType=VARCHAR},
@@ -371,7 +371,7 @@
       goods_detail_content = #{goodsDetailContent,jdbcType=LONGVARCHAR}
     where goods_id = #{goodsId,jdbcType=BIGINT}
   </update>
-    <update id="updateByPrimaryKey" parameterType="murray.sales.mall.entity.NewBeeMallGoods">
+    <update id="updateByPrimaryKey" parameterType="murray.sales.mall.entity.SalesMallGoods">
     update tb_goods_info
     set goods_name = #{goodsName,jdbcType=VARCHAR},
       goods_intro = #{goodsIntro,jdbcType=VARCHAR},

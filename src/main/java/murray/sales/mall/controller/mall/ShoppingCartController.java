@@ -13,7 +13,7 @@ import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallShoppingCartItemVO;
 import murray.sales.mall.controller.vo.NewBeeMallUserVO;
-import murray.sales.mall.entity.NewBeeMallShoppingCartItem;
+import murray.sales.mall.entity.SalesMallShoppingCartItem;
 import murray.sales.mall.service.SalesMallShoppingCartService;
 import murray.sales.mall.util.Result;
 import murray.sales.mall.util.ResultGenerator;
@@ -61,11 +61,11 @@ public class ShoppingCartController {
 
     @PostMapping("/shop-cart")
     @ResponseBody
-    public Result saveNewBeeMallShoppingCartItem(@RequestBody NewBeeMallShoppingCartItem newBeeMallShoppingCartItem,
+    public Result saveNewBeeMallShoppingCartItem(@RequestBody SalesMallShoppingCartItem salesMallShoppingCartItem,
                                                  HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-        newBeeMallShoppingCartItem.setUserId(user.getUserId());
-        String saveResult = salesMallShoppingCartService.saveNewBeeMallCartItem(newBeeMallShoppingCartItem);
+        salesMallShoppingCartItem.setUserId(user.getUserId());
+        String saveResult = salesMallShoppingCartService.saveNewBeeMallCartItem(salesMallShoppingCartItem);
         //添加成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(saveResult)) {
             return ResultGenerator.genSuccessResult();
@@ -76,11 +76,11 @@ public class ShoppingCartController {
 
     @PutMapping("/shop-cart")
     @ResponseBody
-    public Result updateNewBeeMallShoppingCartItem(@RequestBody NewBeeMallShoppingCartItem newBeeMallShoppingCartItem,
+    public Result updateNewBeeMallShoppingCartItem(@RequestBody SalesMallShoppingCartItem salesMallShoppingCartItem,
                                                    HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-        newBeeMallShoppingCartItem.setUserId(user.getUserId());
-        String updateResult = salesMallShoppingCartService.updateNewBeeMallCartItem(newBeeMallShoppingCartItem);
+        salesMallShoppingCartItem.setUserId(user.getUserId());
+        String updateResult = salesMallShoppingCartService.updateNewBeeMallCartItem(salesMallShoppingCartItem);
         //修改成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(updateResult)) {
             return ResultGenerator.genSuccessResult();

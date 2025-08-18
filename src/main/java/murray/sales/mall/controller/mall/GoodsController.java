@@ -5,7 +5,7 @@ import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallGoodsDetailVO;
 import murray.sales.mall.controller.vo.SearchPageCategoryVO;
-import murray.sales.mall.entity.NewBeeMallGoods;
+import murray.sales.mall.entity.SalesMallGoods;
 import murray.sales.mall.service.SalesMallCategoryService;
 import murray.sales.mall.service.SalesMallGoodsService;
 import murray.sales.mall.util.BeanUtil;
@@ -68,7 +68,7 @@ public class GoodsController {
         if (goodsId < 1) {
             SalesSystemException.fail("Param Exception");
         }
-        NewBeeMallGoods goods = salesMallGoodsService.getNewBeeMallGoodsById(goodsId);
+        SalesMallGoods goods = salesMallGoodsService.getNewBeeMallGoodsById(goodsId);
         if (Constants.SELL_STATUS_UP != goods.getGoodsSellStatus()) {
             SalesSystemException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
         }

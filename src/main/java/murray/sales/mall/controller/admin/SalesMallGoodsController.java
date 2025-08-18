@@ -5,7 +5,7 @@ import murray.sales.mall.common.SalesMallCategoryLevelEnum;
 import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.entity.GoodsCategory;
-import murray.sales.mall.entity.NewBeeMallGoods;
+import murray.sales.mall.entity.SalesMallGoods;
 import murray.sales.mall.service.SalesMallCategoryService;
 import murray.sales.mall.service.SalesMallGoodsService;
 import murray.sales.mall.util.PageQueryUtil;
@@ -68,11 +68,11 @@ public class SalesMallGoodsController {
     @GetMapping("/goods/edit/{goodsId}")
     public String edit(HttpServletRequest request, @PathVariable("goodsId") Long goodsId) {
         request.setAttribute("path", "edit");
-        NewBeeMallGoods newBeeMallGoods = salesMallGoodsService.getNewBeeMallGoodsById(goodsId);
-        if (newBeeMallGoods.getGoodsCategoryId() > 0) {
-            if (newBeeMallGoods.getGoodsCategoryId() != null || newBeeMallGoods.getGoodsCategoryId() > 0) {
+        SalesMallGoods salesMallGoods = salesMallGoodsService.getNewBeeMallGoodsById(goodsId);
+        if (salesMallGoods.getGoodsCategoryId() > 0) {
+            if (salesMallGoods.getGoodsCategoryId() != null || salesMallGoods.getGoodsCategoryId() > 0) {
                 //有分类字段则查询相关分类数据返回给前端以供分类的三级联动显示
-                GoodsCategory currentGoodsCategory = salesMallCategoryService.getGoodsCategoryById(newBeeMallGoods.getGoodsCategoryId());
+                GoodsCategory currentGoodsCategory = salesMallCategoryService.getGoodsCategoryById(salesMallGoods.getGoodsCategoryId());
                 //商品表中存储的分类id字段为三级分类的id，不为三级分类则是错误数据
                 if (currentGoodsCategory != null && currentGoodsCategory.getCategoryLevel() == SalesMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
                     //查询所有的一级分类
@@ -99,7 +99,7 @@ public class SalesMallGoodsController {
                 }
             }
         }
-        if (newBeeMallGoods.getGoodsCategoryId() == 0) {
+        if (salesMallGoods.getGoodsCategoryId() == 0) {
             //查询所有的一级分类
             List<GoodsCategory> firstLevelCategories = salesMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(0L), SalesMallCategoryLevelEnum.LEVEL_ONE.getLevel());
             if (!CollectionUtils.isEmpty(firstLevelCategories)) {
@@ -114,7 +114,7 @@ public class SalesMallGoodsController {
                 }
             }
         }
-        request.setAttribute("goods", newBeeMallGoods);
+        request.setAttribute("goods", salesMallGoods);
         request.setAttribute("path", "goods-edit");
         return "admin/newbee_mall_goods_edit";
     }
@@ -137,20 +137,20 @@ public class SalesMallGoodsController {
      */
     @RequestMapping(value = "/goods/save", method = RequestMethod.POST)
     @ResponseBody
-    public Result save(@RequestBody NewBeeMallGoods newBeeMallGoods) {
-        if (!StringUtils.hasText(newBeeMallGoods.getGoodsName())
-                || !StringUtils.hasText(newBeeMallGoods.getGoodsIntro())
-                || !StringUtils.hasText(newBeeMallGoods.getTag())
-                || Objects.isNull(newBeeMallGoods.getOriginalPrice())
-                || Objects.isNull(newBeeMallGoods.getGoodsCategoryId())
-                || Objects.isNull(newBeeMallGoods.getSellingPrice())
-                || Objects.isNull(newBeeMallGoods.getStockNum())
-                || Objects.isNull(newBeeMallGoods.getGoodsSellStatus())
-                || !StringUtils.hasText(newBeeMallGoods.getGoodsCoverImg())
-                || !StringUtils.hasText(newBeeMallGoods.getGoodsDetailContent())) {
+    public Result save(@RequestBody SalesMallGoods salesMallGoods) {
+        if (!StringUtils.hasText(salesMallGoods.getGoodsName())
+                || !StringUtils.hasText(salesMallGoods.getGoodsIntro())
+                || !StringUtils.hasText(salesMallGoods.getTag())
+                || Objects.isNull(salesMallGoods.getOriginalPrice())
+                || Objects.isNull(salesMallGoods.getGoodsCategoryId())
+                || Objects.isNull(salesMallGoods.getSellingPrice())
+                || Objects.isNull(salesMallGoods.getStockNum())
+                || Objects.isNull(salesMallGoods.getGoodsSellStatus())
+                || !StringUtils.hasText(salesMallGoods.getGoodsCoverImg())
+                || !StringUtils.hasText(salesMallGoods.getGoodsDetailContent())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = salesMallGoodsService.saveNewBeeMallGoods(newBeeMallGoods);
+        String result = salesMallGoodsService.saveNewBeeMallGoods(salesMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -164,21 +164,21 @@ public class SalesMallGoodsController {
      */
     @RequestMapping(value = "/goods/update", method = RequestMethod.POST)
     @ResponseBody
-    public Result update(@RequestBody NewBeeMallGoods newBeeMallGoods) {
-        if (Objects.isNull(newBeeMallGoods.getGoodsId())
-                || !StringUtils.hasText(newBeeMallGoods.getGoodsName())
-                || !StringUtils.hasText(newBeeMallGoods.getGoodsIntro())
-                || !StringUtils.hasText(newBeeMallGoods.getTag())
-                || Objects.isNull(newBeeMallGoods.getOriginalPrice())
-                || Objects.isNull(newBeeMallGoods.getSellingPrice())
-                || Objects.isNull(newBeeMallGoods.getGoodsCategoryId())
-                || Objects.isNull(newBeeMallGoods.getStockNum())
-                || Objects.isNull(newBeeMallGoods.getGoodsSellStatus())
-                || !StringUtils.hasText(newBeeMallGoods.getGoodsCoverImg())
-                || !StringUtils.hasText(newBeeMallGoods.getGoodsDetailContent())) {
+    public Result update(@RequestBody SalesMallGoods salesMallGoods) {
+        if (Objects.isNull(salesMallGoods.getGoodsId())
+                || !StringUtils.hasText(salesMallGoods.getGoodsName())
+                || !StringUtils.hasText(salesMallGoods.getGoodsIntro())
+                || !StringUtils.hasText(salesMallGoods.getTag())
+                || Objects.isNull(salesMallGoods.getOriginalPrice())
+                || Objects.isNull(salesMallGoods.getSellingPrice())
+                || Objects.isNull(salesMallGoods.getGoodsCategoryId())
+                || Objects.isNull(salesMallGoods.getStockNum())
+                || Objects.isNull(salesMallGoods.getGoodsSellStatus())
+                || !StringUtils.hasText(salesMallGoods.getGoodsCoverImg())
+                || !StringUtils.hasText(salesMallGoods.getGoodsDetailContent())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = salesMallGoodsService.updateNewBeeMallGoods(newBeeMallGoods);
+        String result = salesMallGoodsService.updateNewBeeMallGoods(salesMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -192,7 +192,7 @@ public class SalesMallGoodsController {
     @GetMapping("/goods/info/{id}")
     @ResponseBody
     public Result info(@PathVariable("id") Long id) {
-        NewBeeMallGoods goods = salesMallGoodsService.getNewBeeMallGoodsById(id);
+        SalesMallGoods goods = salesMallGoodsService.getNewBeeMallGoodsById(id);
         return ResultGenerator.genSuccessResult(goods);
     }
 

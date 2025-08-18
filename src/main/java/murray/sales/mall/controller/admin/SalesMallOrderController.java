@@ -10,7 +10,7 @@ package murray.sales.mall.controller.admin;
 
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallOrderItemVO;
-import murray.sales.mall.entity.NewBeeMallOrder;
+import murray.sales.mall.entity.SalesMallOrder;
 import murray.sales.mall.service.SalesMallOrderService;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.Result;
@@ -64,15 +64,15 @@ public class SalesMallOrderController {
      */
     @RequestMapping(value = "/orders/update", method = RequestMethod.POST)
     @ResponseBody
-    public Result update(@RequestBody NewBeeMallOrder newBeeMallOrder) {
-        if (Objects.isNull(newBeeMallOrder.getTotalPrice())
-                || Objects.isNull(newBeeMallOrder.getOrderId())
-                || newBeeMallOrder.getOrderId() < 1
-                || newBeeMallOrder.getTotalPrice() < 1
-                || !StringUtils.hasText(newBeeMallOrder.getUserAddress())) {
+    public Result update(@RequestBody SalesMallOrder salesMallOrder) {
+        if (Objects.isNull(salesMallOrder.getTotalPrice())
+                || Objects.isNull(salesMallOrder.getOrderId())
+                || salesMallOrder.getOrderId() < 1
+                || salesMallOrder.getTotalPrice() < 1
+                || !StringUtils.hasText(salesMallOrder.getUserAddress())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = salesMallOrderService.updateOrderInfo(newBeeMallOrder);
+        String result = salesMallOrderService.updateOrderInfo(salesMallOrder);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {

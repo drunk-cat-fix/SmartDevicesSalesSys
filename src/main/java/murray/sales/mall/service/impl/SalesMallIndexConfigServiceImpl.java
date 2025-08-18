@@ -5,7 +5,7 @@ import murray.sales.mall.controller.vo.NewBeeMallIndexConfigGoodsVO;
 import murray.sales.mall.dao.IndexConfigMapper;
 import murray.sales.mall.dao.NewBeeMallGoodsMapper;
 import murray.sales.mall.entity.IndexConfig;
-import murray.sales.mall.entity.NewBeeMallGoods;
+import murray.sales.mall.entity.SalesMallGoods;
 import murray.sales.mall.service.SalesMallIndexConfigService;
 import murray.sales.mall.util.BeanUtil;
 import murray.sales.mall.util.PageQueryUtil;
@@ -83,8 +83,8 @@ public class SalesMallIndexConfigServiceImpl implements SalesMallIndexConfigServ
         if (!CollectionUtils.isEmpty(indexConfigs)) {
             //取出所有的goodsId
             List<Long> goodsIds = indexConfigs.stream().map(IndexConfig::getGoodsId).collect(Collectors.toList());
-            List<NewBeeMallGoods> newBeeMallGoods = goodsMapper.selectByPrimaryKeys(goodsIds);
-            newBeeMallIndexConfigGoodsVOS = BeanUtil.copyList(newBeeMallGoods, NewBeeMallIndexConfigGoodsVO.class);
+            List<SalesMallGoods> salesMallGoods = goodsMapper.selectByPrimaryKeys(goodsIds);
+            newBeeMallIndexConfigGoodsVOS = BeanUtil.copyList(salesMallGoods, NewBeeMallIndexConfigGoodsVO.class);
             for (NewBeeMallIndexConfigGoodsVO newBeeMallIndexConfigGoodsVO : newBeeMallIndexConfigGoodsVOS) {
                 String goodsName = newBeeMallIndexConfigGoodsVO.getGoodsName();
                 String goodsIntro = newBeeMallIndexConfigGoodsVO.getGoodsIntro();

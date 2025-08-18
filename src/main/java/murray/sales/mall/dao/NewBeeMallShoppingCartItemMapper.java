@@ -8,7 +8,7 @@
  */
 package murray.sales.mall.dao;
 
-import murray.sales.mall.entity.NewBeeMallShoppingCartItem;
+import murray.sales.mall.entity.SalesMallShoppingCartItem;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,21 +16,21 @@ import java.util.List;
 public interface NewBeeMallShoppingCartItemMapper {
     int deleteByPrimaryKey(Long cartItemId);
 
-    int insert(NewBeeMallShoppingCartItem record);
+    int insert(SalesMallShoppingCartItem record);
 
-    int insertSelective(NewBeeMallShoppingCartItem record);
+    int insertSelective(SalesMallShoppingCartItem record);
 
-    NewBeeMallShoppingCartItem selectByPrimaryKey(Long cartItemId);
+    SalesMallShoppingCartItem selectByPrimaryKey(Long cartItemId);
 
-    NewBeeMallShoppingCartItem selectByUserIdAndGoodsId(@Param("newBeeMallUserId") Long newBeeMallUserId, @Param("goodsId") Long goodsId);
+    SalesMallShoppingCartItem selectByUserIdAndGoodsId(@Param("newBeeMallUserId") Long newBeeMallUserId, @Param("goodsId") Long goodsId);
 
-    List<NewBeeMallShoppingCartItem> selectByUserId(@Param("newBeeMallUserId") Long newBeeMallUserId, @Param("number") int number);
+    List<SalesMallShoppingCartItem> selectByUserId(@Param("newBeeMallUserId") Long newBeeMallUserId, @Param("number") int number);
 
     int selectCountByUserId(Long newBeeMallUserId);
 
-    int updateByPrimaryKeySelective(NewBeeMallShoppingCartItem record);
+    int updateByPrimaryKeySelective(SalesMallShoppingCartItem record);
 
-    int updateByPrimaryKey(NewBeeMallShoppingCartItem record);
+    int updateByPrimaryKey(SalesMallShoppingCartItem record);
 
     int deleteBatch(List<Long> ids);
 }
