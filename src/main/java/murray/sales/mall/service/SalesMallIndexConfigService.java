@@ -7,7 +7,7 @@ import murray.sales.mall.util.PageResult;
 
 import java.util.List;
 
-public interface NewBeeMallIndexConfigService {
+public interface SalesMallIndexConfigService {
     /**
      * 后台分页
      *

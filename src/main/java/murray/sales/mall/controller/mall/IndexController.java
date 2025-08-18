@@ -6,9 +6,9 @@ import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.controller.vo.NewBeeMallIndexCarouselVO;
 import murray.sales.mall.controller.vo.NewBeeMallIndexCategoryVO;
 import murray.sales.mall.controller.vo.NewBeeMallIndexConfigGoodsVO;
-import murray.sales.mall.service.NewBeeMallCarouselService;
-import murray.sales.mall.service.NewBeeMallCategoryService;
-import murray.sales.mall.service.NewBeeMallIndexConfigService;
+import murray.sales.mall.service.SalesMallCarouselService;
+import murray.sales.mall.service.SalesMallCategoryService;
+import murray.sales.mall.service.SalesMallIndexConfigService;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,24 +21,24 @@ import java.util.List;
 public class IndexController {
 
     @Resource
-    private NewBeeMallCarouselService newBeeMallCarouselService;
+    private SalesMallCarouselService salesMallCarouselService;
 
     @Resource
-    private NewBeeMallIndexConfigService newBeeMallIndexConfigService;
+    private SalesMallIndexConfigService salesMallIndexConfigService;
 
     @Resource
-    private NewBeeMallCategoryService newBeeMallCategoryService;
+    private SalesMallCategoryService salesMallCategoryService;
 
     @GetMapping({"/index", "/", "/index.html"})
     public String indexPage(HttpServletRequest request) {
-        List<NewBeeMallIndexCategoryVO> categories = newBeeMallCategoryService.getCategoriesForIndex();
+        List<NewBeeMallIndexCategoryVO> categories = salesMallCategoryService.getCategoriesForIndex();
         if (CollectionUtils.isEmpty(categories)) {
             SalesSystemException.fail("分类数据不完善");
         }
-        List<NewBeeMallIndexCarouselVO> carousels = newBeeMallCarouselService.getCarouselsForIndex(Constants.INDEX_CAROUSEL_NUMBER);
-        List<NewBeeMallIndexConfigGoodsVO> hotGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_HOT.getType(), Constants.INDEX_GOODS_HOT_NUMBER);
-        List<NewBeeMallIndexConfigGoodsVO> newGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_NEW.getType(), Constants.INDEX_GOODS_NEW_NUMBER);
-        List<NewBeeMallIndexConfigGoodsVO> recommendGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_RECOMMOND.getType(), Constants.INDEX_GOODS_RECOMMOND_NUMBER);
+        List<NewBeeMallIndexCarouselVO> carousels = salesMallCarouselService.getCarouselsForIndex(Constants.INDEX_CAROUSEL_NUMBER);
+        List<NewBeeMallIndexConfigGoodsVO> hotGoodses = salesMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_HOT.getType(), Constants.INDEX_GOODS_HOT_NUMBER);
+        List<NewBeeMallIndexConfigGoodsVO> newGoodses = salesMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_NEW.getType(), Constants.INDEX_GOODS_NEW_NUMBER);
+        List<NewBeeMallIndexConfigGoodsVO> recommendGoodses = salesMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_RECOMMOND.getType(), Constants.INDEX_GOODS_RECOMMOND_NUMBER);
         request.setAttribute("categories", categories);//分类数据
         request.setAttribute("carousels", carousels);//轮播图
         request.setAttribute("hotGoodses", hotGoodses);//热销商品

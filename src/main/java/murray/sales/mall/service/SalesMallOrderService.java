@@ -10,7 +10,7 @@ import murray.sales.mall.util.PageResult;
 
 import java.util.List;
 
-public interface NewBeeMallOrderService {
+public interface SalesMallOrderService {
     /**
      * 后台分页
      *

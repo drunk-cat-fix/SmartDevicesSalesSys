@@ -7,7 +7,7 @@ import murray.sales.mall.dao.NewBeeMallGoodsMapper;
 import murray.sales.mall.dao.NewBeeMallShoppingCartItemMapper;
 import murray.sales.mall.entity.NewBeeMallGoods;
 import murray.sales.mall.entity.NewBeeMallShoppingCartItem;
-import murray.sales.mall.service.NewBeeMallShoppingCartService;
+import murray.sales.mall.service.SalesMallShoppingCartService;
 import murray.sales.mall.util.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCartService {
+public class SalesMallShoppingCartServiceImpl implements SalesMallShoppingCartService {
 
     @Autowired
     private NewBeeMallShoppingCartItemMapper newBeeMallShoppingCartItemMapper;

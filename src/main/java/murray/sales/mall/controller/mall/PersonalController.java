@@ -13,7 +13,7 @@ import murray.sales.mall.common.Constants;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallUserVO;
 import murray.sales.mall.entity.MallUser;
-import murray.sales.mall.service.NewBeeMallUserService;
+import murray.sales.mall.service.SalesMallUserService;
 import murray.sales.mall.util.MD5Util;
 import murray.sales.mall.util.Result;
 import murray.sales.mall.util.ResultGenerator;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
 public class PersonalController {
 
     @Resource
-    private NewBeeMallUserService newBeeMallUserService;
+    private SalesMallUserService salesMallUserService;
 
     @GetMapping("/personal")
     public String personalPage(HttpServletRequest request,
@@ -79,7 +79,7 @@ public class PersonalController {
         if (shearCaptcha == null || !shearCaptcha.verify(verifyCode)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_VERIFY_CODE_ERROR.getResult());
         }
-        String loginResult = newBeeMallUserService.login(loginName, MD5Util.MD5Encode(password, "UTF-8"), httpSession);
+        String loginResult = salesMallUserService.login(loginName, MD5Util.MD5Encode(password, "UTF-8"), httpSession);
         //登录成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(loginResult)) {
             //删除session中的verifyCode
@@ -109,7 +109,7 @@ public class PersonalController {
         if (shearCaptcha == null || !shearCaptcha.verify(verifyCode)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_VERIFY_CODE_ERROR.getResult());
         }
-        String registerResult = newBeeMallUserService.register(loginName, password);
+        String registerResult = salesMallUserService.register(loginName, password);
         //注册成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(registerResult)) {
             //删除session中的verifyCode
@@ -123,7 +123,7 @@ public class PersonalController {
     @PostMapping("/personal/updateInfo")
     @ResponseBody
     public Result updateInfo(@RequestBody MallUser mallUser, HttpSession httpSession) {
-        NewBeeMallUserVO mallUserTemp = newBeeMallUserService.updateUserInfo(mallUser, httpSession);
+        NewBeeMallUserVO mallUserTemp = salesMallUserService.updateUserInfo(mallUser, httpSession);
         if (mallUserTemp == null) {
             Result result = ResultGenerator.genFailResult("修改失败");
             return result;

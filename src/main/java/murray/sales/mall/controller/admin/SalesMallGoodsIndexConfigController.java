@@ -12,7 +12,7 @@ import murray.sales.mall.common.IndexConfigTypeEnum;
 import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.entity.IndexConfig;
-import murray.sales.mall.service.NewBeeMallIndexConfigService;
+import murray.sales.mall.service.SalesMallIndexConfigService;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.Result;
 import murray.sales.mall.util.ResultGenerator;
@@ -34,10 +34,10 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping("/admin")
-public class NewBeeMallGoodsIndexConfigController {
+public class SalesMallGoodsIndexConfigController {
 
     @Resource
-    private NewBeeMallIndexConfigService newBeeMallIndexConfigService;
+    private SalesMallIndexConfigService salesMallIndexConfigService;
 
     @GetMapping("/indexConfigs")
     public String indexConfigsPage(HttpServletRequest request, @RequestParam("configType") int configType) {
@@ -61,7 +61,7 @@ public class NewBeeMallGoodsIndexConfigController {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallIndexConfigService.getConfigsPage(pageUtil));
+        return ResultGenerator.genSuccessResult(salesMallIndexConfigService.getConfigsPage(pageUtil));
     }
 
     /**
@@ -75,7 +75,7 @@ public class NewBeeMallGoodsIndexConfigController {
                 || Objects.isNull(indexConfig.getConfigRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallIndexConfigService.saveIndexConfig(indexConfig);
+        String result = salesMallIndexConfigService.saveIndexConfig(indexConfig);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -96,7 +96,7 @@ public class NewBeeMallGoodsIndexConfigController {
                 || Objects.isNull(indexConfig.getConfigRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallIndexConfigService.updateIndexConfig(indexConfig);
+        String result = salesMallIndexConfigService.updateIndexConfig(indexConfig);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -110,7 +110,7 @@ public class NewBeeMallGoodsIndexConfigController {
     @GetMapping("/indexConfigs/info/{id}")
     @ResponseBody
     public Result info(@PathVariable("id") Long id) {
-        IndexConfig config = newBeeMallIndexConfigService.getIndexConfigById(id);
+        IndexConfig config = salesMallIndexConfigService.getIndexConfigById(id);
         if (config == null) {
             return ResultGenerator.genFailResult("未查询到数据");
         }
@@ -126,7 +126,7 @@ public class NewBeeMallGoodsIndexConfigController {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        if (newBeeMallIndexConfigService.deleteBatch(ids)) {
+        if (salesMallIndexConfigService.deleteBatch(ids)) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("删除失败");

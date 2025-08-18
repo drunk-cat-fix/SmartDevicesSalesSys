@@ -8,7 +8,7 @@
  */
 package murray.sales.mall.controller.admin;
 
-import murray.sales.mall.service.NewBeeMallUserService;
+import murray.sales.mall.service.SalesMallUserService;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.Result;
 import murray.sales.mall.util.ResultGenerator;
@@ -26,10 +26,10 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin")
-public class NewBeeMallUserController {
+public class SalesMallUserController {
 
     @Resource
-    private NewBeeMallUserService newBeeMallUserService;
+    private SalesMallUserService salesMallUserService;
 
     @GetMapping("/users")
     public String usersPage(HttpServletRequest request) {
@@ -47,7 +47,7 @@ public class NewBeeMallUserController {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallUserService.getNewBeeMallUsersPage(pageUtil));
+        return ResultGenerator.genSuccessResult(salesMallUserService.getNewBeeMallUsersPage(pageUtil));
     }
 
     /**
@@ -62,7 +62,7 @@ public class NewBeeMallUserController {
         if (lockStatus != 0 && lockStatus != 1) {
             return ResultGenerator.genFailResult("操作非法！");
         }
-        if (newBeeMallUserService.lockUsers(ids, lockStatus)) {
+        if (salesMallUserService.lockUsers(ids, lockStatus)) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("禁用失败");

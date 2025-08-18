@@ -5,8 +5,7 @@ import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallUserVO;
 import murray.sales.mall.dao.MallUserMapper;
 import murray.sales.mall.entity.MallUser;
-import murray.sales.mall.service.NewBeeMallUserService;
-import murray.sales.mall.util.*;
+import murray.sales.mall.service.SalesMallUserService;
 import murray.sales.mall.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
-public class NewBeeMallUserServiceImpl implements NewBeeMallUserService {
+public class SalesMallUserServiceImpl implements SalesMallUserService {
 
     @Autowired
     private MallUserMapper mallUserMapper;
@@ -72,13 +71,13 @@ public class NewBeeMallUserServiceImpl implements NewBeeMallUserService {
         MallUser userFromDB = mallUserMapper.selectByPrimaryKey(userTemp.getUserId());
         if (userFromDB != null) {
             if (StringUtils.hasText(mallUser.getNickName())) {
-                userFromDB.setNickName(NewBeeMallUtils.cleanString(mallUser.getNickName()));
+                userFromDB.setNickName(SalesMallUtils.cleanString(mallUser.getNickName()));
             }
             if (StringUtils.hasText(mallUser.getAddress())) {
-                userFromDB.setAddress(NewBeeMallUtils.cleanString(mallUser.getAddress()));
+                userFromDB.setAddress(SalesMallUtils.cleanString(mallUser.getAddress()));
             }
             if (StringUtils.hasText(mallUser.getIntroduceSign())) {
-                userFromDB.setIntroduceSign(NewBeeMallUtils.cleanString(mallUser.getIntroduceSign()));
+                userFromDB.setIntroduceSign(SalesMallUtils.cleanString(mallUser.getIntroduceSign()));
             }
             if (mallUserMapper.updateByPrimaryKeySelective(userFromDB) > 0) {
                 NewBeeMallUserVO newBeeMallUserVO = new NewBeeMallUserVO();

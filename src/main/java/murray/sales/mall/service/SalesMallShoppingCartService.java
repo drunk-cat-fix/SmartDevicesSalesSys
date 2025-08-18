@@ -5,7 +5,7 @@ import murray.sales.mall.entity.NewBeeMallShoppingCartItem;
 
 import java.util.List;
 
-public interface NewBeeMallShoppingCartService {
+public interface SalesMallShoppingCartService {
 
     /**
      * 保存商品至购物车中

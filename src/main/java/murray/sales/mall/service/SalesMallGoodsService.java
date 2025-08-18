@@ -6,7 +6,7 @@ import murray.sales.mall.util.PageResult;
 
 import java.util.List;
 
-public interface NewBeeMallGoodsService {
+public interface SalesMallGoodsService {
     /**
      * 后台分页
      *

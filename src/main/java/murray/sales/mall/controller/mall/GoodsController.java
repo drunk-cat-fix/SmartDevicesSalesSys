@@ -6,8 +6,8 @@ import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallGoodsDetailVO;
 import murray.sales.mall.controller.vo.SearchPageCategoryVO;
 import murray.sales.mall.entity.NewBeeMallGoods;
-import murray.sales.mall.service.NewBeeMallCategoryService;
-import murray.sales.mall.service.NewBeeMallGoodsService;
+import murray.sales.mall.service.SalesMallCategoryService;
+import murray.sales.mall.service.SalesMallGoodsService;
 import murray.sales.mall.util.BeanUtil;
 import murray.sales.mall.util.PageQueryUtil;
 import org.springframework.stereotype.Controller;
@@ -25,9 +25,9 @@ import java.util.Map;
 public class GoodsController {
 
     @Resource
-    private NewBeeMallGoodsService newBeeMallGoodsService;
+    private SalesMallGoodsService salesMallGoodsService;
     @Resource
-    private NewBeeMallCategoryService newBeeMallCategoryService;
+    private SalesMallCategoryService salesMallCategoryService;
 
     @GetMapping({"/search", "/search.html"})
     public String searchPage(@RequestParam Map<String, Object> params, HttpServletRequest request) {
@@ -38,7 +38,7 @@ public class GoodsController {
         //封装分类数据
         if (params.containsKey("goodsCategoryId") && StringUtils.hasText(params.get("goodsCategoryId") + "")) {
             Long categoryId = Long.valueOf(params.get("goodsCategoryId") + "");
-            SearchPageCategoryVO searchPageCategoryVO = newBeeMallCategoryService.getCategoriesForSearch(categoryId);
+            SearchPageCategoryVO searchPageCategoryVO = salesMallCategoryService.getCategoriesForSearch(categoryId);
             if (searchPageCategoryVO != null) {
                 request.setAttribute("goodsCategoryId", categoryId);
                 request.setAttribute("searchPageCategoryVO", searchPageCategoryVO);
@@ -59,16 +59,16 @@ public class GoodsController {
         params.put("goodsSellStatus", Constants.SELL_STATUS_UP);
         //封装商品数据
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        request.setAttribute("pageResult", newBeeMallGoodsService.searchNewBeeMallGoods(pageUtil));
+        request.setAttribute("pageResult", salesMallGoodsService.searchNewBeeMallGoods(pageUtil));
         return "mall/search";
     }
 
     @GetMapping("/goods/detail/{goodsId}")
     public String detailPage(@PathVariable("goodsId") Long goodsId, HttpServletRequest request) {
         if (goodsId < 1) {
-            SalesSystemException.fail("参数异常");
+            SalesSystemException.fail("Param Exception");
         }
-        NewBeeMallGoods goods = newBeeMallGoodsService.getNewBeeMallGoodsById(goodsId);
+        NewBeeMallGoods goods = salesMallGoodsService.getNewBeeMallGoodsById(goodsId);
         if (Constants.SELL_STATUS_UP != goods.getGoodsSellStatus()) {
             SalesSystemException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
         }

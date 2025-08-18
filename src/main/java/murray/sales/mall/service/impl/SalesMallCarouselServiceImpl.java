@@ -4,7 +4,7 @@ import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallIndexCarouselVO;
 import murray.sales.mall.dao.CarouselMapper;
 import murray.sales.mall.entity.Carousel;
-import murray.sales.mall.service.NewBeeMallCarouselService;
+import murray.sales.mall.service.SalesMallCarouselService;
 import murray.sales.mall.util.BeanUtil;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.PageResult;
@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService {
+public class SalesMallCarouselServiceImpl implements SalesMallCarouselService {
 
     @Autowired
     private CarouselMapper carouselMapper;

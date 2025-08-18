@@ -5,7 +5,7 @@ package murray.sales.mall.common;
  * @email murray50325487@gmail.com
  * @apiNote 分类级别
  */
-public enum NewBeeMallCategoryLevelEnum {
+public enum SalesMallCategoryLevelEnum {
 
     DEFAULT(0, "ERROR"),
     LEVEL_ONE(1, "First Level"),
@@ -16,15 +16,15 @@ public enum NewBeeMallCategoryLevelEnum {
 
     private String name;
 
-    NewBeeMallCategoryLevelEnum(int level, String name) {
+    SalesMallCategoryLevelEnum(int level, String name) {
         this.level = level;
         this.name = name;
     }
 
-    public static NewBeeMallCategoryLevelEnum getNewBeeMallOrderStatusEnumByLevel(int level) {
-        for (NewBeeMallCategoryLevelEnum newBeeMallCategoryLevelEnum : NewBeeMallCategoryLevelEnum.values()) {
-            if (newBeeMallCategoryLevelEnum.getLevel() == level) {
-                return newBeeMallCategoryLevelEnum;
+    public static SalesMallCategoryLevelEnum getNewBeeMallOrderStatusEnumByLevel(int level) {
+        for (SalesMallCategoryLevelEnum salesMallCategoryLevelEnum : SalesMallCategoryLevelEnum.values()) {
+            if (salesMallCategoryLevelEnum.getLevel() == level) {
+                return salesMallCategoryLevelEnum;
             }
         }
         return DEFAULT;

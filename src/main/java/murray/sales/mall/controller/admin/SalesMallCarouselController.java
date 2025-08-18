@@ -10,7 +10,7 @@ package murray.sales.mall.controller.admin;
 
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.entity.Carousel;
-import murray.sales.mall.service.NewBeeMallCarouselService;
+import murray.sales.mall.service.SalesMallCarouselService;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.Result;
 import murray.sales.mall.util.ResultGenerator;
@@ -30,10 +30,10 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping("/admin")
-public class NewBeeMallCarouselController {
+public class SalesMallCarouselController {
 
     @Resource
-    NewBeeMallCarouselService newBeeMallCarouselService;
+    SalesMallCarouselService salesMallCarouselService;
 
     @GetMapping("/carousels")
     public String carouselPage(HttpServletRequest request) {
@@ -51,7 +51,7 @@ public class NewBeeMallCarouselController {
             return ResultGenerator.genFailResult("Params Exception！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallCarouselService.getCarouselPage(pageUtil));
+        return ResultGenerator.genSuccessResult(salesMallCarouselService.getCarouselPage(pageUtil));
     }
 
     /**
@@ -64,7 +64,7 @@ public class NewBeeMallCarouselController {
                 || Objects.isNull(carousel.getCarouselRank())) {
             return ResultGenerator.genFailResult("Params Exception！");
         }
-        String result = newBeeMallCarouselService.saveCarousel(carousel);
+        String result = salesMallCarouselService.saveCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -84,7 +84,7 @@ public class NewBeeMallCarouselController {
                 || Objects.isNull(carousel.getCarouselRank())) {
             return ResultGenerator.genFailResult("Params Exception！");
         }
-        String result = newBeeMallCarouselService.updateCarousel(carousel);
+        String result = salesMallCarouselService.updateCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -98,7 +98,7 @@ public class NewBeeMallCarouselController {
     @GetMapping("/carousels/info/{id}")
     @ResponseBody
     public Result info(@PathVariable("id") Integer id) {
-        Carousel carousel = newBeeMallCarouselService.getCarouselById(id);
+        Carousel carousel = salesMallCarouselService.getCarouselById(id);
         if (carousel == null) {
             return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }
@@ -114,7 +114,7 @@ public class NewBeeMallCarouselController {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("Params Exception！");
         }
-        if (newBeeMallCarouselService.deleteBatch(ids)) {
+        if (salesMallCarouselService.deleteBatch(ids)) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("Delete Failed");

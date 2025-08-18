@@ -15,7 +15,7 @@ import murray.sales.mall.util.PageResult;
 
 import javax.servlet.http.HttpSession;
 
-public interface NewBeeMallUserService {
+public interface SalesMallUserService {
     /**
      * 后台分页
      *

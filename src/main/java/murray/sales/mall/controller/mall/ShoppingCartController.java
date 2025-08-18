@@ -14,7 +14,7 @@ import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallShoppingCartItemVO;
 import murray.sales.mall.controller.vo.NewBeeMallUserVO;
 import murray.sales.mall.entity.NewBeeMallShoppingCartItem;
-import murray.sales.mall.service.NewBeeMallShoppingCartService;
+import murray.sales.mall.service.SalesMallShoppingCartService;
 import murray.sales.mall.util.Result;
 import murray.sales.mall.util.ResultGenerator;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ import java.util.List;
 public class ShoppingCartController {
 
     @Resource
-    private NewBeeMallShoppingCartService newBeeMallShoppingCartService;
+    private SalesMallShoppingCartService salesMallShoppingCartService;
 
     @GetMapping("/shop-cart")
     public String cartListPage(HttpServletRequest request,
@@ -38,7 +38,7 @@ public class ShoppingCartController {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         int itemsTotal = 0;
         int priceTotal = 0;
-        List<NewBeeMallShoppingCartItemVO> myShoppingCartItems = newBeeMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
+        List<NewBeeMallShoppingCartItemVO> myShoppingCartItems = salesMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
         if (!CollectionUtils.isEmpty(myShoppingCartItems)) {
             //购物项总数
             itemsTotal = myShoppingCartItems.stream().mapToInt(NewBeeMallShoppingCartItemVO::getGoodsCount).sum();
@@ -65,7 +65,7 @@ public class ShoppingCartController {
                                                  HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         newBeeMallShoppingCartItem.setUserId(user.getUserId());
-        String saveResult = newBeeMallShoppingCartService.saveNewBeeMallCartItem(newBeeMallShoppingCartItem);
+        String saveResult = salesMallShoppingCartService.saveNewBeeMallCartItem(newBeeMallShoppingCartItem);
         //添加成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(saveResult)) {
             return ResultGenerator.genSuccessResult();
@@ -80,7 +80,7 @@ public class ShoppingCartController {
                                                    HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         newBeeMallShoppingCartItem.setUserId(user.getUserId());
-        String updateResult = newBeeMallShoppingCartService.updateNewBeeMallCartItem(newBeeMallShoppingCartItem);
+        String updateResult = salesMallShoppingCartService.updateNewBeeMallCartItem(newBeeMallShoppingCartItem);
         //修改成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(updateResult)) {
             return ResultGenerator.genSuccessResult();
@@ -94,7 +94,7 @@ public class ShoppingCartController {
     public Result updateNewBeeMallShoppingCartItem(@PathVariable("newBeeMallShoppingCartItemId") Long newBeeMallShoppingCartItemId,
                                                    HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-        Boolean deleteResult = newBeeMallShoppingCartService.deleteById(newBeeMallShoppingCartItemId,user.getUserId());
+        Boolean deleteResult = salesMallShoppingCartService.deleteById(newBeeMallShoppingCartItemId,user.getUserId());
         //删除成功
         if (deleteResult) {
             return ResultGenerator.genSuccessResult();
@@ -108,7 +108,7 @@ public class ShoppingCartController {
                              HttpSession httpSession) {
         int priceTotal = 0;
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-        List<NewBeeMallShoppingCartItemVO> myShoppingCartItems = newBeeMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
+        List<NewBeeMallShoppingCartItemVO> myShoppingCartItems = salesMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
         if (CollectionUtils.isEmpty(myShoppingCartItems)) {
             //无数据则不跳转至结算页
             return "/shop-cart";

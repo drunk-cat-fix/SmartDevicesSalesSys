@@ -1,7 +1,7 @@
 package murray.sales.mall.controller.common;
 
 import murray.sales.mall.common.Constants;
-import murray.sales.mall.util.NewBeeMallUtils;
+import murray.sales.mall.util.SalesMallUtils;
 import murray.sales.mall.util.Result;
 import murray.sales.mall.util.ResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +62,7 @@ public class UploadController {
             }
             file.transferTo(destFile);
             Result resultSuccess = ResultGenerator.genSuccessResult();
-            resultSuccess.setData(NewBeeMallUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
+            resultSuccess.setData(SalesMallUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
             return resultSuccess;
         } catch (IOException e) {
             e.printStackTrace();
@@ -117,7 +117,7 @@ public class UploadController {
                     }
                 }
                 multipartFiles.get(i).transferTo(destFile);
-                fileNames.add(NewBeeMallUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
+                fileNames.add(SalesMallUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
             } catch (IOException e) {
                 e.printStackTrace();
                 return ResultGenerator.genFailResult("文件上传失败");

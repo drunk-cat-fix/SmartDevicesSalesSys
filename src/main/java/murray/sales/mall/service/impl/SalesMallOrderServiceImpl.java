@@ -10,7 +10,7 @@ import murray.sales.mall.entity.NewBeeMallGoods;
 import murray.sales.mall.entity.NewBeeMallOrder;
 import murray.sales.mall.entity.NewBeeMallOrderItem;
 import murray.sales.mall.entity.StockNumDTO;
-import murray.sales.mall.service.NewBeeMallOrderService;
+import murray.sales.mall.service.SalesMallOrderService;
 import murray.sales.mall.util.BeanUtil;
 import murray.sales.mall.util.NumberUtil;
 import murray.sales.mall.util.PageQueryUtil;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 
 @Service
-public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
+public class SalesMallOrderServiceImpl implements SalesMallOrderService {
 
     @Autowired
     private NewBeeMallOrderMapper newBeeMallOrderMapper;

@@ -6,7 +6,7 @@ import murray.sales.mall.dao.IndexConfigMapper;
 import murray.sales.mall.dao.NewBeeMallGoodsMapper;
 import murray.sales.mall.entity.IndexConfig;
 import murray.sales.mall.entity.NewBeeMallGoods;
-import murray.sales.mall.service.NewBeeMallIndexConfigService;
+import murray.sales.mall.service.SalesMallIndexConfigService;
 import murray.sales.mall.util.BeanUtil;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.PageResult;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class NewBeeMallIndexConfigServiceImpl implements NewBeeMallIndexConfigService {
+public class SalesMallIndexConfigServiceImpl implements SalesMallIndexConfigService {
 
     @Autowired
     private IndexConfigMapper indexConfigMapper;

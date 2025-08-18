@@ -8,7 +8,7 @@ import java.net.URI;
  * @author Murray
  * @email   murray50325487@gmail.com
  */
-public class NewBeeMallUtils {
+public class SalesMallUtils {
 
     public static URI getHost(URI uri) {
         URI effectiveURI = null;

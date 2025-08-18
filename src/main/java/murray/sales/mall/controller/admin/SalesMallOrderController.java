@@ -11,7 +11,7 @@ package murray.sales.mall.controller.admin;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.NewBeeMallOrderItemVO;
 import murray.sales.mall.entity.NewBeeMallOrder;
-import murray.sales.mall.service.NewBeeMallOrderService;
+import murray.sales.mall.service.SalesMallOrderService;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.Result;
 import murray.sales.mall.util.ResultGenerator;
@@ -35,10 +35,10 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping("/admin")
-public class NewBeeMallOrderController {
+public class SalesMallOrderController {
 
     @Resource
-    private NewBeeMallOrderService newBeeMallOrderService;
+    private SalesMallOrderService salesMallOrderService;
 
     @GetMapping("/orders")
     public String ordersPage(HttpServletRequest request) {
@@ -56,7 +56,7 @@ public class NewBeeMallOrderController {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallOrderService.getNewBeeMallOrdersPage(pageUtil));
+        return ResultGenerator.genSuccessResult(salesMallOrderService.getNewBeeMallOrdersPage(pageUtil));
     }
 
     /**
@@ -72,7 +72,7 @@ public class NewBeeMallOrderController {
                 || !StringUtils.hasText(newBeeMallOrder.getUserAddress())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallOrderService.updateOrderInfo(newBeeMallOrder);
+        String result = salesMallOrderService.updateOrderInfo(newBeeMallOrder);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -86,7 +86,7 @@ public class NewBeeMallOrderController {
     @GetMapping("/order-items/{id}")
     @ResponseBody
     public Result info(@PathVariable("id") Long id) {
-        List<NewBeeMallOrderItemVO> orderItems = newBeeMallOrderService.getOrderItems(id);
+        List<NewBeeMallOrderItemVO> orderItems = salesMallOrderService.getOrderItems(id);
         if (!CollectionUtils.isEmpty(orderItems)) {
             return ResultGenerator.genSuccessResult(orderItems);
         }
@@ -102,7 +102,7 @@ public class NewBeeMallOrderController {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallOrderService.checkDone(ids);
+        String result = salesMallOrderService.checkDone(ids);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -119,7 +119,7 @@ public class NewBeeMallOrderController {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallOrderService.checkOut(ids);
+        String result = salesMallOrderService.checkOut(ids);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -136,7 +136,7 @@ public class NewBeeMallOrderController {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallOrderService.closeOrder(ids);
+        String result = salesMallOrderService.closeOrder(ids);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {

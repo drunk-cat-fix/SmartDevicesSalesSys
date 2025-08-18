@@ -8,7 +8,7 @@ import murray.sales.mall.util.PageResult;
 
 import java.util.List;
 
-public interface NewBeeMallCategoryService {
+public interface SalesMallCategoryService {
     /**
      * 后台分页
      *

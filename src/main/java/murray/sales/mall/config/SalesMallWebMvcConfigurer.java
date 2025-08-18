@@ -1,6 +1,7 @@
 /**
  * @author Muray
  * @email murray50325487@.gmail.com
+ * @description intercept the unauthorised visit and release the login and register page and compulsory resource
  */
 package murray.sales.mall.config;
 
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class NeeBeeMallWebMvcConfigurer implements WebMvcConfigurer {
+public class SalesMallWebMvcConfigurer implements WebMvcConfigurer {
 
     @Autowired
     private AdminLoginInterceptor adminLoginInterceptor;
