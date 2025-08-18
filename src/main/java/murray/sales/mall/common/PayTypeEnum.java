@@ -9,8 +9,8 @@ public enum PayTypeEnum {
 
     DEFAULT(-1, "ERROR"),
     NOT_PAY(0, "Null"),
-    ALI_PAY(1, "TNG"),
-    WEIXIN_PAY(2, "Bigpay");
+    TNG(1, "TNG"),
+    BIGPAY(2, "Bigpay");
 
     private int payType;
 

@@ -5,7 +5,8 @@ import org.springframework.util.StringUtils;
 import java.net.URI;
 
 /**
- * @author 13
+ * @author Murray
+ * @email   murray50325487@gmail.com
  */
 public class NewBeeMallUtils {
 
