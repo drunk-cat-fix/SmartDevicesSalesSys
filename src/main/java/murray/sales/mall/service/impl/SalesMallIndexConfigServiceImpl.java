@@ -1,9 +1,9 @@
 package murray.sales.mall.service.impl;
 
 import murray.sales.mall.common.ServiceResultEnum;
-import murray.sales.mall.controller.vo.NewBeeMallIndexConfigGoodsVO;
+import murray.sales.mall.controller.vo.SalesMallIndexConfigGoodsVO;
 import murray.sales.mall.dao.IndexConfigMapper;
-import murray.sales.mall.dao.NewBeeMallGoodsMapper;
+import murray.sales.mall.dao.SalesMallGoodsMapper;
 import murray.sales.mall.entity.IndexConfig;
 import murray.sales.mall.entity.SalesMallGoods;
 import murray.sales.mall.service.SalesMallIndexConfigService;
@@ -26,7 +26,7 @@ public class SalesMallIndexConfigServiceImpl implements SalesMallIndexConfigServ
     private IndexConfigMapper indexConfigMapper;
 
     @Autowired
-    private NewBeeMallGoodsMapper goodsMapper;
+    private SalesMallGoodsMapper goodsMapper;
 
     @Override
     public PageResult getConfigsPage(PageQueryUtil pageUtil) {
@@ -77,29 +77,29 @@ public class SalesMallIndexConfigServiceImpl implements SalesMallIndexConfigServ
     }
 
     @Override
-    public List<NewBeeMallIndexConfigGoodsVO> getConfigGoodsesForIndex(int configType, int number) {
-        List<NewBeeMallIndexConfigGoodsVO> newBeeMallIndexConfigGoodsVOS = new ArrayList<>(number);
+    public List<SalesMallIndexConfigGoodsVO> getConfigGoodsesForIndex(int configType, int number) {
+        List<SalesMallIndexConfigGoodsVO> salesMallIndexConfigGoodsVOS = new ArrayList<>(number);
         List<IndexConfig> indexConfigs = indexConfigMapper.findIndexConfigsByTypeAndNum(configType, number);
         if (!CollectionUtils.isEmpty(indexConfigs)) {
             //取出所有的goodsId
             List<Long> goodsIds = indexConfigs.stream().map(IndexConfig::getGoodsId).collect(Collectors.toList());
             List<SalesMallGoods> salesMallGoods = goodsMapper.selectByPrimaryKeys(goodsIds);
-            newBeeMallIndexConfigGoodsVOS = BeanUtil.copyList(salesMallGoods, NewBeeMallIndexConfigGoodsVO.class);
-            for (NewBeeMallIndexConfigGoodsVO newBeeMallIndexConfigGoodsVO : newBeeMallIndexConfigGoodsVOS) {
-                String goodsName = newBeeMallIndexConfigGoodsVO.getGoodsName();
-                String goodsIntro = newBeeMallIndexConfigGoodsVO.getGoodsIntro();
+            salesMallIndexConfigGoodsVOS = BeanUtil.copyList(salesMallGoods, SalesMallIndexConfigGoodsVO.class);
+            for (SalesMallIndexConfigGoodsVO salesMallIndexConfigGoodsVO : salesMallIndexConfigGoodsVOS) {
+                String goodsName = salesMallIndexConfigGoodsVO.getGoodsName();
+                String goodsIntro = salesMallIndexConfigGoodsVO.getGoodsIntro();
                 // 字符串过长导致文字超出的问题
                 if (goodsName.length() > 30) {
                     goodsName = goodsName.substring(0, 30) + "...";
-                    newBeeMallIndexConfigGoodsVO.setGoodsName(goodsName);
+                    salesMallIndexConfigGoodsVO.setGoodsName(goodsName);
                 }
                 if (goodsIntro.length() > 22) {
                     goodsIntro = goodsIntro.substring(0, 22) + "...";
-                    newBeeMallIndexConfigGoodsVO.setGoodsIntro(goodsIntro);
+                    salesMallIndexConfigGoodsVO.setGoodsIntro(goodsIntro);
                 }
             }
         }
-        return newBeeMallIndexConfigGoodsVOS;
+        return salesMallIndexConfigGoodsVOS;
     }
 
     @Override

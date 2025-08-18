@@ -3,7 +3,7 @@ package murray.sales.mall.controller.mall;
 import murray.sales.mall.common.Constants;
 import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
-import murray.sales.mall.controller.vo.NewBeeMallGoodsDetailVO;
+import murray.sales.mall.controller.vo.SalesMallGoodsDetailVO;
 import murray.sales.mall.controller.vo.SearchPageCategoryVO;
 import murray.sales.mall.entity.SalesMallGoods;
 import murray.sales.mall.service.SalesMallCategoryService;
@@ -72,7 +72,7 @@ public class GoodsController {
         if (Constants.SELL_STATUS_UP != goods.getGoodsSellStatus()) {
             SalesSystemException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
         }
-        NewBeeMallGoodsDetailVO goodsDetailVO = new NewBeeMallGoodsDetailVO();
+        SalesMallGoodsDetailVO goodsDetailVO = new SalesMallGoodsDetailVO();
         BeanUtil.copyProperties(goods, goodsDetailVO);
         goodsDetailVO.setGoodsCarouselList(goods.getGoodsCarousel().split(","));
         request.setAttribute("goodsDetail", goodsDetailVO);

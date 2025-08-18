@@ -11,19 +11,21 @@ package murray.sales.mall.controller.vo;
 import java.io.Serializable;
 
 /**
- * 订单详情页页面订单项VO
+ * 首页配置商品VO
  */
-public class NewBeeMallOrderItemVO implements Serializable {
+public class SalesMallIndexConfigGoodsVO implements Serializable {
 
     private Long goodsId;
 
-    private Integer goodsCount;
-
     private String goodsName;
+
+    private String goodsIntro;
 
     private String goodsCoverImg;
 
     private Integer sellingPrice;
+
+    private String tag;
 
     public Long getGoodsId() {
         return goodsId;
@@ -39,6 +41,14 @@ public class NewBeeMallOrderItemVO implements Serializable {
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
+    }
+
+    public String getGoodsIntro() {
+        return goodsIntro;
+    }
+
+    public void setGoodsIntro(String goodsIntro) {
+        this.goodsIntro = goodsIntro;
     }
 
     public String getGoodsCoverImg() {
@@ -57,11 +67,11 @@ public class NewBeeMallOrderItemVO implements Serializable {
         this.sellingPrice = sellingPrice;
     }
 
-    public Integer getGoodsCount() {
-        return goodsCount;
+    public String getTag() {
+        return tag;
     }
 
-    public void setGoodsCount(Integer goodsCount) {
-        this.goodsCount = goodsCount;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

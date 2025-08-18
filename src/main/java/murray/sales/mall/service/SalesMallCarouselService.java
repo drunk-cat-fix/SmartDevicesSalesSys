@@ -1,6 +1,6 @@
 package murray.sales.mall.service;
 
-import murray.sales.mall.controller.vo.NewBeeMallIndexCarouselVO;
+import murray.sales.mall.controller.vo.SalesMallIndexCarouselVO;
 import murray.sales.mall.entity.Carousel;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.PageResult;
@@ -30,5 +30,5 @@ public interface SalesMallCarouselService {
      * @param number
      * @return
      */
-    List<NewBeeMallIndexCarouselVO> getCarouselsForIndex(int number);
+    List<SalesMallIndexCarouselVO> getCarouselsForIndex(int number);
 }

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 首页分类数据VO
  */
-public class NewBeeMallIndexCategoryVO implements Serializable {
+public class SalesMallIndexCategoryVO implements Serializable {
 
     private Long categoryId;
 

@@ -1,7 +1,7 @@
 package murray.sales.mall.service.impl;
 
 import murray.sales.mall.common.ServiceResultEnum;
-import murray.sales.mall.controller.vo.NewBeeMallIndexCarouselVO;
+import murray.sales.mall.controller.vo.SalesMallIndexCarouselVO;
 import murray.sales.mall.dao.CarouselMapper;
 import murray.sales.mall.entity.Carousel;
 import murray.sales.mall.service.SalesMallCarouselService;
@@ -69,12 +69,12 @@ public class SalesMallCarouselServiceImpl implements SalesMallCarouselService {
     }
 
     @Override
-    public List<NewBeeMallIndexCarouselVO> getCarouselsForIndex(int number) {
-        List<NewBeeMallIndexCarouselVO> newBeeMallIndexCarouselVOS = new ArrayList<>(number);
+    public List<SalesMallIndexCarouselVO> getCarouselsForIndex(int number) {
+        List<SalesMallIndexCarouselVO> salesMallIndexCarouselVOS = new ArrayList<>(number);
         List<Carousel> carousels = carouselMapper.findCarouselsByNum(number);
         if (!CollectionUtils.isEmpty(carousels)) {
-            newBeeMallIndexCarouselVOS = BeanUtil.copyList(carousels, NewBeeMallIndexCarouselVO.class);
+            salesMallIndexCarouselVOS = BeanUtil.copyList(carousels, SalesMallIndexCarouselVO.class);
         }
-        return newBeeMallIndexCarouselVOS;
+        return salesMallIndexCarouselVOS;
     }
 }

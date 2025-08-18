@@ -11,11 +11,9 @@ package murray.sales.mall.controller.vo;
 import java.io.Serializable;
 
 /**
- * 购物车页面购物项VO
+ * 订单详情页页面订单项VO
  */
-public class NewBeeMallShoppingCartItemVO implements Serializable {
-
-    private Long cartItemId;
+public class SalesMallOrderItemVO implements Serializable {
 
     private Long goodsId;
 
@@ -57,14 +55,6 @@ public class NewBeeMallShoppingCartItemVO implements Serializable {
 
     public void setSellingPrice(Integer sellingPrice) {
         this.sellingPrice = sellingPrice;
-    }
-
-    public Long getCartItemId() {
-        return cartItemId;
-    }
-
-    public void setCartItemId(Long cartItemId) {
-        this.cartItemId = cartItemId;
     }
 
     public Integer getGoodsCount() {

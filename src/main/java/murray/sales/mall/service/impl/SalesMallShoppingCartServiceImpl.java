@@ -2,9 +2,9 @@ package murray.sales.mall.service.impl;
 
 import murray.sales.mall.common.Constants;
 import murray.sales.mall.common.ServiceResultEnum;
-import murray.sales.mall.controller.vo.NewBeeMallShoppingCartItemVO;
-import murray.sales.mall.dao.NewBeeMallGoodsMapper;
-import murray.sales.mall.dao.NewBeeMallShoppingCartItemMapper;
+import murray.sales.mall.controller.vo.SalesMallShoppingCartItemVO;
+import murray.sales.mall.dao.SalesMallGoodsMapper;
+import murray.sales.mall.dao.SalesMallShoppingCartItemMapper;
 import murray.sales.mall.entity.SalesMallGoods;
 import murray.sales.mall.entity.SalesMallShoppingCartItem;
 import murray.sales.mall.service.SalesMallShoppingCartService;
@@ -21,25 +21,25 @@ import java.util.stream.Collectors;
 public class SalesMallShoppingCartServiceImpl implements SalesMallShoppingCartService {
 
     @Autowired
-    private NewBeeMallShoppingCartItemMapper newBeeMallShoppingCartItemMapper;
+    private SalesMallShoppingCartItemMapper salesMallShoppingCartItemMapper;
 
     @Autowired
-    private NewBeeMallGoodsMapper newBeeMallGoodsMapper;
+    private SalesMallGoodsMapper salesMallGoodsMapper;
 
     @Override
     public String saveNewBeeMallCartItem(SalesMallShoppingCartItem salesMallShoppingCartItem) {
-        SalesMallShoppingCartItem temp = newBeeMallShoppingCartItemMapper.selectByUserIdAndGoodsId(salesMallShoppingCartItem.getUserId(), salesMallShoppingCartItem.getGoodsId());
+        SalesMallShoppingCartItem temp = salesMallShoppingCartItemMapper.selectByUserIdAndGoodsId(salesMallShoppingCartItem.getUserId(), salesMallShoppingCartItem.getGoodsId());
         if (temp != null) {
             //已存在则修改该记录
             temp.setGoodsCount(salesMallShoppingCartItem.getGoodsCount());
             return updateNewBeeMallCartItem(temp);
         }
-        SalesMallGoods salesMallGoods = newBeeMallGoodsMapper.selectByPrimaryKey(salesMallShoppingCartItem.getGoodsId());
+        SalesMallGoods salesMallGoods = salesMallGoodsMapper.selectByPrimaryKey(salesMallShoppingCartItem.getGoodsId());
         //商品为空
         if (salesMallGoods == null) {
             return ServiceResultEnum.GOODS_NOT_EXIST.getResult();
         }
-        int totalItem = newBeeMallShoppingCartItemMapper.selectCountByUserId(salesMallShoppingCartItem.getUserId()) + 1;
+        int totalItem = salesMallShoppingCartItemMapper.selectCountByUserId(salesMallShoppingCartItem.getUserId()) + 1;
         //超出单个商品的最大数量
         if (salesMallShoppingCartItem.getGoodsCount() > Constants.SHOPPING_CART_ITEM_LIMIT_NUMBER) {
             return ServiceResultEnum.SHOPPING_CART_ITEM_LIMIT_NUMBER_ERROR.getResult();
@@ -49,7 +49,7 @@ public class SalesMallShoppingCartServiceImpl implements SalesMallShoppingCartSe
             return ServiceResultEnum.SHOPPING_CART_ITEM_TOTAL_NUMBER_ERROR.getResult();
         }
         //保存记录
-        if (newBeeMallShoppingCartItemMapper.insertSelective(salesMallShoppingCartItem) > 0) {
+        if (salesMallShoppingCartItemMapper.insertSelective(salesMallShoppingCartItem) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
         return ServiceResultEnum.DB_ERROR.getResult();
@@ -57,7 +57,7 @@ public class SalesMallShoppingCartServiceImpl implements SalesMallShoppingCartSe
 
     @Override
     public String updateNewBeeMallCartItem(SalesMallShoppingCartItem salesMallShoppingCartItem) {
-        SalesMallShoppingCartItem salesMallShoppingCartItemUpdate = newBeeMallShoppingCartItemMapper.selectByPrimaryKey(salesMallShoppingCartItem.getCartItemId());
+        SalesMallShoppingCartItem salesMallShoppingCartItemUpdate = salesMallShoppingCartItemMapper.selectByPrimaryKey(salesMallShoppingCartItem.getCartItemId());
         if (salesMallShoppingCartItemUpdate == null) {
             return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
@@ -76,7 +76,7 @@ public class SalesMallShoppingCartServiceImpl implements SalesMallShoppingCartSe
         salesMallShoppingCartItemUpdate.setGoodsCount(salesMallShoppingCartItem.getGoodsCount());
         salesMallShoppingCartItemUpdate.setUpdateTime(new Date());
         //修改记录
-        if (newBeeMallShoppingCartItemMapper.updateByPrimaryKeySelective(salesMallShoppingCartItemUpdate) > 0) {
+        if (salesMallShoppingCartItemMapper.updateByPrimaryKeySelective(salesMallShoppingCartItemUpdate) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
         return ServiceResultEnum.DB_ERROR.getResult();
@@ -84,12 +84,12 @@ public class SalesMallShoppingCartServiceImpl implements SalesMallShoppingCartSe
 
     @Override
     public SalesMallShoppingCartItem getNewBeeMallCartItemById(Long newBeeMallShoppingCartItemId) {
-        return newBeeMallShoppingCartItemMapper.selectByPrimaryKey(newBeeMallShoppingCartItemId);
+        return salesMallShoppingCartItemMapper.selectByPrimaryKey(newBeeMallShoppingCartItemId);
     }
 
     @Override
     public Boolean deleteById(Long shoppingCartItemId, Long userId) {
-        SalesMallShoppingCartItem salesMallShoppingCartItem = newBeeMallShoppingCartItemMapper.selectByPrimaryKey(shoppingCartItemId);
+        SalesMallShoppingCartItem salesMallShoppingCartItem = salesMallShoppingCartItemMapper.selectByPrimaryKey(shoppingCartItemId);
         if (salesMallShoppingCartItem == null) {
             return false;
         }
@@ -97,38 +97,38 @@ public class SalesMallShoppingCartServiceImpl implements SalesMallShoppingCartSe
         if (!userId.equals(salesMallShoppingCartItem.getUserId())) {
             return false;
         }
-        return newBeeMallShoppingCartItemMapper.deleteByPrimaryKey(shoppingCartItemId) > 0;
+        return salesMallShoppingCartItemMapper.deleteByPrimaryKey(shoppingCartItemId) > 0;
     }
 
     @Override
-    public List<NewBeeMallShoppingCartItemVO> getMyShoppingCartItems(Long newBeeMallUserId) {
-        List<NewBeeMallShoppingCartItemVO> newBeeMallShoppingCartItemVOS = new ArrayList<>();
-        List<SalesMallShoppingCartItem> salesMallShoppingCartItems = newBeeMallShoppingCartItemMapper.selectByUserId(newBeeMallUserId, Constants.SHOPPING_CART_ITEM_TOTAL_NUMBER);
+    public List<SalesMallShoppingCartItemVO> getMyShoppingCartItems(Long newBeeMallUserId) {
+        List<SalesMallShoppingCartItemVO> salesMallShoppingCartItemVOS = new ArrayList<>();
+        List<SalesMallShoppingCartItem> salesMallShoppingCartItems = salesMallShoppingCartItemMapper.selectByUserId(newBeeMallUserId, Constants.SHOPPING_CART_ITEM_TOTAL_NUMBER);
         if (!CollectionUtils.isEmpty(salesMallShoppingCartItems)) {
             //查询商品信息并做数据转换
             List<Long> newBeeMallGoodsIds = salesMallShoppingCartItems.stream().map(SalesMallShoppingCartItem::getGoodsId).collect(Collectors.toList());
-            List<SalesMallGoods> salesMallGoods = newBeeMallGoodsMapper.selectByPrimaryKeys(newBeeMallGoodsIds);
+            List<SalesMallGoods> salesMallGoods = salesMallGoodsMapper.selectByPrimaryKeys(newBeeMallGoodsIds);
             Map<Long, SalesMallGoods> newBeeMallGoodsMap = new HashMap<>();
             if (!CollectionUtils.isEmpty(salesMallGoods)) {
                 newBeeMallGoodsMap = salesMallGoods.stream().collect(Collectors.toMap(SalesMallGoods::getGoodsId, Function.identity(), (entity1, entity2) -> entity1));
             }
             for (SalesMallShoppingCartItem salesMallShoppingCartItem : salesMallShoppingCartItems) {
-                NewBeeMallShoppingCartItemVO newBeeMallShoppingCartItemVO = new NewBeeMallShoppingCartItemVO();
-                BeanUtil.copyProperties(salesMallShoppingCartItem, newBeeMallShoppingCartItemVO);
+                SalesMallShoppingCartItemVO salesMallShoppingCartItemVO = new SalesMallShoppingCartItemVO();
+                BeanUtil.copyProperties(salesMallShoppingCartItem, salesMallShoppingCartItemVO);
                 if (newBeeMallGoodsMap.containsKey(salesMallShoppingCartItem.getGoodsId())) {
                     SalesMallGoods salesMallGoodsTemp = newBeeMallGoodsMap.get(salesMallShoppingCartItem.getGoodsId());
-                    newBeeMallShoppingCartItemVO.setGoodsCoverImg(salesMallGoodsTemp.getGoodsCoverImg());
+                    salesMallShoppingCartItemVO.setGoodsCoverImg(salesMallGoodsTemp.getGoodsCoverImg());
                     String goodsName = salesMallGoodsTemp.getGoodsName();
                     // 字符串过长导致文字超出的问题
                     if (goodsName.length() > 28) {
                         goodsName = goodsName.substring(0, 28) + "...";
                     }
-                    newBeeMallShoppingCartItemVO.setGoodsName(goodsName);
-                    newBeeMallShoppingCartItemVO.setSellingPrice(salesMallGoodsTemp.getSellingPrice());
-                    newBeeMallShoppingCartItemVOS.add(newBeeMallShoppingCartItemVO);
+                    salesMallShoppingCartItemVO.setGoodsName(goodsName);
+                    salesMallShoppingCartItemVO.setSellingPrice(salesMallGoodsTemp.getSellingPrice());
+                    salesMallShoppingCartItemVOS.add(salesMallShoppingCartItemVO);
                 }
             }
         }
-        return newBeeMallShoppingCartItemVOS;
+        return salesMallShoppingCartItemVOS;
     }
 }

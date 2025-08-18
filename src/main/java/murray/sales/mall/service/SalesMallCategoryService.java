@@ -1,6 +1,6 @@
 package murray.sales.mall.service;
 
-import murray.sales.mall.controller.vo.NewBeeMallIndexCategoryVO;
+import murray.sales.mall.controller.vo.SalesMallIndexCategoryVO;
 import murray.sales.mall.controller.vo.SearchPageCategoryVO;
 import murray.sales.mall.entity.GoodsCategory;
 import murray.sales.mall.util.PageQueryUtil;
@@ -30,7 +30,7 @@ public interface SalesMallCategoryService {
      *
      * @return
      */
-    List<NewBeeMallIndexCategoryVO> getCategoriesForIndex();
+    List<SalesMallIndexCategoryVO> getCategoriesForIndex();
 
     /**
      * 返回分类数据(搜索页调用)

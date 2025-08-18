@@ -37,7 +37,8 @@ public class AdminController {
         return "admin/login";
     }
 
-    @GetMapping({"/test"})
+    @GetMapping({"/test","test.html"})
+    @ResponseBody
     public String test() {
         return "admin/test";
     }

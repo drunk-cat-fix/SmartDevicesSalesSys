@@ -10,7 +10,7 @@ package murray.sales.mall.controller.vo;
 
 import java.io.Serializable;
 
-public class NewBeeMallUserVO implements Serializable {
+public class SalesMallUserVO implements Serializable {
 
     private Long userId;
 

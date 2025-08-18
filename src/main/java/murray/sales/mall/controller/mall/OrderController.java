@@ -4,9 +4,9 @@ import murray.sales.mall.common.Constants;
 import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.NewBeeMallOrderStatusEnum;
 import murray.sales.mall.common.ServiceResultEnum;
-import murray.sales.mall.controller.vo.NewBeeMallOrderDetailVO;
-import murray.sales.mall.controller.vo.NewBeeMallShoppingCartItemVO;
-import murray.sales.mall.controller.vo.NewBeeMallUserVO;
+import murray.sales.mall.controller.vo.SalesMallOrderDetailVO;
+import murray.sales.mall.controller.vo.SalesMallShoppingCartItemVO;
+import murray.sales.mall.controller.vo.SalesMallUserVO;
 import murray.sales.mall.entity.SalesMallOrder;
 import murray.sales.mall.service.SalesMallOrderService;
 import murray.sales.mall.service.SalesMallShoppingCartService;
@@ -38,15 +38,15 @@ public class OrderController {
 
     @GetMapping("/orders/{orderNo}")
     public String orderDetailPage(HttpServletRequest request, @PathVariable("orderNo") String orderNo, HttpSession httpSession) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-        NewBeeMallOrderDetailVO orderDetailVO = salesMallOrderService.getOrderDetailByOrderNo(orderNo, user.getUserId());
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        SalesMallOrderDetailVO orderDetailVO = salesMallOrderService.getOrderDetailByOrderNo(orderNo, user.getUserId());
         request.setAttribute("orderDetailVO", orderDetailVO);
         return "mall/order-detail";
     }
 
     @GetMapping("/orders")
     public String orderListPage(@RequestParam Map<String, Object> params, HttpServletRequest request, HttpSession httpSession) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         params.put("userId", user.getUserId());
         if (ObjectUtils.isEmpty(params.get("page"))) {
             params.put("page", 1);
@@ -61,8 +61,8 @@ public class OrderController {
 
     @GetMapping("/saveOrder")
     public String saveOrder(HttpSession httpSession) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-        List<NewBeeMallShoppingCartItemVO> myShoppingCartItems = salesMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        List<SalesMallShoppingCartItemVO> myShoppingCartItems = salesMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
         if (!StringUtils.hasText(user.getAddress().trim())) {
             //无收货地址
             SalesSystemException.fail(ServiceResultEnum.NULL_ADDRESS_ERROR.getResult());
@@ -80,7 +80,7 @@ public class OrderController {
     @PutMapping("/orders/{orderNo}/cancel")
     @ResponseBody
     public Result cancelOrder(@PathVariable("orderNo") String orderNo, HttpSession httpSession) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         String cancelOrderResult = salesMallOrderService.cancelOrder(orderNo, user.getUserId());
         if (ServiceResultEnum.SUCCESS.getResult().equals(cancelOrderResult)) {
             return ResultGenerator.genSuccessResult();
@@ -92,7 +92,7 @@ public class OrderController {
     @PutMapping("/orders/{orderNo}/finish")
     @ResponseBody
     public Result finishOrder(@PathVariable("orderNo") String orderNo, HttpSession httpSession) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         String finishOrderResult = salesMallOrderService.finishOrder(orderNo, user.getUserId());
         if (ServiceResultEnum.SUCCESS.getResult().equals(finishOrderResult)) {
             return ResultGenerator.genSuccessResult();
@@ -103,7 +103,7 @@ public class OrderController {
 
     @GetMapping("/selectPayType")
     public String selectPayType(HttpServletRequest request, @RequestParam("orderNo") String orderNo, HttpSession httpSession) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         SalesMallOrder salesMallOrder = salesMallOrderService.getNewBeeMallOrderByOrderNo(orderNo);
         //判断订单userId
         if (!user.getUserId().equals(salesMallOrder.getUserId())) {
@@ -120,7 +120,7 @@ public class OrderController {
 
     @GetMapping("/payPage")
     public String payOrder(HttpServletRequest request, @RequestParam("orderNo") String orderNo, HttpSession httpSession, @RequestParam("payType") int payType) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         SalesMallOrder salesMallOrder = salesMallOrderService.getNewBeeMallOrderByOrderNo(orderNo);
         //判断订单userId
         if (!user.getUserId().equals(salesMallOrder.getUserId())) {

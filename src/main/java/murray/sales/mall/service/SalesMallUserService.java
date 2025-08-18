@@ -8,7 +8,7 @@
  */
 package murray.sales.mall.service;
 
-import murray.sales.mall.controller.vo.NewBeeMallUserVO;
+import murray.sales.mall.controller.vo.SalesMallUserVO;
 import murray.sales.mall.entity.MallUser;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.PageResult;
@@ -49,7 +49,7 @@ public interface SalesMallUserService {
      * @param mallUser
      * @return
      */
-    NewBeeMallUserVO updateUserInfo(MallUser mallUser, HttpSession httpSession);
+    SalesMallUserVO updateUserInfo(MallUser mallUser, HttpSession httpSession);
 
     /**
      * 用户禁用与解除禁用(0-未锁定 1-已锁定)

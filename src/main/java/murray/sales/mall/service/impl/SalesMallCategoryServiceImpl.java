@@ -3,7 +3,7 @@ package murray.sales.mall.service.impl;
 import murray.sales.mall.common.Constants;
 import murray.sales.mall.common.SalesMallCategoryLevelEnum;
 import murray.sales.mall.common.ServiceResultEnum;
-import murray.sales.mall.controller.vo.NewBeeMallIndexCategoryVO;
+import murray.sales.mall.controller.vo.SalesMallIndexCategoryVO;
 import murray.sales.mall.controller.vo.SearchPageCategoryVO;
 import murray.sales.mall.controller.vo.SecondLevelCategoryVO;
 import murray.sales.mall.controller.vo.ThirdLevelCategoryVO;
@@ -81,8 +81,8 @@ public class SalesMallCategoryServiceImpl implements SalesMallCategoryService {
     }
 
     @Override
-    public List<NewBeeMallIndexCategoryVO> getCategoriesForIndex() {
-        List<NewBeeMallIndexCategoryVO> newBeeMallIndexCategoryVOS = new ArrayList<>();
+    public List<SalesMallIndexCategoryVO> getCategoriesForIndex() {
+        List<SalesMallIndexCategoryVO> salesMallIndexCategoryVOS = new ArrayList<>();
         //获取一级分类的固定数量的数据
         List<GoodsCategory> firstLevelCategories = goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(Collections.singletonList(0L), SalesMallCategoryLevelEnum.LEVEL_ONE.getLevel(), Constants.INDEX_CATEGORY_NUMBER);
         if (!CollectionUtils.isEmpty(firstLevelCategories)) {
@@ -114,20 +114,20 @@ public class SalesMallCategoryServiceImpl implements SalesMallCategoryService {
                         //根据 parentId 将 thirdLevelCategories 分组
                         Map<Long, List<SecondLevelCategoryVO>> secondLevelCategoryVOMap = secondLevelCategoryVOS.stream().collect(groupingBy(SecondLevelCategoryVO::getParentId));
                         for (GoodsCategory firstCategory : firstLevelCategories) {
-                            NewBeeMallIndexCategoryVO newBeeMallIndexCategoryVO = new NewBeeMallIndexCategoryVO();
-                            BeanUtil.copyProperties(firstCategory, newBeeMallIndexCategoryVO);
-                            //如果该一级分类下有数据则放入 newBeeMallIndexCategoryVOS 对象中
+                            SalesMallIndexCategoryVO salesMallIndexCategoryVO = new SalesMallIndexCategoryVO();
+                            BeanUtil.copyProperties(firstCategory, salesMallIndexCategoryVO);
+                            //如果该一级分类下有数据则放入 salesMallIndexCategoryVOS 对象中
                             if (secondLevelCategoryVOMap.containsKey(firstCategory.getCategoryId())) {
                                 //根据一级分类的id取出secondLevelCategoryVOMap分组中的二级级分类list
                                 List<SecondLevelCategoryVO> tempGoodsCategories = secondLevelCategoryVOMap.get(firstCategory.getCategoryId());
-                                newBeeMallIndexCategoryVO.setSecondLevelCategoryVOS(tempGoodsCategories);
-                                newBeeMallIndexCategoryVOS.add(newBeeMallIndexCategoryVO);
+                                salesMallIndexCategoryVO.setSecondLevelCategoryVOS(tempGoodsCategories);
+                                salesMallIndexCategoryVOS.add(salesMallIndexCategoryVO);
                             }
                         }
                     }
                 }
             }
-            return newBeeMallIndexCategoryVOS;
+            return salesMallIndexCategoryVOS;
         } else {
             return null;
         }

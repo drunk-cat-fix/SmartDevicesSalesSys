@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="murray.sales.mall.dao.NewBeeMallGoodsMapper">
+<mapper namespace="murray.sales.mall.dao.SalesMallGoodsMapper">
     <resultMap id="BaseResultMap" type="murray.sales.mall.entity.SalesMallGoods">
         <id column="goods_id" jdbcType="BIGINT" property="goodsId"/>
         <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>

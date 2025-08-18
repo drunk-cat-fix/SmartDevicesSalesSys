@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface NewBeeMallShoppingCartItemMapper {
+public interface SalesMallShoppingCartItemMapper {
     int deleteByPrimaryKey(Long cartItemId);
 
     int insert(SalesMallShoppingCartItem record);

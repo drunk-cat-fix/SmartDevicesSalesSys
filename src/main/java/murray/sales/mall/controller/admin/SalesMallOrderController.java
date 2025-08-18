@@ -9,7 +9,7 @@
 package murray.sales.mall.controller.admin;
 
 import murray.sales.mall.common.ServiceResultEnum;
-import murray.sales.mall.controller.vo.NewBeeMallOrderItemVO;
+import murray.sales.mall.controller.vo.SalesMallOrderItemVO;
 import murray.sales.mall.entity.SalesMallOrder;
 import murray.sales.mall.service.SalesMallOrderService;
 import murray.sales.mall.util.PageQueryUtil;
@@ -86,7 +86,7 @@ public class SalesMallOrderController {
     @GetMapping("/order-items/{id}")
     @ResponseBody
     public Result info(@PathVariable("id") Long id) {
-        List<NewBeeMallOrderItemVO> orderItems = salesMallOrderService.getOrderItems(id);
+        List<SalesMallOrderItemVO> orderItems = salesMallOrderService.getOrderItems(id);
         if (!CollectionUtils.isEmpty(orderItems)) {
             return ResultGenerator.genSuccessResult(orderItems);
         }

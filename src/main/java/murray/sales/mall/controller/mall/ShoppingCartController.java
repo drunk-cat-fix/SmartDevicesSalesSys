@@ -11,8 +11,8 @@ package murray.sales.mall.controller.mall;
 import murray.sales.mall.common.Constants;
 import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
-import murray.sales.mall.controller.vo.NewBeeMallShoppingCartItemVO;
-import murray.sales.mall.controller.vo.NewBeeMallUserVO;
+import murray.sales.mall.controller.vo.SalesMallShoppingCartItemVO;
+import murray.sales.mall.controller.vo.SalesMallUserVO;
 import murray.sales.mall.entity.SalesMallShoppingCartItem;
 import murray.sales.mall.service.SalesMallShoppingCartService;
 import murray.sales.mall.util.Result;
@@ -35,19 +35,19 @@ public class ShoppingCartController {
     @GetMapping("/shop-cart")
     public String cartListPage(HttpServletRequest request,
                                HttpSession httpSession) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         int itemsTotal = 0;
         int priceTotal = 0;
-        List<NewBeeMallShoppingCartItemVO> myShoppingCartItems = salesMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
+        List<SalesMallShoppingCartItemVO> myShoppingCartItems = salesMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
         if (!CollectionUtils.isEmpty(myShoppingCartItems)) {
             //购物项总数
-            itemsTotal = myShoppingCartItems.stream().mapToInt(NewBeeMallShoppingCartItemVO::getGoodsCount).sum();
+            itemsTotal = myShoppingCartItems.stream().mapToInt(SalesMallShoppingCartItemVO::getGoodsCount).sum();
             if (itemsTotal < 1) {
                 SalesSystemException.fail("The shopping items cannot be empty");
             }
             //总价
-            for (NewBeeMallShoppingCartItemVO newBeeMallShoppingCartItemVO : myShoppingCartItems) {
-                priceTotal += newBeeMallShoppingCartItemVO.getGoodsCount() * newBeeMallShoppingCartItemVO.getSellingPrice();
+            for (SalesMallShoppingCartItemVO salesMallShoppingCartItemVO : myShoppingCartItems) {
+                priceTotal += salesMallShoppingCartItemVO.getGoodsCount() * salesMallShoppingCartItemVO.getSellingPrice();
             }
             if (priceTotal < 1) {
                 SalesSystemException.fail("The price of shopping items is abnormal");
@@ -63,7 +63,7 @@ public class ShoppingCartController {
     @ResponseBody
     public Result saveNewBeeMallShoppingCartItem(@RequestBody SalesMallShoppingCartItem salesMallShoppingCartItem,
                                                  HttpSession httpSession) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         salesMallShoppingCartItem.setUserId(user.getUserId());
         String saveResult = salesMallShoppingCartService.saveNewBeeMallCartItem(salesMallShoppingCartItem);
         //添加成功
@@ -78,7 +78,7 @@ public class ShoppingCartController {
     @ResponseBody
     public Result updateNewBeeMallShoppingCartItem(@RequestBody SalesMallShoppingCartItem salesMallShoppingCartItem,
                                                    HttpSession httpSession) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         salesMallShoppingCartItem.setUserId(user.getUserId());
         String updateResult = salesMallShoppingCartService.updateNewBeeMallCartItem(salesMallShoppingCartItem);
         //修改成功
@@ -93,7 +93,7 @@ public class ShoppingCartController {
     @ResponseBody
     public Result updateNewBeeMallShoppingCartItem(@PathVariable("newBeeMallShoppingCartItemId") Long newBeeMallShoppingCartItemId,
                                                    HttpSession httpSession) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         Boolean deleteResult = salesMallShoppingCartService.deleteById(newBeeMallShoppingCartItemId,user.getUserId());
         //删除成功
         if (deleteResult) {
@@ -107,15 +107,15 @@ public class ShoppingCartController {
     public String settlePage(HttpServletRequest request,
                              HttpSession httpSession) {
         int priceTotal = 0;
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-        List<NewBeeMallShoppingCartItemVO> myShoppingCartItems = salesMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
+        SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        List<SalesMallShoppingCartItemVO> myShoppingCartItems = salesMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
         if (CollectionUtils.isEmpty(myShoppingCartItems)) {
             //无数据则不跳转至结算页
             return "/shop-cart";
         } else {
             //总价
-            for (NewBeeMallShoppingCartItemVO newBeeMallShoppingCartItemVO : myShoppingCartItems) {
-                priceTotal += newBeeMallShoppingCartItemVO.getGoodsCount() * newBeeMallShoppingCartItemVO.getSellingPrice();
+            for (SalesMallShoppingCartItemVO salesMallShoppingCartItemVO : myShoppingCartItems) {
+                priceTotal += salesMallShoppingCartItemVO.getGoodsCount() * salesMallShoppingCartItemVO.getSellingPrice();
             }
             if (priceTotal < 1) {
                 SalesSystemException.fail("购物项价格异常");

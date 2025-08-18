@@ -1,9 +1,9 @@
 package murray.sales.mall.service;
 
-import murray.sales.mall.controller.vo.NewBeeMallOrderDetailVO;
-import murray.sales.mall.controller.vo.NewBeeMallOrderItemVO;
-import murray.sales.mall.controller.vo.NewBeeMallShoppingCartItemVO;
-import murray.sales.mall.controller.vo.NewBeeMallUserVO;
+import murray.sales.mall.controller.vo.SalesMallOrderDetailVO;
+import murray.sales.mall.controller.vo.SalesMallOrderItemVO;
+import murray.sales.mall.controller.vo.SalesMallShoppingCartItemVO;
+import murray.sales.mall.controller.vo.SalesMallUserVO;
 import murray.sales.mall.entity.SalesMallOrder;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.PageResult;
@@ -58,7 +58,7 @@ public interface SalesMallOrderService {
      * @param myShoppingCartItems
      * @return
      */
-    String saveOrder(NewBeeMallUserVO user, List<NewBeeMallShoppingCartItemVO> myShoppingCartItems);
+    String saveOrder(SalesMallUserVO user, List<SalesMallShoppingCartItemVO> myShoppingCartItems);
 
     /**
      * 获取订单详情
@@ -67,7 +67,7 @@ public interface SalesMallOrderService {
      * @param userId
      * @return
      */
-    NewBeeMallOrderDetailVO getOrderDetailByOrderNo(String orderNo, Long userId);
+    SalesMallOrderDetailVO getOrderDetailByOrderNo(String orderNo, Long userId);
 
     /**
      * 获取订单详情
@@ -105,5 +105,5 @@ public interface SalesMallOrderService {
 
     String paySuccess(String orderNo, int payType);
 
-    List<NewBeeMallOrderItemVO> getOrderItems(Long id);
+    List<SalesMallOrderItemVO> getOrderItems(Long id);
 }

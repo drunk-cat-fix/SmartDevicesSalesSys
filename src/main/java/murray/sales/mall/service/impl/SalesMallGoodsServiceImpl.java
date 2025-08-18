@@ -3,9 +3,9 @@ package murray.sales.mall.service.impl;
 import murray.sales.mall.common.SalesMallCategoryLevelEnum;
 import murray.sales.mall.common.SalesSystemException;
 import murray.sales.mall.common.ServiceResultEnum;
-import murray.sales.mall.controller.vo.NewBeeMallSearchGoodsVO;
+import murray.sales.mall.controller.vo.SalesMallSearchGoodsVO;
 import murray.sales.mall.dao.GoodsCategoryMapper;
-import murray.sales.mall.dao.NewBeeMallGoodsMapper;
+import murray.sales.mall.dao.SalesMallGoodsMapper;
 import murray.sales.mall.entity.GoodsCategory;
 import murray.sales.mall.entity.SalesMallGoods;
 import murray.sales.mall.service.SalesMallGoodsService;
@@ -25,7 +25,7 @@ import java.util.List;
 public class SalesMallGoodsServiceImpl implements SalesMallGoodsService {
 
     @Autowired
-    private NewBeeMallGoodsMapper goodsMapper;
+    private SalesMallGoodsMapper goodsMapper;
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;
 
@@ -107,24 +107,24 @@ public class SalesMallGoodsServiceImpl implements SalesMallGoodsService {
     public PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil) {
         List<SalesMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsListBySearch(pageUtil);
         int total = goodsMapper.getTotalNewBeeMallGoodsBySearch(pageUtil);
-        List<NewBeeMallSearchGoodsVO> newBeeMallSearchGoodsVOS = new ArrayList<>();
+        List<SalesMallSearchGoodsVO> salesMallSearchGoodsVOS = new ArrayList<>();
         if (!CollectionUtils.isEmpty(goodsList)) {
-            newBeeMallSearchGoodsVOS = BeanUtil.copyList(goodsList, NewBeeMallSearchGoodsVO.class);
-            for (NewBeeMallSearchGoodsVO newBeeMallSearchGoodsVO : newBeeMallSearchGoodsVOS) {
-                String goodsName = newBeeMallSearchGoodsVO.getGoodsName();
-                String goodsIntro = newBeeMallSearchGoodsVO.getGoodsIntro();
+            salesMallSearchGoodsVOS = BeanUtil.copyList(goodsList, SalesMallSearchGoodsVO.class);
+            for (SalesMallSearchGoodsVO salesMallSearchGoodsVO : salesMallSearchGoodsVOS) {
+                String goodsName = salesMallSearchGoodsVO.getGoodsName();
+                String goodsIntro = salesMallSearchGoodsVO.getGoodsIntro();
                 // 字符串过长导致文字超出的问题
                 if (goodsName.length() > 28) {
                     goodsName = goodsName.substring(0, 28) + "...";
-                    newBeeMallSearchGoodsVO.setGoodsName(goodsName);
+                    salesMallSearchGoodsVO.setGoodsName(goodsName);
                 }
                 if (goodsIntro.length() > 30) {
                     goodsIntro = goodsIntro.substring(0, 30) + "...";
-                    newBeeMallSearchGoodsVO.setGoodsIntro(goodsIntro);
+                    salesMallSearchGoodsVO.setGoodsIntro(goodsIntro);
                 }
             }
         }
-        PageResult pageResult = new PageResult(newBeeMallSearchGoodsVOS, total, pageUtil.getLimit(), pageUtil.getPage());
+        PageResult pageResult = new PageResult(salesMallSearchGoodsVOS, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 }

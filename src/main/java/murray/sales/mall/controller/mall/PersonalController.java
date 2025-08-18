@@ -11,7 +11,7 @@ package murray.sales.mall.controller.mall;
 import cn.hutool.captcha.ShearCaptcha;
 import murray.sales.mall.common.Constants;
 import murray.sales.mall.common.ServiceResultEnum;
-import murray.sales.mall.controller.vo.NewBeeMallUserVO;
+import murray.sales.mall.controller.vo.SalesMallUserVO;
 import murray.sales.mall.entity.MallUser;
 import murray.sales.mall.service.SalesMallUserService;
 import murray.sales.mall.util.MD5Util;
@@ -123,7 +123,7 @@ public class PersonalController {
     @PostMapping("/personal/updateInfo")
     @ResponseBody
     public Result updateInfo(@RequestBody MallUser mallUser, HttpSession httpSession) {
-        NewBeeMallUserVO mallUserTemp = salesMallUserService.updateUserInfo(mallUser, httpSession);
+        SalesMallUserVO mallUserTemp = salesMallUserService.updateUserInfo(mallUser, httpSession);
         if (mallUserTemp == null) {
             Result result = ResultGenerator.genFailResult("修改失败");
             return result;

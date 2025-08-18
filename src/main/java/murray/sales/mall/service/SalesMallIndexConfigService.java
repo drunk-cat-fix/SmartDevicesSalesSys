@@ -1,6 +1,6 @@
 package murray.sales.mall.service;
 
-import murray.sales.mall.controller.vo.NewBeeMallIndexConfigGoodsVO;
+import murray.sales.mall.controller.vo.SalesMallIndexConfigGoodsVO;
 import murray.sales.mall.entity.IndexConfig;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.PageResult;
@@ -28,7 +28,7 @@ public interface SalesMallIndexConfigService {
      * @param number
      * @return
      */
-    List<NewBeeMallIndexConfigGoodsVO> getConfigGoodsesForIndex(int configType, int number);
+    List<SalesMallIndexConfigGoodsVO> getConfigGoodsesForIndex(int configType, int number);
 
     Boolean deleteBatch(Long[] ids);
 }

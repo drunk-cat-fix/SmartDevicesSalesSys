@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface NewBeeMallOrderMapper {
+public interface SalesMallOrderMapper {
     int deleteByPrimaryKey(Long orderId);
 
     int insert(SalesMallOrder record);

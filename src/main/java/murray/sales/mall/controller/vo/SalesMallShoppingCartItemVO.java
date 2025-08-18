@@ -9,28 +9,23 @@
 package murray.sales.mall.controller.vo;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
- * 商品详情页VO
+ * 购物车页面购物项VO
  */
-public class NewBeeMallGoodsDetailVO implements Serializable {
+public class SalesMallShoppingCartItemVO implements Serializable {
+
+    private Long cartItemId;
 
     private Long goodsId;
 
-    private String goodsName;
+    private Integer goodsCount;
 
-    private String goodsIntro;
+    private String goodsName;
 
     private String goodsCoverImg;
 
-    private String[] goodsCarouselList;
-
     private Integer sellingPrice;
-
-    private Integer originalPrice;
-
-    private String goodsDetailContent;
 
     public Long getGoodsId() {
         return goodsId;
@@ -46,14 +41,6 @@ public class NewBeeMallGoodsDetailVO implements Serializable {
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
-    }
-
-    public String getGoodsIntro() {
-        return goodsIntro;
-    }
-
-    public void setGoodsIntro(String goodsIntro) {
-        this.goodsIntro = goodsIntro;
     }
 
     public String getGoodsCoverImg() {
@@ -72,27 +59,19 @@ public class NewBeeMallGoodsDetailVO implements Serializable {
         this.sellingPrice = sellingPrice;
     }
 
-    public Integer getOriginalPrice() {
-        return originalPrice;
+    public Long getCartItemId() {
+        return cartItemId;
     }
 
-    public void setOriginalPrice(Integer originalPrice) {
-        this.originalPrice = originalPrice;
+    public void setCartItemId(Long cartItemId) {
+        this.cartItemId = cartItemId;
     }
 
-    public String getGoodsDetailContent() {
-        return goodsDetailContent;
+    public Integer getGoodsCount() {
+        return goodsCount;
     }
 
-    public void setGoodsDetailContent(String goodsDetailContent) {
-        this.goodsDetailContent = goodsDetailContent;
-    }
-
-    public String[] getGoodsCarouselList() {
-        return goodsCarouselList;
-    }
-
-    public void setGoodsCarouselList(String[] goodsCarouselList) {
-        this.goodsCarouselList = goodsCarouselList;
+    public void setGoodsCount(Integer goodsCount) {
+        this.goodsCount = goodsCount;
     }
 }

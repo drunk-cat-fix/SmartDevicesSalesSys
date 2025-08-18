@@ -1,6 +1,6 @@
 package murray.sales.mall.service;
 
-import murray.sales.mall.controller.vo.NewBeeMallShoppingCartItemVO;
+import murray.sales.mall.controller.vo.SalesMallShoppingCartItemVO;
 import murray.sales.mall.entity.SalesMallShoppingCartItem;
 
 import java.util.List;
@@ -47,5 +47,5 @@ public interface SalesMallShoppingCartService {
      * @param newBeeMallUserId
      * @return
      */
-    List<NewBeeMallShoppingCartItemVO> getMyShoppingCartItems(Long newBeeMallUserId);
+    List<SalesMallShoppingCartItemVO> getMyShoppingCartItems(Long newBeeMallUserId);
 }

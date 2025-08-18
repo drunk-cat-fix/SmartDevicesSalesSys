@@ -11,9 +11,9 @@ package murray.sales.mall.controller.vo;
 import java.io.Serializable;
 
 /**
- * 首页配置商品VO
+ * 搜索列表页商品VO
  */
-public class NewBeeMallIndexConfigGoodsVO implements Serializable {
+public class SalesMallSearchGoodsVO implements Serializable {
 
     private Long goodsId;
 
@@ -24,8 +24,6 @@ public class NewBeeMallIndexConfigGoodsVO implements Serializable {
     private String goodsCoverImg;
 
     private Integer sellingPrice;
-
-    private String tag;
 
     public Long getGoodsId() {
         return goodsId;
@@ -65,13 +63,5 @@ public class NewBeeMallIndexConfigGoodsVO implements Serializable {
 
     public void setSellingPrice(Integer sellingPrice) {
         this.sellingPrice = sellingPrice;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
     }
 }

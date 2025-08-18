@@ -2,7 +2,7 @@ package murray.sales.mall.service.impl;
 
 import murray.sales.mall.common.Constants;
 import murray.sales.mall.common.ServiceResultEnum;
-import murray.sales.mall.controller.vo.NewBeeMallUserVO;
+import murray.sales.mall.controller.vo.SalesMallUserVO;
 import murray.sales.mall.dao.MallUserMapper;
 import murray.sales.mall.entity.MallUser;
 import murray.sales.mall.service.SalesMallUserService;
@@ -56,18 +56,18 @@ public class SalesMallUserServiceImpl implements SalesMallUserService {
                 String tempNickName = user.getNickName().substring(0, 7) + "..";
                 user.setNickName(tempNickName);
             }
-            NewBeeMallUserVO newBeeMallUserVO = new NewBeeMallUserVO();
-            BeanUtil.copyProperties(user, newBeeMallUserVO);
+            SalesMallUserVO salesMallUserVO = new SalesMallUserVO();
+            BeanUtil.copyProperties(user, salesMallUserVO);
             //设置购物车中的数量
-            httpSession.setAttribute(Constants.MALL_USER_SESSION_KEY, newBeeMallUserVO);
+            httpSession.setAttribute(Constants.MALL_USER_SESSION_KEY, salesMallUserVO);
             return ServiceResultEnum.SUCCESS.getResult();
         }
         return ServiceResultEnum.LOGIN_ERROR.getResult();
     }
 
     @Override
-    public NewBeeMallUserVO updateUserInfo(MallUser mallUser, HttpSession httpSession) {
-        NewBeeMallUserVO userTemp = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+    public SalesMallUserVO updateUserInfo(MallUser mallUser, HttpSession httpSession) {
+        SalesMallUserVO userTemp = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         MallUser userFromDB = mallUserMapper.selectByPrimaryKey(userTemp.getUserId());
         if (userFromDB != null) {
             if (StringUtils.hasText(mallUser.getNickName())) {
@@ -80,10 +80,10 @@ public class SalesMallUserServiceImpl implements SalesMallUserService {
                 userFromDB.setIntroduceSign(SalesMallUtils.cleanString(mallUser.getIntroduceSign()));
             }
             if (mallUserMapper.updateByPrimaryKeySelective(userFromDB) > 0) {
-                NewBeeMallUserVO newBeeMallUserVO = new NewBeeMallUserVO();
-                BeanUtil.copyProperties(userFromDB, newBeeMallUserVO);
-                httpSession.setAttribute(Constants.MALL_USER_SESSION_KEY, newBeeMallUserVO);
-                return newBeeMallUserVO;
+                SalesMallUserVO salesMallUserVO = new SalesMallUserVO();
+                BeanUtil.copyProperties(userFromDB, salesMallUserVO);
+                httpSession.setAttribute(Constants.MALL_USER_SESSION_KEY, salesMallUserVO);
+                return salesMallUserVO;
             }
         }
         return null;
