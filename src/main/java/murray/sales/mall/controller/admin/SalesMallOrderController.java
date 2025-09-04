@@ -45,7 +45,7 @@ public class SalesMallOrderController {
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
         if (ObjectUtils.isEmpty(params.get("page")) || ObjectUtils.isEmpty(params.get("limit"))) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameter is excepted！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         return ResultGenerator.genSuccessResult(salesMallOrderService.getNewBeeMallOrdersPage(pageUtil));
@@ -62,7 +62,7 @@ public class SalesMallOrderController {
                 || salesMallOrder.getOrderId() < 1
                 || salesMallOrder.getTotalPrice() < 1
                 || !StringUtils.hasText(salesMallOrder.getUserAddress())) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameter is excepted");
         }
         String result = salesMallOrderService.updateOrderInfo(salesMallOrder);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
@@ -92,7 +92,7 @@ public class SalesMallOrderController {
     @ResponseBody
     public Result checkDone(@RequestBody Long[] ids) {
         if (ids.length < 1) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameter is excepted");
         }
         String result = salesMallOrderService.checkDone(ids);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
@@ -109,7 +109,7 @@ public class SalesMallOrderController {
     @ResponseBody
     public Result checkOut(@RequestBody Long[] ids) {
         if (ids.length < 1) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameter is excepted");
         }
         String result = salesMallOrderService.checkOut(ids);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
@@ -126,7 +126,7 @@ public class SalesMallOrderController {
     @ResponseBody
     public Result closeOrder(@RequestBody Long[] ids) {
         if (ids.length < 1) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameter is excepted");
         }
         String result = salesMallOrderService.closeOrder(ids);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {

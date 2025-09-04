@@ -157,12 +157,12 @@ body, .body {
 }
 
 .icon-ali-pay {
-    background: url("../image/pay/alipay_logo.jpg") no-repeat;
+    background: url("../image/pay/payOnline_tng.png") no-repeat;
     background-size: cover;
 }
 
 .icon-wx-pay {
-    background: url("../image/pay/wx_logo.jpg") no-repeat;
+    background: url("../image/pay/onlinePay_bigpay.png") no-repeat;
     background-size: cover;
 }
 

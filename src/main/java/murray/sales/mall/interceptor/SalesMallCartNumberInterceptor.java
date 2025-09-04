@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @email murray50325487@gmail.com
  */
 @Component
-public class NewBeeMallCartNumberInterceptor implements HandlerInterceptor {
+public class SalesMallCartNumberInterceptor implements HandlerInterceptor {
 
     @Autowired
     private SalesMallShoppingCartItemMapper salesMallShoppingCartItemMapper;

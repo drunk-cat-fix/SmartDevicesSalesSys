@@ -2,7 +2,7 @@ package murray.sales.mall.controller.mall;
 
 import murray.sales.mall.common.Constants;
 import murray.sales.mall.common.SalesSystemException;
-import murray.sales.mall.common.NewBeeMallOrderStatusEnum;
+import murray.sales.mall.common.SalesMallOrderStatusEnum;
 import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.controller.vo.SalesMallOrderDetailVO;
 import murray.sales.mall.controller.vo.SalesMallShoppingCartItemVO;
@@ -110,7 +110,7 @@ public class OrderController {
             SalesSystemException.fail(ServiceResultEnum.NO_PERMISSION_ERROR.getResult());
         }
         //判断订单状态
-        if (salesMallOrder.getOrderStatus().intValue() != NewBeeMallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
+        if (salesMallOrder.getOrderStatus().intValue() != SalesMallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
             SalesSystemException.fail(ServiceResultEnum.ORDER_STATUS_ERROR.getResult());
         }
         request.setAttribute("orderNo", orderNo);
@@ -127,15 +127,15 @@ public class OrderController {
             SalesSystemException.fail(ServiceResultEnum.NO_PERMISSION_ERROR.getResult());
         }
         //判断订单状态
-        if (salesMallOrder.getOrderStatus().intValue() != NewBeeMallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
+        if (salesMallOrder.getOrderStatus().intValue() != SalesMallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
             SalesSystemException.fail(ServiceResultEnum.ORDER_STATUS_ERROR.getResult());
         }
         request.setAttribute("orderNo", orderNo);
         request.setAttribute("totalPrice", salesMallOrder.getTotalPrice());
         if (payType == 1) {
-            return "mall/alipay";
+            return "TNG";
         } else {
-            return "mall/wxpay";
+            return "bigpay";
         }
     }
 

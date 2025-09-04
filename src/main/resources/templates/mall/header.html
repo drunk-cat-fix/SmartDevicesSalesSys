@@ -32,7 +32,7 @@
             <li><a href="https://github.com/drunk-cat-fix/SmartDevicesSalesSys.git">Gitee Address</a></li>
         </ul>
         <div class="fr">
-            <th:block th:unless="${session.newBeeMallUser==null}">
+            <th:block th:unless="${session.salesMallUser==null}">
                 <div class="user">
                     <ul class="selector">
                         <li>
@@ -52,18 +52,18 @@
                         </li>
                     </ul>
                     <a href="##" class="username">
-                        <th:block th:text="${session.newBeeMallUser.nickName}"></th:block>
+                        <th:block th:text="${session.salesMallUser.nickName}"></th:block>
                         <i class="iconfont icon-down"></i>
                     </a>
                 </div>
                 <div class="shopcart">
                     <a th:href="@{/shop-cart}" style="color: white;"><i class="iconfont icon-cart"></i>
                         Cart(
-                        <th:block th:text="${session.newBeeMallUser.shopCartItemCount}"></th:block>
+                        <th:block th:text="${session.salesMallUser.shopCartItemCount}"></th:block>
                         )</a>
                 </div>
             </th:block>
-            <th:block th:if="${session.newBeeMallUser==null}">
+            <th:block th:if="${session.salesMallUser==null}">
                 <ul class="login">
                     <li><a th:href="@{/login}">Login</a></li>
                     <li><a th:href="@{/register}">Register</a></li>

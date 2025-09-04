@@ -7,8 +7,8 @@ package murray.sales.mall.config;
 
 import murray.sales.mall.common.Constants;
 import murray.sales.mall.interceptor.AdminLoginInterceptor;
-import murray.sales.mall.interceptor.NewBeeMallCartNumberInterceptor;
-import murray.sales.mall.interceptor.NewBeeMallLoginInterceptor;
+import murray.sales.mall.interceptor.SalesMallCartNumberInterceptor;
+import murray.sales.mall.interceptor.SalesMallLoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -21,9 +21,9 @@ public class SalesMallWebMvcConfigurer implements WebMvcConfigurer {
     @Autowired
     private AdminLoginInterceptor adminLoginInterceptor;
     @Autowired
-    private NewBeeMallLoginInterceptor newBeeMallLoginInterceptor;
+    private SalesMallLoginInterceptor salesMallLoginInterceptor;
     @Autowired
-    private NewBeeMallCartNumberInterceptor newBeeMallCartNumberInterceptor;
+    private SalesMallCartNumberInterceptor salesMallCartNumberInterceptor;
 
     public void addInterceptors(InterceptorRegistry registry) {
         // 添加一个拦截器，拦截以/admin为前缀的url路径（后台登陆拦截）
@@ -33,13 +33,13 @@ public class SalesMallWebMvcConfigurer implements WebMvcConfigurer {
                 .excludePathPatterns("/admin/dist/**")
                 .excludePathPatterns("/admin/plugins/**");
         // 购物车中的数量统一处理
-        registry.addInterceptor(newBeeMallCartNumberInterceptor)
+        registry.addInterceptor(salesMallCartNumberInterceptor)
                 .excludePathPatterns("/admin/**")
                 .excludePathPatterns("/register")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/logout");
         // 商城页面登陆拦截
-        registry.addInterceptor(newBeeMallLoginInterceptor)
+        registry.addInterceptor(salesMallLoginInterceptor)
                 .excludePathPatterns("/admin/**")
                 .excludePathPatterns("/register")
                 .excludePathPatterns("/login")

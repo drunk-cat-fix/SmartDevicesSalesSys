@@ -93,7 +93,7 @@
                                     <tr>
                                         <th>Address:</th>
                                         <td class="user_address_label"
-                                            th:text="${session.newBeeMallUser.address==''?'Null':session.newBeeMallUser.address}">
+                                            th:text="${session.salesMallUser.address==''?'Null':session.salesMallUser.address}">
                                             Sales
                                         </td>
                                     </tr>
@@ -153,10 +153,10 @@
                     <div class="modal-body">
                         <form id="personalInfoForm">
                             <div class="form-group">
-                                <input type="hidden" id="userId" th:value="${session.newBeeMallUser.userId}">
+                                <input type="hidden" id="userId" th:value="${session.salesMallUser.userId}">
                                 <label for="address" class="control-label">Receiveing Address</label>
                                 <input type="text" class="form-control" id="address" name="address"
-                                       placeholder="Please Enter" th:value="${session.newBeeMallUser.address}"
+                                       placeholder="Please Enter" th:value="${session.salesMallUser.address}"
                                        required="true">
                             </div>
                         </form>

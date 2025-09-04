@@ -14,7 +14,7 @@
     <meta http-equiv="Cache" content="no-cache">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>newbee-mall 支付</title>
+    <title>Sales Mall Payment</title>
     <link th:href="@{/mall/styles/pay.css}" rel="stylesheet" media="screen">
     <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script>
 </head>
@@ -28,7 +28,7 @@
     <div class="mod-ct">
         <div class="order">
         </div>
-        <div class="amount" id="money">￥
+        <div class="amount" id="money">RM
             <th:block th:text="${totalPrice+'.00'}"></th:block>
         </div>
         <div class="qrcode-img-wrapper" data-role="qrPayImgWrapper">
@@ -36,8 +36,8 @@
                 <div class="ui-loading qrcode-loading" data-role="qrPayImgLoading"></div>
                 <div style="position: relative;display: inline-block;">
                     <img width="300" height="300"
-                         th:src="@{/mall/image/pay/alipay_qrcode.png}"
-                         title="请尽快支付~"
+                         th:src="@{/mall/image/pay/TNG_Payment.jpg}"
+                         title="Please Make a Payment as soon as Possible~"
                          style="display: block;">
                 </div>
             </div>
@@ -45,10 +45,10 @@
 
         <div class="time-item" style="padding-top: 10px">
             <div class="time-item" id="msg">
-                <h1>支付完成后，将跳转至订单详情</h1>
+                <h1>Once the Payment made, then will forward to the details of the order</h1>
             </div>
             <div class="time-item">
-                <h1>订单:
+                <h1>Order:
                     <th:block th:text="${orderNo}"></th:block>
                 </h1>
             </div>
@@ -58,11 +58,11 @@
         <div class="tip">
             <div class="ico-scan-ali"></div>
             <div class="tip-text">
-                <p id="showtext">打开支付宝 [扫一扫]</p>
+                <p id="showtext">Open Touch N Go to Scan</p>
             </div>
             <div class="tip-text">
                 <a onclick="payOrderSuccess()"
-                   class="btn btn-small btn-success" title="支付成功">支付成功</a>
+                   class="btn btn-small btn-success" title="Payment Successful">Payment Successful</a>
             </div>
         </div>
 
@@ -87,7 +87,7 @@
                 }
             },
             error: function () {
-                alert("操作失败");
+                alert("Operation Failed");
             }
         });
     }

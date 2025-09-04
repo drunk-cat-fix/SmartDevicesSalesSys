@@ -11,6 +11,14 @@ public class SalesMallOrderListVO implements Serializable {
 
     private Long orderId;
 
+    public List<SalesMallOrderItemVO> getSalesMallOrderItemVOS() {
+        return salesMallOrderItemVOS;
+    }
+
+    public void setSalesMallOrderItemVOS(List<SalesMallOrderItemVO> salesMallOrderItemVOS) {
+        this.salesMallOrderItemVOS = salesMallOrderItemVOS;
+    }
+
     private String orderNo;
 
     private Integer totalPrice;

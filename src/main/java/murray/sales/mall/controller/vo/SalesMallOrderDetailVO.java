@@ -37,6 +37,14 @@ public class SalesMallOrderDetailVO implements Serializable {
         return orderNo;
     }
 
+    public List<SalesMallOrderItemVO> getSalesMallOrderItemVOS() {
+        return salesMallOrderItemVOS;
+    }
+
+    public void setSalesMallOrderItemVOS(List<SalesMallOrderItemVO> salesMallOrderItemVOS) {
+        this.salesMallOrderItemVOS = salesMallOrderItemVOS;
+    }
+
     public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
     }

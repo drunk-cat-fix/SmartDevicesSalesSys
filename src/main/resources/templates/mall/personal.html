@@ -20,18 +20,18 @@
                                              style="color:#1baeae;margin-left: 600px;">Change Personal Info</a>
             </div>
             <div class="info_item ml40"><span>Nickname</span><span
-                    th:text="${session.newBeeMallUser.nickName}">Sales mall</span>
+                    th:text="${session.salesMallUser.nickName}">Sales mall</span>
             </div>
             <div class="info_item ml40"><span>Phone</span><span
-                    th:text="${session.newBeeMallUser.loginName}">Sales mall</span>
+                    th:text="${session.salesMallUser.loginName}">Sales mall</span>
             </div>
             <div class="info_item ml40"><span>Password</span><span>******</span>
             </div>
             <div class="info_item ml40"><span>What`s&nbsp;up</span><span
-                    th:text="${session.newBeeMallUser.introduceSign==''?'Null':session.newBeeMallUser.introduceSign}">Sales-mall</span>
+                    th:text="${session.salesMallUser.introduceSign==''?'Null':session.salesMallUser.introduceSign}">Sales-mall</span>
             </div>
             <div class="info_item ml40"><span>Receiving&nbsp;</span><span
-                    th:text="${session.newBeeMallUser.address==''?'Null':session.newBeeMallUser.address}">Sales-mall</span></span>
+                    th:text="${session.salesMallUser.address==''?'Null':session.salesMallUser.address}">Sales-mall</span></span>
             </div>
 
         </div>
@@ -52,21 +52,21 @@
                         <form id="personalInfoForm">
                             <div class="form-group">
                                 <label for="nickName" class="control-label">Nickname:</label>
-                                <input type="hidden" id="userId" th:value="${session.newBeeMallUser.userId}">
+                                <input type="hidden" id="userId" th:value="${session.salesMallUser.userId}">
                                 <input type="text" class="form-control" id="nickName" name="nickName"
-                                       placeholder="Please Enter Nickname" th:value="${session.newBeeMallUser.nickName}"
+                                       placeholder="Please Enter Nickname" th:value="${session.salesMallUser.nickName}"
                                        required="true">
                             </div>
                             <div class="form-group">
                                 <label for="introduceSign" class="control-label">What`s up:</label>
                                 <input type="text" class="form-control" id="introduceSign" name="introduceSign"
-                                       placeholder="Please enter what`s up" th:value="${session.newBeeMallUser.introduceSign}"
+                                       placeholder="Please enter what`s up" th:value="${session.salesMallUser.introduceSign}"
                                        required="true">
                             </div>
                             <div class="form-group">
                                 <label for="address" class="control-label">Receiving Info:</label>
                                 <input type="text" class="form-control" id="address" name="address"
-                                       placeholder="Please Enter Receiving Info" th:value="${session.newBeeMallUser.address}"
+                                       placeholder="Please Enter Receiving Info" th:value="${session.salesMallUser.address}"
                                        required="true">
                             </div>
                         </form>

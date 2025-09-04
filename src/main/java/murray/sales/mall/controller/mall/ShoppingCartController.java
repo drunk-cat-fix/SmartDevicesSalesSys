@@ -81,12 +81,12 @@ public class ShoppingCartController {
         return ResultGenerator.genFailResult(updateResult);
     }
 
-    @DeleteMapping("/shop-cart/{newBeeMallShoppingCartItemId}")
+    @DeleteMapping("/shop-cart/{salesMallShoppingCartItemId}")
     @ResponseBody
-    public Result updateNewBeeMallShoppingCartItem(@PathVariable("newBeeMallShoppingCartItemId") Long newBeeMallShoppingCartItemId,
+    public Result updateNewBeeMallShoppingCartItem(@PathVariable("salesMallShoppingCartItemId") Long salesMallShoppingCartItemId,
                                                    HttpSession httpSession) {
         SalesMallUserVO user = (SalesMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-        Boolean deleteResult = salesMallShoppingCartService.deleteById(newBeeMallShoppingCartItemId,user.getUserId());
+        Boolean deleteResult = salesMallShoppingCartService.deleteById(salesMallShoppingCartItemId,user.getUserId());
         //删除成功
         if (deleteResult) {
             return ResultGenerator.genSuccessResult();
@@ -110,7 +110,7 @@ public class ShoppingCartController {
                 priceTotal += salesMallShoppingCartItemVO.getGoodsCount() * salesMallShoppingCartItemVO.getSellingPrice();
             }
             if (priceTotal < 1) {
-                SalesSystemException.fail("购物项价格异常");
+                SalesSystemException.fail("The price of purchasing item is excepted");
             }
         }
         request.setAttribute("priceTotal", priceTotal);

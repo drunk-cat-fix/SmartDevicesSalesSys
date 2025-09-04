@@ -5,7 +5,7 @@ package murray.sales.mall.common;
  * @email murray50325487@gmail.ocm
  * @apiNote 订单状态:0.待支付 1.已支付 2.配货完成 3:出库成功 4.交易成功 -1.手动关闭 -2.超时关闭 -3.商家关闭
  */
-public enum NewBeeMallOrderStatusEnum {
+public enum SalesMallOrderStatusEnum {
 
     DEFAULT(-9, "ERROR"),
     ORDER_PRE_PAY(0, "Pending Payment"),
@@ -21,15 +21,15 @@ public enum NewBeeMallOrderStatusEnum {
 
     private String name;
 
-    NewBeeMallOrderStatusEnum(int orderStatus, String name) {
+    SalesMallOrderStatusEnum(int orderStatus, String name) {
         this.orderStatus = orderStatus;
         this.name = name;
     }
 
-    public static NewBeeMallOrderStatusEnum getNewBeeMallOrderStatusEnumByStatus(int orderStatus) {
-        for (NewBeeMallOrderStatusEnum newBeeMallOrderStatusEnum : NewBeeMallOrderStatusEnum.values()) {
-            if (newBeeMallOrderStatusEnum.getOrderStatus() == orderStatus) {
-                return newBeeMallOrderStatusEnum;
+    public static SalesMallOrderStatusEnum getNewBeeMallOrderStatusEnumByStatus(int orderStatus) {
+        for (SalesMallOrderStatusEnum salesMallOrderStatusEnum : SalesMallOrderStatusEnum.values()) {
+            if (salesMallOrderStatusEnum.getOrderStatus() == orderStatus) {
+                return salesMallOrderStatusEnum;
             }
         }
         return DEFAULT;

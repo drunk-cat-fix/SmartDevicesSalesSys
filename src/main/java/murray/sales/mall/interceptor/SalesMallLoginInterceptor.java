@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @email murray50325487@gmail.com
  */
 @Component
-public class NewBeeMallLoginInterceptor implements HandlerInterceptor {
+public class SalesMallLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {

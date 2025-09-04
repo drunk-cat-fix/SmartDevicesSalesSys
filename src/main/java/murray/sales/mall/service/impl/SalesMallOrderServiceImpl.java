@@ -156,7 +156,7 @@ public class SalesMallOrderServiceImpl implements SalesMallOrderService {
             }
             if (!StringUtils.hasText(errorOrderNos)) {
                 //订单状态正常 可以执行关闭操作 修改订单状态和更新时间&&恢复库存
-                if (salesMallOrderMapper.closeOrder(Arrays.asList(ids), NewBeeMallOrderStatusEnum.ORDER_CLOSED_BY_JUDGE.getOrderStatus()) > 0 && recoverStockNum(Arrays.asList(ids))) {
+                if (salesMallOrderMapper.closeOrder(Arrays.asList(ids), SalesMallOrderStatusEnum.ORDER_CLOSED_BY_JUDGE.getOrderStatus()) > 0 && recoverStockNum(Arrays.asList(ids))) {
                     return ServiceResultEnum.SUCCESS.getResult();
                 } else {
                     return ServiceResultEnum.DB_ERROR.getResult();
@@ -272,7 +272,7 @@ public class SalesMallOrderServiceImpl implements SalesMallOrderService {
         List<SalesMallOrderItemVO> salesMallOrderItemVOS = BeanUtil.copyList(orderItems, SalesMallOrderItemVO.class);
         SalesMallOrderDetailVO salesMallOrderDetailVO = new SalesMallOrderDetailVO();
         BeanUtil.copyProperties(salesMallOrder, salesMallOrderDetailVO);
-        salesMallOrderDetailVO.setOrderStatusString(NewBeeMallOrderStatusEnum.getNewBeeMallOrderStatusEnumByStatus(salesMallOrderDetailVO.getOrderStatus()).getName());
+        salesMallOrderDetailVO.setOrderStatusString(SalesMallOrderStatusEnum.getNewBeeMallOrderStatusEnumByStatus(salesMallOrderDetailVO.getOrderStatus()).getName());
         salesMallOrderDetailVO.setPayTypeString(PayTypeEnum.getPayTypeEnumByType(salesMallOrderDetailVO.getPayType()).getName());
         salesMallOrderDetailVO.setNewBeeMallOrderItemVOS(salesMallOrderItemVOS);
         return salesMallOrderDetailVO;
@@ -293,7 +293,7 @@ public class SalesMallOrderServiceImpl implements SalesMallOrderService {
             orderListVOS = BeanUtil.copyList(salesMallOrders, SalesMallOrderListVO.class);
             //设置订单状态中文显示值
             for (SalesMallOrderListVO salesMallOrderListVO : orderListVOS) {
-                salesMallOrderListVO.setOrderStatusString(NewBeeMallOrderStatusEnum.getNewBeeMallOrderStatusEnumByStatus(salesMallOrderListVO.getOrderStatus()).getName());
+                salesMallOrderListVO.setOrderStatusString(SalesMallOrderStatusEnum.getNewBeeMallOrderStatusEnumByStatus(salesMallOrderListVO.getOrderStatus()).getName());
             }
             List<Long> orderIds = salesMallOrders.stream().map(SalesMallOrder::getOrderId).collect(Collectors.toList());
             if (!CollectionUtils.isEmpty(orderIds)) {
@@ -324,14 +324,14 @@ public class SalesMallOrderServiceImpl implements SalesMallOrderService {
                 SalesSystemException.fail(ServiceResultEnum.NO_PERMISSION_ERROR.getResult());
             }
             //订单状态判断
-            if (salesMallOrder.getOrderStatus().intValue() == NewBeeMallOrderStatusEnum.ORDER_SUCCESS.getOrderStatus()
-                    || salesMallOrder.getOrderStatus().intValue() == NewBeeMallOrderStatusEnum.ORDER_CLOSED_BY_MALLUSER.getOrderStatus()
-                    || salesMallOrder.getOrderStatus().intValue() == NewBeeMallOrderStatusEnum.ORDER_CLOSED_BY_EXPIRED.getOrderStatus()
-                    || salesMallOrder.getOrderStatus().intValue() == NewBeeMallOrderStatusEnum.ORDER_CLOSED_BY_JUDGE.getOrderStatus()) {
+            if (salesMallOrder.getOrderStatus().intValue() == SalesMallOrderStatusEnum.ORDER_SUCCESS.getOrderStatus()
+                    || salesMallOrder.getOrderStatus().intValue() == SalesMallOrderStatusEnum.ORDER_CLOSED_BY_MALLUSER.getOrderStatus()
+                    || salesMallOrder.getOrderStatus().intValue() == SalesMallOrderStatusEnum.ORDER_CLOSED_BY_EXPIRED.getOrderStatus()
+                    || salesMallOrder.getOrderStatus().intValue() == SalesMallOrderStatusEnum.ORDER_CLOSED_BY_JUDGE.getOrderStatus()) {
                 return ServiceResultEnum.ORDER_STATUS_ERROR.getResult();
             }
             //修改订单状态&&恢复库存
-            if (salesMallOrderMapper.closeOrder(Collections.singletonList(salesMallOrder.getOrderId()), NewBeeMallOrderStatusEnum.ORDER_CLOSED_BY_MALLUSER.getOrderStatus()) > 0 && recoverStockNum(Collections.singletonList(salesMallOrder.getOrderId()))) {
+            if (salesMallOrderMapper.closeOrder(Collections.singletonList(salesMallOrder.getOrderId()), SalesMallOrderStatusEnum.ORDER_CLOSED_BY_MALLUSER.getOrderStatus()) > 0 && recoverStockNum(Collections.singletonList(salesMallOrder.getOrderId()))) {
                 return ServiceResultEnum.SUCCESS.getResult();
             } else {
                 return ServiceResultEnum.DB_ERROR.getResult();
@@ -349,10 +349,10 @@ public class SalesMallOrderServiceImpl implements SalesMallOrderService {
                 return ServiceResultEnum.NO_PERMISSION_ERROR.getResult();
             }
             //订单状态判断 非出库状态下不进行修改操作
-            if (salesMallOrder.getOrderStatus().intValue() != NewBeeMallOrderStatusEnum.ORDER_EXPRESS.getOrderStatus()) {
+            if (salesMallOrder.getOrderStatus().intValue() != SalesMallOrderStatusEnum.ORDER_EXPRESS.getOrderStatus()) {
                 return ServiceResultEnum.ORDER_STATUS_ERROR.getResult();
             }
-            salesMallOrder.setOrderStatus((byte) NewBeeMallOrderStatusEnum.ORDER_SUCCESS.getOrderStatus());
+            salesMallOrder.setOrderStatus((byte) SalesMallOrderStatusEnum.ORDER_SUCCESS.getOrderStatus());
             salesMallOrder.setUpdateTime(new Date());
             if (salesMallOrderMapper.updateByPrimaryKeySelective(salesMallOrder) > 0) {
                 return ServiceResultEnum.SUCCESS.getResult();
@@ -368,10 +368,10 @@ public class SalesMallOrderServiceImpl implements SalesMallOrderService {
         SalesMallOrder salesMallOrder = salesMallOrderMapper.selectByOrderNo(orderNo);
         if (salesMallOrder != null) {
             //订单状态判断 非待支付状态下不进行修改操作
-            if (salesMallOrder.getOrderStatus().intValue() != NewBeeMallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
+            if (salesMallOrder.getOrderStatus().intValue() != SalesMallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
                 return ServiceResultEnum.ORDER_STATUS_ERROR.getResult();
             }
-            salesMallOrder.setOrderStatus((byte) NewBeeMallOrderStatusEnum.ORDER_PAID.getOrderStatus());
+            salesMallOrder.setOrderStatus((byte) SalesMallOrderStatusEnum.ORDER_PAID.getOrderStatus());
             salesMallOrder.setPayType((byte) payType);
             salesMallOrder.setPayStatus((byte) PayStatusEnum.PAY_SUCCESS.getPayStatus());
             salesMallOrder.setPayTime(new Date());
