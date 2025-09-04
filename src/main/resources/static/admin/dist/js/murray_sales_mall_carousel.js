@@ -4,16 +4,16 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'carouselId', index: 'carouselId', width: 50, key: true, hidden: true},
-            {label: '轮播图', name: 'carouselUrl', index: 'carouselUrl', width: 180, formatter: coverImageFormatter},
-            {label: '跳转链接', name: 'redirectUrl', index: 'redirectUrl', width: 120},
-            {label: '排序值', name: 'carouselRank', index: 'carouselRank', width: 120},
-            {label: '添加时间', name: 'createTime', index: 'createTime', width: 120}
+            {label: 'Carousel', name: 'carouselUrl', index: 'carouselUrl', width: 180, formatter: coverImageFormatter},
+            {label: 'Redirect Link', name: 'redirectUrl', index: 'redirectUrl', width: 120},
+            {label: 'Order Score', name: 'carouselRank', index: 'carouselRank', width: 120},
+            {label: 'Adding Time', name: 'createTime', index: 'createTime', width: 120}
         ],
         height: 560,
         rowNum: 10,
         rowList: [10, 20, 50],
         styleUI: 'Bootstrap',
-        loadtext: '信息读取中...',
+        loadtext: 'loading information...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
@@ -52,7 +52,7 @@ $(function () {
         onSubmit: function (file, extension) {
             if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))) {
                 Swal.fire({
-                    text: "只支持jpg、png、gif格式的文件！",
+                    text: "Support jpg、png、gif format only！",
                     icon: "error",iconColor:"#f05b72",
                 });
                 return false;
@@ -85,7 +85,7 @@ function reload() {
 
 function carouselAdd() {
     reset();
-    $('.modal-title').html('轮播图添加');
+    $('.modal-title').html('Carousel Adding');
     $('#carouselModal').modal('show');
 }
 
@@ -119,7 +119,7 @@ $('#saveButton').click(function () {
             if (result.resultCode == 200) {
                 $('#carouselModal').modal('hide');
                 Swal.fire({
-                    text: "保存成功",
+                    text: "Save Successfully",
                     icon: "success",iconColor:"#1d953f",
                 });
                 reload();
@@ -134,7 +134,7 @@ $('#saveButton').click(function () {
         },
         error: function () {
             Swal.fire({
-                text: "操作失败",
+                text: "Operation Failed",
                 icon: "error",iconColor:"#f05b72",
             });
         }
@@ -157,7 +157,7 @@ function carouselEdit() {
             $("#carouselRank").val(r.data.carouselRank);
         }
     });
-    $('.modal-title').html('轮播图编辑');
+    $('.modal-title').html('Carousel Edit');
     $('#carouselModal').modal('show');
 }
 
@@ -167,12 +167,12 @@ function deleteCarousel() {
         return;
     }
     Swal.fire({
-        title: "确认弹框",
-        text: "确认要删除数据吗?",
+        title: "Confirmation Window",
+        text: "Are you sure to delete this record?",
         icon: "warning",iconColor:"#dea32c",
         showCancelButton: true,
-        confirmButtonText: '确认',
-        cancelButtonText: '取消'
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
     }).then((flag) => {
             if (flag.value) {
                 $.ajax({
@@ -183,7 +183,7 @@ function deleteCarousel() {
                     success: function (r) {
                         if (r.resultCode == 200) {
                             Swal.fire({
-                                text: "删除成功",
+                                text: 'Delete Successfully',
                                 icon: "success",iconColor:"#1d953f",
                             });
                             $("#jqGrid").trigger("reloadGrid");
