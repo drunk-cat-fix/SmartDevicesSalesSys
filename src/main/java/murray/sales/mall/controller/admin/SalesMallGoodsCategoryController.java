@@ -19,10 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
+ * @author Murray
+ * @email murray50325487@gmail.com
  */
 @Controller
 @RequestMapping("/admin")
@@ -34,13 +32,13 @@ public class SalesMallGoodsCategoryController {
     @GetMapping("/categories")
     public String categoriesPage(HttpServletRequest request, @RequestParam("categoryLevel") Byte categoryLevel, @RequestParam("parentId") Long parentId, @RequestParam("backParentId") Long backParentId) {
         if (categoryLevel == null || categoryLevel < 1 || categoryLevel > 3) {
-            SalesSystemException.fail("参数异常");
+            SalesSystemException.fail("Parameters Excepted");
         }
-        request.setAttribute("path", "newbee_mall_category");
+        request.setAttribute("path", "sales_mall_category");
         request.setAttribute("parentId", parentId);
         request.setAttribute("backParentId", backParentId);
         request.setAttribute("categoryLevel", categoryLevel);
-        return "admin/newbee_mall_category";
+        return "admin/sales_mall_category";
     }
 
     /**
@@ -50,7 +48,7 @@ public class SalesMallGoodsCategoryController {
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
         if (ObjectUtils.isEmpty(params.get("page")) || ObjectUtils.isEmpty(params.get("limit")) || ObjectUtils.isEmpty(params.get("categoryLevel")) || ObjectUtils.isEmpty(params.get("parentId"))) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameters Excepted");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         return ResultGenerator.genSuccessResult(salesMallCategoryService.getCategorisPage(pageUtil));
@@ -63,12 +61,12 @@ public class SalesMallGoodsCategoryController {
     @ResponseBody
     public Result listForSelect(@RequestParam("categoryId") Long categoryId) {
         if (categoryId == null || categoryId < 1) {
-            return ResultGenerator.genFailResult("缺少参数！");
+            return ResultGenerator.genFailResult("Lack of Parameters");
         }
         GoodsCategory category = salesMallCategoryService.getGoodsCategoryById(categoryId);
         //既不是一级分类也不是二级分类则为不返回数据
         if (category == null || category.getCategoryLevel() == SalesMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameter Excepted");
         }
         Map categoryResult = new HashMap(4);
         if (category.getCategoryLevel() == SalesMallCategoryLevelEnum.LEVEL_ONE.getLevel()) {
@@ -100,7 +98,7 @@ public class SalesMallGoodsCategoryController {
                 || !StringUtils.hasText(goodsCategory.getCategoryName())
                 || Objects.isNull(goodsCategory.getParentId())
                 || Objects.isNull(goodsCategory.getCategoryRank())) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameter Excepted");
         }
         String result = salesMallCategoryService.saveCategory(goodsCategory);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
@@ -122,7 +120,7 @@ public class SalesMallGoodsCategoryController {
                 || !StringUtils.hasText(goodsCategory.getCategoryName())
                 || Objects.isNull(goodsCategory.getParentId())
                 || Objects.isNull(goodsCategory.getCategoryRank())) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameter Excepted");
         }
         String result = salesMallCategoryService.updateGoodsCategory(goodsCategory);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
@@ -140,7 +138,7 @@ public class SalesMallGoodsCategoryController {
     public Result info(@PathVariable("id") Long id) {
         GoodsCategory goodsCategory = salesMallCategoryService.getGoodsCategoryById(id);
         if (goodsCategory == null) {
-            return ResultGenerator.genFailResult("未查询到数据");
+            return ResultGenerator.genFailResult("No Inquiry Of Data");
         }
         return ResultGenerator.genSuccessResult(goodsCategory);
     }
@@ -152,12 +150,12 @@ public class SalesMallGoodsCategoryController {
     @ResponseBody
     public Result delete(@RequestBody Integer[] ids) {
         if (ids.length < 1) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameter Excepted");
         }
         if (salesMallCategoryService.deleteBatch(ids)) {
             return ResultGenerator.genSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("删除失败");
+            return ResultGenerator.genFailResult("Delete Failed");
         }
     }
 

@@ -19,10 +19,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
+ * @author Murray
+ * @email murray50325487@gmail.com
  */
 @Controller
 @RequestMapping("/admin")
@@ -35,12 +33,12 @@ public class SalesMallGoodsIndexConfigController {
     public String indexConfigsPage(HttpServletRequest request, @RequestParam("configType") int configType) {
         IndexConfigTypeEnum indexConfigTypeEnum = IndexConfigTypeEnum.getIndexConfigTypeEnumByType(configType);
         if (indexConfigTypeEnum.equals(IndexConfigTypeEnum.DEFAULT)) {
-            SalesSystemException.fail("参数异常");
+            SalesSystemException.fail("Parameters Excepted");
         }
 
         request.setAttribute("path", indexConfigTypeEnum.getName());
         request.setAttribute("configType", configType);
-        return "admin/newbee_mall_index_config";
+        return "admin/sales_mall_index_config";
     }
 
     /**
@@ -50,7 +48,7 @@ public class SalesMallGoodsIndexConfigController {
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
         if (ObjectUtils.isEmpty(params.get("page")) || ObjectUtils.isEmpty(params.get("limit"))) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameters Excepted");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         return ResultGenerator.genSuccessResult(salesMallIndexConfigService.getConfigsPage(pageUtil));
@@ -65,7 +63,7 @@ public class SalesMallGoodsIndexConfigController {
         if (Objects.isNull(indexConfig.getConfigType())
                 || !StringUtils.hasText(indexConfig.getConfigName())
                 || Objects.isNull(indexConfig.getConfigRank())) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameters Excepted");
         }
         String result = salesMallIndexConfigService.saveIndexConfig(indexConfig);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
@@ -86,7 +84,7 @@ public class SalesMallGoodsIndexConfigController {
                 || Objects.isNull(indexConfig.getConfigId())
                 || !StringUtils.hasText(indexConfig.getConfigName())
                 || Objects.isNull(indexConfig.getConfigRank())) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameters Excepted");
         }
         String result = salesMallIndexConfigService.updateIndexConfig(indexConfig);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
@@ -104,7 +102,7 @@ public class SalesMallGoodsIndexConfigController {
     public Result info(@PathVariable("id") Long id) {
         IndexConfig config = salesMallIndexConfigService.getIndexConfigById(id);
         if (config == null) {
-            return ResultGenerator.genFailResult("未查询到数据");
+            return ResultGenerator.genFailResult("No Inquiry of Data");
         }
         return ResultGenerator.genSuccessResult(config);
     }
@@ -116,12 +114,12 @@ public class SalesMallGoodsIndexConfigController {
     @ResponseBody
     public Result delete(@RequestBody Long[] ids) {
         if (ids.length < 1) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameters Excepted");
         }
         if (salesMallIndexConfigService.deleteBatch(ids)) {
             return ResultGenerator.genSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("删除失败");
+            return ResultGenerator.genFailResult("Delete Failed");
         }
     }
 

@@ -1,5 +1,5 @@
 package murray.sales.mall.common;
-/*
+/**
  * @author Murray
  * @email murray50325487@.gmail.com
  */

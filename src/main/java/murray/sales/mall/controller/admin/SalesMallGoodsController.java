@@ -39,8 +39,8 @@ public class SalesMallGoodsController {
 
     @GetMapping("/goods")
     public String goodsPage(HttpServletRequest request) {
-        request.setAttribute("path", "newbee_mall_goods");
-        return "admin/newbee_mall_goods";
+        request.setAttribute("path", "sales_mall_goods");
+        return "admin/sales_mall_goods";
     }
 
     @GetMapping("/goods/edit")
@@ -58,7 +58,7 @@ public class SalesMallGoodsController {
                 request.setAttribute("secondLevelCategories", secondLevelCategories);
                 request.setAttribute("thirdLevelCategories", thirdLevelCategories);
                 request.setAttribute("path", "goods-edit");
-                return "admin/newbee_mall_goods_edit";
+                return "admin/sales_mall_goods_edit";
             }
         }
         SalesSystemException.fail("Classification data is not completed");
@@ -116,7 +116,7 @@ public class SalesMallGoodsController {
         }
         request.setAttribute("goods", salesMallGoods);
         request.setAttribute("path", "goods-edit");
-        return "admin/newbee_mall_goods_edit";
+        return "admin/sales_mall_goods_edit";
     }
 
     /**
@@ -126,7 +126,7 @@ public class SalesMallGoodsController {
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
         if (ObjectUtils.isEmpty(params.get("page")) || ObjectUtils.isEmpty(params.get("limit"))) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameters Excepted！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         return ResultGenerator.genSuccessResult(salesMallGoodsService.getNewBeeMallGoodsPage(pageUtil));
@@ -148,7 +148,7 @@ public class SalesMallGoodsController {
                 || Objects.isNull(salesMallGoods.getGoodsSellStatus())
                 || !StringUtils.hasText(salesMallGoods.getGoodsCoverImg())
                 || !StringUtils.hasText(salesMallGoods.getGoodsDetailContent())) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameters Excepted");
         }
         String result = salesMallGoodsService.saveNewBeeMallGoods(salesMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
@@ -176,7 +176,7 @@ public class SalesMallGoodsController {
                 || Objects.isNull(salesMallGoods.getGoodsSellStatus())
                 || !StringUtils.hasText(salesMallGoods.getGoodsCoverImg())
                 || !StringUtils.hasText(salesMallGoods.getGoodsDetailContent())) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameter Excepted");
         }
         String result = salesMallGoodsService.updateNewBeeMallGoods(salesMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
@@ -203,15 +203,15 @@ public class SalesMallGoodsController {
     @ResponseBody
     public Result delete(@RequestBody Long[] ids, @PathVariable("sellStatus") int sellStatus) {
         if (ids.length < 1) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameter Excepted");
         }
         if (sellStatus != Constants.SELL_STATUS_UP && sellStatus != Constants.SELL_STATUS_DOWN) {
-            return ResultGenerator.genFailResult("状态异常！");
+            return ResultGenerator.genFailResult("Status Excepted");
         }
         if (salesMallGoodsService.batchUpdateSellStatus(ids, sellStatus)) {
             return ResultGenerator.genSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("修改失败");
+            return ResultGenerator.genFailResult("Modify Failed");
         }
     }
 

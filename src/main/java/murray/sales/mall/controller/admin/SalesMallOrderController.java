@@ -20,10 +20,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link https://github.com/newbee-ltd
+ * @author Murray
+ * @email murray50325487@gmail.com
  */
 @Controller
 @RequestMapping("/admin")
@@ -35,7 +33,7 @@ public class SalesMallOrderController {
     @GetMapping("/orders")
     public String ordersPage(HttpServletRequest request) {
         request.setAttribute("path", "orders");
-        return "admin/newbee_mall_order";
+        return "admin/sales_mall_order";
     }
 
     /**

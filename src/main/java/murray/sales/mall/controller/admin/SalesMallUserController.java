@@ -26,7 +26,7 @@ public class SalesMallUserController {
     @GetMapping("/users")
     public String usersPage(HttpServletRequest request) {
         request.setAttribute("path", "users");
-        return "admin/newbee_mall_user";
+        return "admin/sales_mall_user";
     }
 
     /**
@@ -36,7 +36,7 @@ public class SalesMallUserController {
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
         if (ObjectUtils.isEmpty(params.get("page")) || ObjectUtils.isEmpty(params.get("limit"))) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameters excepted");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         return ResultGenerator.genSuccessResult(salesMallUserService.getNewBeeMallUsersPage(pageUtil));
@@ -49,15 +49,15 @@ public class SalesMallUserController {
     @ResponseBody
     public Result delete(@RequestBody Integer[] ids, @PathVariable int lockStatus) {
         if (ids.length < 1) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.genFailResult("Parameters excepted");
         }
         if (lockStatus != 0 && lockStatus != 1) {
-            return ResultGenerator.genFailResult("操作非法！");
+            return ResultGenerator.genFailResult("Illegal Operation");
         }
         if (salesMallUserService.lockUsers(ids, lockStatus)) {
             return ResultGenerator.genSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("禁用失败");
+            return ResultGenerator.genFailResult("Disable Failed");
         }
     }
 }
