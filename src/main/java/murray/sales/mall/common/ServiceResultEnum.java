@@ -5,6 +5,8 @@ package murray.sales.mall.common;
  * @email Murray50325487@gmail.com
  */
 public enum ServiceResultEnum {
+    USER_NOT_LOGIN("Please Login First"),
+
     ERROR("error"),
 
     SUCCESS("success"),

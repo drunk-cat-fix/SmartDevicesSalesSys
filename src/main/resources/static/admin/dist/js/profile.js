@@ -15,9 +15,9 @@ $(function () {
                     $("#updateUserNameButton").attr("disabled",false);
                     console.log(r);
                     if (r == 'success') {
-                        alert('修改成功');
+                        alert('Modify Success!');
                     } else {
-                        alert('修改失败');
+                        alert('Modify Failed!');
                     }
                 }
             });
@@ -28,10 +28,12 @@ $(function () {
     });
     //修改密码
     $('#updatePasswordButton').click(function () {
+        // console.log( "updatePasswordButton");
         $("#updatePasswordButton").attr("disabled",true);
         var originalPassword = $('#originalPassword').val();
         var newPassword = $('#newPassword').val();
         if (validPasswordForUpdate(originalPassword, newPassword)) {
+            console.log( "updatePasswordButton" + originalPassword + " " + newPassword)
             var params = $("#userPasswordForm").serialize();
             $.ajax({
                 type: "POST",
@@ -41,10 +43,10 @@ $(function () {
                     $("#updatePasswordButton").attr("disabled",false);
                     console.log(r);
                     if (r == 'success') {
-                        alert('修改成功');
+                        alert('Modify Success!');
                         window.location.href = '/admin/login';
                     } else {
-                        alert('修改失败');
+                        alert('Modify Failed!');
                     }
                 }
             });

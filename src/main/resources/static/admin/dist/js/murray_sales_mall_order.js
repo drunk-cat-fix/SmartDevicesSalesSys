@@ -4,19 +4,19 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'orderId', index: 'orderId', width: 50, key: true, hidden: true},
-            {label: '订单号', name: 'orderNo', index: 'orderNo', width: 120},
-            {label: '订单总价', name: 'totalPrice', index: 'totalPrice', width: 60},
-            {label: '订单状态', name: 'orderStatus', index: 'orderStatus', width: 80, formatter: orderStatusFormatter},
-            {label: '支付方式', name: 'payType', index: 'payType', width: 80,formatter:payTypeFormatter},
-            {label: '收件人地址', name: 'userAddress', index: 'userAddress', width: 10, hidden: true},
-            {label: '创建时间', name: 'createTime', index: 'createTime', width: 120},
-            {label: '操作', name: 'createTime', index: 'createTime', width: 120, formatter: operateFormatter}
+            {label: 'Order No', name: 'orderNo', index: 'orderNo', width: 120},
+            {label: 'Total Price', name: 'totalPrice', index: 'totalPrice', width: 60},
+            {label: 'Order Status', name: 'orderStatus', index: 'orderStatus', width: 80, formatter: orderStatusFormatter},
+            {label: 'Payment Method', name: 'payType', index: 'payType', width: 80,formatter:payTypeFormatter},
+            {label: 'Recipient Address', name: 'userAddress', index: 'userAddress', width: 10, hidden: true},
+            {label: 'Create Time', name: 'createTime', index: 'createTime', width: 120},
+            {label: 'Actions', name: 'createTime', index: 'createTime', width: 120, formatter: operateFormatter}
         ],
         height: 760,
         rowNum: 20,
         rowList: [20, 50, 80],
         styleUI: 'Bootstrap',
-        loadtext: '信息读取中...',
+        loadtext: 'Loading information...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
@@ -34,7 +34,7 @@ $(function () {
             order: "order",
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
+            // Hide grid bottom scrollbar
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
@@ -44,49 +44,49 @@ $(function () {
     });
 
     function operateFormatter(cellvalue, rowObject) {
-        return "<a href=\'##\' onclick=openOrderItems(" + rowObject.rowId + ")>查看订单信息</a>" +
+        return "<a href=\'##\' onclick=openOrderItems(" + rowObject.rowId + ")>View Order Details</a>" +
             "<br>" +
-            "<a href=\'##\' onclick=openExpressInfo(" + rowObject.rowId + ")>查看收件人信息</a>";
+            "<a href=\'##\' onclick=openExpressInfo(" + rowObject.rowId + ")>View Recipient Info</a>";
     }
 
     function orderStatusFormatter(cellvalue) {
-        //订单状态:0.待支付 1.已支付 2.配货完成 3:出库成功 4.交易成功 -1.手动关闭 -2.超时关闭 -3.商家关闭
+        // Order status: 0.Pending Payment 1.Paid 2.Picking Completed 3:Outbound Success 4.Transaction Success -1.Manually Closed -2.Timeout Closed -3.Merchant Closed
         if (cellvalue == 0) {
-            return "待支付";
+            return "Pending Payment";
         }
         if (cellvalue == 1) {
-            return "已支付";
+            return "Paid";
         }
         if (cellvalue == 2) {
-            return "配货完成";
+            return "Picking Completed";
         }
         if (cellvalue == 3) {
-            return "出库成功";
+            return "Outbound Success";
         }
         if (cellvalue == 4) {
-            return "交易成功";
+            return "Transaction Success";
         }
         if (cellvalue == -1) {
-            return "手动关闭";
+            return "Manually Closed";
         }
         if (cellvalue == -2) {
-            return "超时关闭";
+            return "Timeout Closed";
         }
         if (cellvalue == -3) {
-            return "商家关闭";
+            return "Merchant Closed";
         }
     }
 
     function payTypeFormatter(cellvalue) {
-        //支付类型:0.无 1.支付宝支付 2.微信支付
+        // Payment type: 0.None 1.Alipay 2.WeChat Pay
         if (cellvalue == 0) {
-            return "无";
+            return "None";
         }
         if (cellvalue == 1) {
-            return "支付宝支付";
+            return "TNG";
         }
         if (cellvalue == 2) {
-            return "微信支付";
+            return "Bigpay";
         }
     }
 
@@ -97,7 +97,7 @@ $(function () {
 });
 
 /**
- * jqGrid重新加载
+ * jqGrid reload
  */
 function reload() {
     initFlatPickr();
@@ -108,13 +108,13 @@ function reload() {
 }
 
 /**
- * 查看订单项信息
+ * View order items information
  * @param orderId
  */
 function openOrderItems(orderId) {
-    $('.modal-title').html('订单详情');
+    $('.modal-title').html('Order Details');
     $.ajax({
-        type: 'GET',//方法类型
+        type: 'GET',
         url: '/admin/order-items/' + orderId,
         contentType: 'application/json',
         success: function (result) {
@@ -122,39 +122,40 @@ function openOrderItems(orderId) {
                 $('#orderItemModal').modal('show');
                 var itemString = '';
                 for (i = 0; i < result.data.length; i++) {
-                    itemString += result.data[i].goodsName + ' x ' + result.data[i].goodsCount + ' 商品编号 ' + result.data[i].goodsId + ";<br>";
+                    itemString += result.data[i].goodsName + ' x ' + result.data[i].goodsCount + ' Product ID ' + result.data[i].goodsId + ";<br>";
                 }
                 $("#orderItemString").html(itemString);
             } else {
                 Swal.fire({
                     text: result.message,
-                    icon: "error",iconColor:"#f05b72",
+                    icon: "error",
+                    iconColor:"#f05b72",
                 });
             }
-            ;
         },
         error: function () {
             Swal.fire({
-                text: "操作失败",
-                icon: "error",iconColor:"#f05b72",
+                text: "Operation failed",
+                icon: "error",
+                iconColor:"#f05b72",
             });
         }
     });
 }
 
 /**
- * 查看收件人信息
+ * View recipient information
  * @param orderId
  */
 function openExpressInfo(orderId) {
     var rowData = $("#jqGrid").jqGrid("getRowData", orderId);
-    $('.modal-title').html('收件信息');
+    $('.modal-title').html('Recipient Information');
     $('#expressInfoModal').modal('show');
     $("#userAddressInfo").html(rowData.userAddress);
 }
 
 /**
- * 订单编辑
+ * Order edit
  */
 function orderEdit() {
     reset();
@@ -163,15 +164,14 @@ function orderEdit() {
         return;
     }
     var rowData = $("#jqGrid").jqGrid("getRowData", id);
-    $('.modal-title').html('订单编辑');
+    $('.modal-title').html('Order Edit');
     $('#orderInfoModal').modal('show');
     $("#orderId").val(id);
     $("#userAddress").val(rowData.userAddress);
     $("#totalPrice").val(rowData.totalPrice);
 }
 
-
-//绑定modal上的保存按钮
+// Bind save button on modal
 $('#saveButton').click(function () {
     var totalPrice = $("#totalPrice").val();
     var userName = $("#userName").val();
@@ -187,7 +187,7 @@ $('#saveButton').click(function () {
         "userAddress": userAddress
     };
     $.ajax({
-        type: 'POST',//方法类型
+        type: 'POST',
         url: url,
         contentType: 'application/json',
         data: JSON.stringify(data),
@@ -195,30 +195,32 @@ $('#saveButton').click(function () {
             if (result.resultCode == 200) {
                 $('#orderInfoModal').modal('hide');
                 Swal.fire({
-                    text: "保存成功",
-                    icon: "success",iconColor:"#1d953f",
+                    text: "Save successful",
+                    icon: "success",
+                    iconColor:"#1d953f",
                 });
                 reload();
             } else {
                 $('#orderInfoModal').modal('hide');
                 Swal.fire({
                     text: result.message,
-                    icon: "error",iconColor:"#f05b72",
+                    icon: "error",
+                    iconColor:"#f05b72",
                 });
             }
-            ;
         },
         error: function () {
             Swal.fire({
-                text: "操作失败",
-                icon: "error",iconColor:"#f05b72",
+                text: "Operation failed",
+                icon: "error",
+                iconColor:"#f05b72",
             });
         }
     });
 });
 
 /**
- * 订单拣货完成
+ * Order picking completed
  */
 function orderCheckDone() {
     var ids = getSelectedRows();
@@ -228,61 +230,64 @@ function orderCheckDone() {
     var orderNos = '';
     for (i = 0; i < ids.length; i++) {
         var rowData = $("#jqGrid").jqGrid("getRowData", ids[i]);
-        if (rowData.orderStatus != '已支付') {
+        if (rowData.orderStatus != 'Paid') {
             orderNos += rowData.orderNo + " ";
         }
     }
     if (orderNos.length > 0 & orderNos.length < 100) {
         Swal.fire({
-            text: orderNos + "订单的状态不是支付成功无法执行配货完成操作",
-            icon: "error",iconColor:"#f05b72",
+            text: orderNos + " order status is not paid, cannot complete picking",
+            icon: "error",
+            iconColor:"#f05b72",
         });
         return;
     }
     if (orderNos.length >= 100) {
         Swal.fire({
-            text: "你选择了太多状态不是支付成功的订单，无法执行配货完成操作",
-            icon: "error",iconColor:"#f05b72",
+            text: "Too many orders with status not paid, cannot complete picking",
+            icon: "error",
+            iconColor:"#f05b72",
         });
         return;
     }
     Swal.fire({
-        title: "确认弹框",
-        text: "确认要执行配货完成操作吗?",
-        icon: "warning",iconColor:"#dea32c",
+        title: "Confirm",
+        text: "Are you sure you want to complete order picking?",
+        icon: "warning",
+        iconColor:"#dea32c",
         showCancelButton: true,
-        confirmButtonText: '确认',
-        cancelButtonText: '取消'
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel'
     }).then((flag) => {
-            if (flag.value) {
-                $.ajax({
-                    type: "POST",
-                    url: "/admin/orders/checkDone",
-                    contentType: "application/json",
-                    data: JSON.stringify(ids),
-                    success: function (r) {
-                        if (r.resultCode == 200) {
-                            Swal.fire({
-                                text: "配货完成",
-                                icon: "success",iconColor:"#1d953f",
-                            });
-                            $("#jqGrid").trigger("reloadGrid");
-                        } else {
-                            Swal.fire({
-                                text: r.message,
-                                icon: "error",iconColor:"#f05b72",
-                            });
-                        }
+        if (flag.value) {
+            $.ajax({
+                type: "POST",
+                url: "/admin/orders/checkDone",
+                contentType: "application/json",
+                data: JSON.stringify(ids),
+                success: function (r) {
+                    if (r.resultCode == 200) {
+                        Swal.fire({
+                            text: "Picking completed",
+                            icon: "success",
+                            iconColor:"#1d953f",
+                        });
+                        $("#jqGrid").trigger("reloadGrid");
+                    } else {
+                        Swal.fire({
+                            text: r.message,
+                            icon: "error",
+                            iconColor:"#f05b72",
+                        });
                     }
-                });
-            }
+                }
+            });
         }
-    )
-    ;
+    });
 }
 
 /**
- * 订单出库
+ * Order outbound
  */
 function orderCheckOut() {
     var ids = getSelectedRows();
@@ -292,57 +297,60 @@ function orderCheckOut() {
     var orderNos = '';
     for (i = 0; i < ids.length; i++) {
         var rowData = $("#jqGrid").jqGrid("getRowData", ids[i]);
-        if (rowData.orderStatus != '已支付' && rowData.orderStatus != '配货完成') {
+        if (rowData.orderStatus != 'Paid' && rowData.orderStatus != 'Picking Completed') {
             orderNos += rowData.orderNo + " ";
         }
     }
     if (orderNos.length > 0 & orderNos.length < 100) {
         Swal.fire({
-            text: orderNos + "订单的状态不是支付成功或配货完成无法执行出库操作",
-            icon: "error",iconColor:"#f05b72",
+            text: orderNos + " order status is not paid or picking completed, cannot process outbound",
+            icon: "error",
+            iconColor:"#f05b72",
         });
         return;
     }
     if (orderNos.length >= 100) {
         Swal.fire({
-            text: "你选择了太多状态不是支付成功或配货完成的订单，无法执行出库操作",
-            icon: "error",iconColor:"#f05b72",
+            text: "Too many orders with status not paid or picking completed, cannot process outbound",
+            icon: "error",
+            iconColor:"#f05b72",
         });
         return;
     }
     Swal.fire({
-        title: "确认弹框",
-        text: "确认要执行出库操作吗?",
-        icon: "warning",iconColor:"#dea32c",
+        title: "Confirm",
+        text: "Are you sure you want to process order outbound?",
+        icon: "warning",
+        iconColor:"#dea32c",
         showCancelButton: true,
-        confirmButtonText: '确认',
-        cancelButtonText: '取消'
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel'
     }).then((flag) => {
-            if (flag.value) {
-                $.ajax({
-                    type: "POST",
-                    url: "/admin/orders/checkOut",
-                    contentType: "application/json",
-                    data: JSON.stringify(ids),
-                    success: function (r) {
-                        if (r.resultCode == 200) {
-                            Swal.fire({
-                                text: "出库成功",
-                                icon: "success",iconColor:"#1d953f",
-                            });
-                            $("#jqGrid").trigger("reloadGrid");
-                        } else {
-                            Swal.fire({
-                                text: r.message,
-                                icon: "error",iconColor:"#f05b72",
-                            });
-                        }
+        if (flag.value) {
+            $.ajax({
+                type: "POST",
+                url: "/admin/orders/checkOut",
+                contentType: "application/json",
+                data: JSON.stringify(ids),
+                success: function (r) {
+                    if (r.resultCode == 200) {
+                        Swal.fire({
+                            text: "Outbound successful",
+                            icon: "success",
+                            iconColor:"#1d953f",
+                        });
+                        $("#jqGrid").trigger("reloadGrid");
+                    } else {
+                        Swal.fire({
+                            text: r.message,
+                            icon: "error",
+                            iconColor:"#f05b72",
+                        });
                     }
-                });
-            }
+                }
+            });
         }
-    )
-    ;
+    });
 }
 
 function closeOrder() {
@@ -351,40 +359,40 @@ function closeOrder() {
         return;
     }
     Swal.fire({
-        title: "确认弹框",
-        text: "确认要关闭订单吗?",
-        icon: "warning",iconColor:"#dea32c",
+        title: "Confirm",
+        text: "Are you sure you want to close the order?",
+        icon: "warning",
+        iconColor:"#dea32c",
         showCancelButton: true,
-        confirmButtonText: '确认',
-        cancelButtonText: '取消'
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel'
     }).then((flag) => {
-            if (flag.value) {
-                $.ajax({
-                    type: "POST",
-                    url: "/admin/orders/close",
-                    contentType: "application/json",
-                    data: JSON.stringify(ids),
-                    success: function (r) {
-                        if (r.resultCode == 200) {
-                            Swal.fire({
-                                text: "关闭成功",
-                                icon: "success",iconColor:"#1d953f",
-                            });
-                            $("#jqGrid").trigger("reloadGrid");
-                        } else {
-                            Swal.fire({
-                                text: r.message,
-                                icon: "error",iconColor:"#f05b72",
-                            });
-                        }
+        if (flag.value) {
+            $.ajax({
+                type: "POST",
+                url: "/admin/orders/close",
+                contentType: "application/json",
+                data: JSON.stringify(ids),
+                success: function (r) {
+                    if (r.resultCode == 200) {
+                        Swal.fire({
+                            text: "Close successful",
+                            icon: "success",
+                            iconColor:"#1d953f",
+                        });
+                        $("#jqGrid").trigger("reloadGrid");
+                    } else {
+                        Swal.fire({
+                            text: r.message,
+                            icon: "error",
+                            iconColor:"#f05b72",
+                        });
                     }
-                });
-            }
+                }
+            });
         }
-    )
-    ;
+    });
 }
-
 
 function reset() {
     $("#totalPrice").val(0);

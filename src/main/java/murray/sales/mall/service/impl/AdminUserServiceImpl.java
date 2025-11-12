@@ -33,13 +33,11 @@ public class AdminUserServiceImpl implements AdminUserService {
             String originalPasswordMd5 = MD5Util.MD5Encode(originalPassword, "UTF-8");
             String newPasswordMd5 = MD5Util.MD5Encode(newPassword, "UTF-8");
             //比较原密码是否正确
-            if (originalPasswordMd5.equals(adminUser.getLoginPassword())) {
+            if (originalPasswordMd5.equalsIgnoreCase(adminUser.getLoginPassword())) {
                 //设置新密码并修改
                 adminUser.setLoginPassword(newPasswordMd5);
-                if (adminUserMapper.updateByPrimaryKeySelective(adminUser) > 0) {
-                    //修改成功则返回true
-                    return true;
-                }
+                //修改成功则返回true
+                return adminUserMapper.updateByPrimaryKeySelective(adminUser) > 0;
             }
         }
         return false;

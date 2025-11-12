@@ -5,6 +5,9 @@ import murray.sales.mall.common.ServiceResultEnum;
 import murray.sales.mall.entity.AdminUser;
 import murray.sales.mall.service.AdminUserService;
 
+import murray.sales.mall.service.SalesMallOrderService;
+import murray.sales.mall.util.Result;
+import murray.sales.mall.util.ResultGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,9 @@ public class AdminController {
     @Resource
     private AdminUserService adminUserService;
 
+    @Resource
+    private SalesMallOrderService salesMallOrderService;
+
     @GetMapping({"/login"})
     public String login() {
         return "admin/login";
@@ -40,6 +46,13 @@ public class AdminController {
     public String index(HttpServletRequest request) {
         request.setAttribute("path", "index");
         return "admin/index";
+    }
+
+    // Add new endpoint for order statistics
+    @GetMapping("/api/order-statistics")
+    @ResponseBody
+    public Result getOrderStatistics() {
+        return ResultGenerator.genSuccessResult(salesMallOrderService.getOrderStatistics());
     }
 
     @PostMapping(value = "/login")
@@ -127,4 +140,8 @@ public class AdminController {
         request.getSession().removeAttribute("errorMsg");
         return "admin/login";
     }
+
+
+
+
 }

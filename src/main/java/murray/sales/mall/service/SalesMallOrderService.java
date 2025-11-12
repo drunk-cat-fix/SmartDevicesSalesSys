@@ -1,9 +1,6 @@
 package murray.sales.mall.service;
 
-import murray.sales.mall.controller.vo.SalesMallOrderDetailVO;
-import murray.sales.mall.controller.vo.SalesMallOrderItemVO;
-import murray.sales.mall.controller.vo.SalesMallShoppingCartItemVO;
-import murray.sales.mall.controller.vo.SalesMallUserVO;
+import murray.sales.mall.controller.vo.*;
 import murray.sales.mall.entity.SalesMallOrder;
 import murray.sales.mall.util.PageQueryUtil;
 import murray.sales.mall.util.PageResult;
@@ -106,4 +103,9 @@ public interface SalesMallOrderService {
     String paySuccess(String orderNo, int payType);
 
     List<SalesMallOrderItemVO> getOrderItems(Long id);
+
+    /**
+     * Get order statistics for dashboard
+     */
+    OrderStatisticsDTO getOrderStatistics();
 }

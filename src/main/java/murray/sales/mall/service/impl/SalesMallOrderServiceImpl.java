@@ -399,6 +399,29 @@ public class SalesMallOrderServiceImpl implements SalesMallOrderService {
         return null;
     }
 
+    @Override
+    public OrderStatisticsDTO getOrderStatistics() {
+        OrderStatisticsDTO statistics = new OrderStatisticsDTO();
+
+        // Total orders
+        statistics.setTotalOrders(salesMallOrderMapper.countTotalOrders());
+
+        // Order status counts (0: pending, 1: paid, 3: shipped, 4: completed, -1: cancelled, -3: closed)
+        statistics.setPendingOrders(salesMallOrderMapper.countOrdersByStatus((byte) 0));
+        statistics.setPaidOrders(salesMallOrderMapper.countOrdersByStatus((byte) 1));
+        statistics.setShippedOrders(salesMallOrderMapper.countOrdersByStatus((byte) 3));
+        statistics.setCompletedOrders(salesMallOrderMapper.countOrdersByStatus((byte) 4));
+        statistics.setCancelledOrders(
+                salesMallOrderMapper.countOrdersByStatus((byte) -1) +
+                        salesMallOrderMapper.countOrdersByStatus((byte) -3)
+        );
+
+        // Total revenue (from completed orders)
+        statistics.setTotalRevenue(salesMallOrderMapper.sumTotalRevenue());
+
+        return statistics;
+    }
+
     /**
      * 恢复库存
      * @param orderIds

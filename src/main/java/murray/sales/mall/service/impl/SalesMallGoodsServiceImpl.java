@@ -31,8 +31,8 @@ public class SalesMallGoodsServiceImpl implements SalesMallGoodsService {
 
     @Override
     public PageResult getNewBeeMallGoodsPage(PageQueryUtil pageUtil) {
-        List<SalesMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsList(pageUtil);
-        int total = goodsMapper.getTotalNewBeeMallGoods(pageUtil);
+        List<SalesMallGoods> goodsList = goodsMapper.findMallGoodsList(pageUtil);
+        int total = goodsMapper.getTotalMallGoods(pageUtil);
         PageResult pageResult = new PageResult(goodsList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
@@ -105,8 +105,8 @@ public class SalesMallGoodsServiceImpl implements SalesMallGoodsService {
 
     @Override
     public PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil) {
-        List<SalesMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsListBySearch(pageUtil);
-        int total = goodsMapper.getTotalNewBeeMallGoodsBySearch(pageUtil);
+        List<SalesMallGoods> goodsList = goodsMapper.findGoodsListBySearch(pageUtil);
+        int total = goodsMapper.getTotalMallGoodsBySearch(pageUtil);
         List<SalesMallSearchGoodsVO> salesMallSearchGoodsVOS = new ArrayList<>();
         if (!CollectionUtils.isEmpty(goodsList)) {
             salesMallSearchGoodsVOS = BeanUtil.copyList(goodsList, SalesMallSearchGoodsVO.class);

@@ -7,15 +7,15 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'categoryId', index: 'categoryId', width: 50, key: true, hidden: true},
-            {label: '分类名称', name: 'categoryName', index: 'categoryName', width: 240},
-            {label: '排序值', name: 'categoryRank', index: 'categoryRank', width: 120},
-            {label: '添加时间', name: 'createTime', index: 'createTime', width: 120}
+            {label: 'Category Name', name: 'categoryName', index: 'categoryName', width: 240},
+            {label: 'Sort Order', name: 'categoryRank', index: 'categoryRank', width: 120},
+            {label: 'Create Time', name: 'createTime', index: 'createTime', width: 120}
         ],
         height: 560,
         rowNum: 10,
         rowList: [10, 20, 50],
         styleUI: 'Bootstrap',
-        loadtext: '信息读取中...',
+        loadtext: 'Loading information...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
@@ -33,7 +33,7 @@ $(function () {
             order: "order",
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
+            // Hide grid bottom scrollbar
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
@@ -44,7 +44,7 @@ $(function () {
 });
 
 /**
- * jqGrid重新加载
+ * jqGrid reload
  */
 function reload() {
     var page = $("#jqGrid").jqGrid('getGridParam', 'page');
@@ -55,12 +55,12 @@ function reload() {
 
 function categoryAdd() {
     reset();
-    $('.modal-title').html('分类添加');
+    $('.modal-title').html('Add Category');
     $('#categoryModal').modal('show');
 }
 
 /**
- * 管理下级分类
+ * Manage subcategories
  */
 function categoryManage() {
     var categoryLevel = parseInt($("#categoryLevel").val());
@@ -74,14 +74,15 @@ function categoryManage() {
         window.location.href = '/admin/categories?categoryLevel=' + categoryLevel + '&parentId=' + id + '&backParentId=' + parentId;
     } else {
         Swal.fire({
-            text: "无下级分类",
-            icon: "warning",iconColor:"#dea32c",
+            text: "No subcategories",
+            icon: "warning",
+            iconColor: "#dea32c",
         });
     }
 }
 
 /**
- * 返回上一层级
+ * Return to previous level
  */
 function categoryBack() {
     var categoryLevel = parseInt($("#categoryLevel").val());
@@ -91,13 +92,14 @@ function categoryBack() {
         window.location.href = '/admin/categories?categoryLevel=' + categoryLevel + '&parentId=' + backParentId + '&backParentId=0';
     } else {
         Swal.fire({
-            text: "无上级分类",
-            icon: "warning",iconColor:"#dea32c",
+            text: "No parent category",
+            icon: "warning",
+            iconColor: "#dea32c",
         });
     }
 }
 
-//绑定modal上的保存按钮
+// Bind save button on modal
 $('#saveButton').click(function () {
     var categoryName = $("#categoryName").val();
     var categoryLevel = $("#categoryLevel").val();
@@ -105,7 +107,7 @@ $('#saveButton').click(function () {
     var categoryRank = $("#categoryRank").val();
     if (!validCN_ENString2_18(categoryName)) {
         $('#edit-error-msg').css("display", "block");
-        $('#edit-error-msg').html("请输入符合规范的分类名称！");
+        $('#edit-error-msg').html("Please enter a valid category name!");
     } else {
         var data = {
             "categoryName": categoryName,
@@ -126,7 +128,7 @@ $('#saveButton').click(function () {
             };
         }
         $.ajax({
-            type: 'POST',//方法类型
+            type: 'POST',
             url: url,
             contentType: 'application/json',
             data: JSON.stringify(data),
@@ -134,23 +136,25 @@ $('#saveButton').click(function () {
                 if (result.resultCode == 200) {
                     $('#categoryModal').modal('hide');
                     Swal.fire({
-                        text: "保存成功",
-                        icon: "success",iconColor:"#1d953f",
+                        text: "Save successful",
+                        icon: "success",
+                        iconColor: "#1d953f",
                     });
                     reload();
                 } else {
                     $('#categoryModal').modal('hide');
                     Swal.fire({
                         text: result.message,
-                        icon: "error",iconColor:"#f05b72",
+                        icon: "error",
+                        iconColor: "#f05b72",
                     });
                 }
-                ;
             },
             error: function () {
                 Swal.fire({
-                    text: "操作失败",
-                    icon: "error",iconColor:"#f05b72",
+                    text: "Operation failed",
+                    icon: "error",
+                    iconColor: "#f05b72",
                 });
             }
         });
@@ -164,7 +168,7 @@ function categoryEdit() {
         return;
     }
     var rowData = $("#jqGrid").jqGrid("getRowData", id);
-    $('.modal-title').html('分类编辑');
+    $('.modal-title').html('Edit Category');
     $('#categoryModal').modal('show');
     $("#categoryId").val(id);
     $("#categoryName").val(rowData.categoryName);
@@ -172,51 +176,51 @@ function categoryEdit() {
 }
 
 /**
- * 分类的删除会牵涉到多级分类的修改和商品数据的修改，请谨慎删除分类数据，
- * 如果在商城页面不想显示相关分类可以通过调整rank值来调整显示顺序，
- * 不过代码我也写了一部分，如果想保留删除功能的话可以在此代码的基础上进行修改。
+ * Deleting categories will affect multi-level category modifications and product data modifications.
+ * Please be cautious when deleting category data.
+ * If you don't want to display related categories on the mall page, you can adjust the display order by modifying the rank value.
+ * However, I have written part of the code. If you want to keep the delete function, you can modify it based on this code.
  */
 function deleteCagegory() {
-
     var ids = getSelectedRows();
     if (ids == null) {
         return;
     }
     Swal.fire({
-        title: "确认弹框",
-        text: "确认要删除数据吗?",
-        icon: "warning",iconColor:"#dea32c",
+        title: "Confirm",
+        text: "Are you sure you want to delete the selected data?",
+        icon: "warning",
+        iconColor: "#dea32c",
         showCancelButton: true,
-        confirmButtonText: '确认',
-        cancelButtonText: '取消'
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel'
     }).then((flag) => {
-            if (flag.value) {
-                $.ajax({
-                    type: "POST",
-                    url: "/admin/categories/delete",
-                    contentType: "application/json",
-                    data: JSON.stringify(ids),
-                    success: function (r) {
-                        if (r.resultCode == 200) {
-                            Swal.fire({
-                                text: "删除成功",
-                                icon: "success",iconColor:"#1d953f",
-                            });
-                            $("#jqGrid").trigger("reloadGrid");
-                        } else {
-                            Swal.fire({
-                                text: r.message,
-                                icon: "error",iconColor:"#f05b72",
-                            });
-                        }
+        if (flag.value) {
+            $.ajax({
+                type: "POST",
+                url: "/admin/categories/delete",
+                contentType: "application/json",
+                data: JSON.stringify(ids),
+                success: function (r) {
+                    if (r.resultCode == 200) {
+                        Swal.fire({
+                            text: "Delete successful",
+                            icon: "success",
+                            iconColor: "#1d953f",
+                        });
+                        $("#jqGrid").trigger("reloadGrid");
+                    } else {
+                        Swal.fire({
+                            text: r.message,
+                            icon: "error",
+                            iconColor: "#f05b72",
+                        });
                     }
-                });
-            }
+                }
+            });
         }
-    )
-    ;
+    });
 }
-
 
 function reset() {
     $("#categoryName").val('');

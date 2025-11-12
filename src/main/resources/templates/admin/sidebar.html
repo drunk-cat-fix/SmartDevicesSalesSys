@@ -61,16 +61,35 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a th:href="@{/admin/indexConfigs?configType=5}"
-                       th:class="${path}=='INDEX_GOODS_RECOMMOND'?'nav-link active':'nav-link'">
-                        <i class="nav-icon fa fa-hand-o-up"></i>
-                        <p>
-                            Recommendation Config
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-header">Management Module</li>
+
+
+<!--                <nav class="navbar navbar-expand-lg">-->
+<!--                    &lt;!&ndash; ... existing navigation items ... &ndash;&gt;-->
+<!--                    <a class="nav-link" th:href="@{/recommendations}">-->
+<!--                        <i class="fa fa-heart"></i> Recommendations-->
+<!--                    </a>-->
+<!--                    &lt;!&ndash; ... existing code ... &ndash;&gt;-->
+<!--                </nav>-->
+
+
+<!--                <li class="nav-item">-->
+<!--                    <a th:href="@{/admin/indexConfigs?configType=5}"-->
+<!--                       th:class="${path}=='INDEX_GOODS_RECOMMOND'?'nav-link active':'nav-link'">-->
+<!--                        <i class="nav-icon fa fa-hand-o-up"></i>-->
+<!--                        <p>-->
+<!--                            Recommendation Config-->
+<!--                        </p>-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                <li class="nav-item">-->
+<!--                    <a th:href="@{/admin/admin_recommendation_management}"-->
+<!--                       th:class="${path}=='recommendations'?'nav-link active':'nav-link'">-->
+<!--                        <i class="fa fa-heart"></i> Recommendations-->
+<!--                    </a>-->
+<!--                <li class="nav-header">Management Module</li>-->
+
+
                 <li class="nav-item">
                     <a th:href="@{/admin/categories?parentId=0&categoryLevel=1&backParentId=0}"
                        th:class="${path}=='newbee_mall_category'?'nav-link active':'nav-link'">

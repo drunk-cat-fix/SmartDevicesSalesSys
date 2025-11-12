@@ -133,9 +133,9 @@ public class OrderController {
         request.setAttribute("orderNo", orderNo);
         request.setAttribute("totalPrice", salesMallOrder.getTotalPrice());
         if (payType == 1) {
-            return "TNG";
+            return "mall/tng";
         } else {
-            return "bigpay";
+            return "mall/bigpay";
         }
     }
 

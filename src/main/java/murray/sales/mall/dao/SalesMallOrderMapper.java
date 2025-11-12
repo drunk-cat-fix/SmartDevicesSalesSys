@@ -32,4 +32,11 @@ public interface SalesMallOrderMapper {
     int closeOrder(@Param("orderIds") List<Long> orderIds, @Param("orderStatus") int orderStatus);
 
     int checkDone(@Param("orderIds") List<Long> asList);
+
+    // Order Statistics Methods
+    int countTotalOrders();
+
+    int countOrdersByStatus(@Param("orderStatus") Byte orderStatus);
+
+    Double sumTotalRevenue();
 }

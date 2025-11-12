@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recommendation System - Admin</title>
+    <link rel="stylesheet" th:href="@{/admin/plugins/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/dist/css/adminlte.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/plugins/sweetalert2/sweetalert2.min.css}">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <div th:replace="~{admin/header :: header}"></div>
+    <div th:replace="~{admin/sidebar :: sidebar(${path})}"></div>
+
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Recommendation System</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Collaborative Filtering Management</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <h5><i class="icon fas fa-info"></i> About Item-Based Collaborative Filtering</h5>
+                            <p>
+                                This system analyzes purchase patterns to recommend products.
+                                It calculates similarity between items based on users who purchased them together.
+                            </p>
+                            <ul>
+                                <li>Analyzes all order history to find item relationships</li>
+                                <li>Uses cosine similarity for item-item comparison</li>
+                                <li>Recommends products similar to what users have purchased</li>
+                            </ul>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary btn-lg" id="calculateBtn">
+                                    <i class="fas fa-calculator"></i> Calculate Item Similarities
+                                </button>
+                                <p class="text-muted mt-2">
+                                    This process analyzes all purchase history and calculates similarity scores.
+                                    Run this periodically (e.g., daily or weekly) to keep recommendations up to date.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <div id="statusMessage"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div th:replace="~{admin/footer :: footer}"></div>
+</div>
+
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert2/sweetalert2.min.js}"></script>
+
+<script>
+    $(function() {
+        $('#calculateBtn').click(function() {
+            var btn = $(this);
+            btn.prop('disabled', true);
+            btn.html('<i class="fas fa-spinner fa-spin"></i> Calculating...');
+
+            $.ajax({
+                type: 'POST',
+                url: '/admin/recommendations/calculate',
+                success: function(result) {
+                    if (result.resultCode == 200) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: result.message
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: result.message
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Failed to calculate similarities'
+                    });
+                },
+                complete: function() {
+                    btn.prop('disabled', false);
+                    btn.html('<i class="fas fa-calculator"></i> Calculate Item Similarities');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

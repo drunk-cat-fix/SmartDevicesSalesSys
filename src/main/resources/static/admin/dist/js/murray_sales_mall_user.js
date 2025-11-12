@@ -4,17 +4,17 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'userId', index: 'userId', width: 50, key: true, hidden: true},
-            {label: '昵称', name: 'nickName', index: 'nickName', width: 180},
-            {label: '登录名', name: 'loginName', index: 'loginName', width: 120},
-            {label: '身份状态', name: 'lockedFlag', index: 'lockedFlag', width: 60, formatter: lockedFormatter},
-            {label: '是否注销', name: 'isDeleted', index: 'isDeleted', width: 60, formatter: deletedFormatter},
-            {label: '注册时间', name: 'createTime', index: 'createTime', width: 120}
+            {label: 'Nickname', name: 'nickName', index: 'nickName', width: 180},
+            {label: 'Login Name', name: 'loginName', index: 'loginName', width: 120},
+            {label: 'Status', name: 'lockedFlag', index: 'lockedFlag', width: 60, formatter: lockedFormatter},
+            {label: 'Deleted', name: 'isDeleted', index: 'isDeleted', width: 60, formatter: deletedFormatter},
+            {label: 'Registration Time', name: 'createTime', index: 'createTime', width: 120}
         ],
         height: 560,
         rowNum: 10,
         rowList: [10, 20, 50],
         styleUI: 'Bootstrap',
-        loadtext: '信息读取中...',
+        loadtext: 'Loading information...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
@@ -32,7 +32,7 @@ $(function () {
             order: "order",
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
+            // Hide grid bottom scrollbar
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
@@ -43,23 +43,23 @@ $(function () {
 
     function lockedFormatter(cellvalue) {
         if (cellvalue == 1) {
-            return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 50%;\">锁定</button>";
+            return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 50%;\">Locked</button>";
         } else if (cellvalue == 0) {
-            return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 50%;\">正常</button>";
+            return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 50%;\">Normal</button>";
         }
     }
 
     function deletedFormatter(cellvalue) {
         if (cellvalue == 1) {
-            return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 50%;\">注销</button>";
+            return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 50%;\">Deleted</button>";
         } else if (cellvalue == 0) {
-            return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 50%;\">正常</button>";
+            return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 50%;\">Normal</button>";
         }
     }
 });
 
 /**
- * jqGrid重新加载
+ * jqGrid reload
  */
 function reload() {
     var page = $("#jqGrid").jqGrid('getGridParam', 'page');
@@ -68,7 +68,6 @@ function reload() {
     }).trigger("reloadGrid");
 }
 
-
 function lockUser(lockStatus) {
     var ids = getSelectedRows();
     if (ids == null) {
@@ -76,41 +75,43 @@ function lockUser(lockStatus) {
     }
     if (lockStatus != 0 && lockStatus != 1) {
         Swal.fire({
-            text: '非法操作',
-            icon: "error",iconColor:"#f05b72",
+            text: 'Illegal operation',
+            icon: "error",
+            iconColor:"#f05b72",
         });
     }
     Swal.fire({
-        title: "确认弹框",
-        text: "确认要修改账号状态吗?",
-        icon: "warning",iconColor:"#dea32c",
+        title: "Confirm",
+        text: "Are you sure you want to modify the account status?",
+        icon: "warning",
+        iconColor:"#dea32c",
         showCancelButton: true,
-        confirmButtonText: '确认',
-        cancelButtonText: '取消'
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel'
     }).then((flag) => {
-            if (flag.value) {
-                $.ajax({
-                    type: "POST",
-                    url: "/admin/users/lock/" + lockStatus,
-                    contentType: "application/json",
-                    data: JSON.stringify(ids),
-                    success: function (r) {
-                        if (r.resultCode == 200) {
-                            Swal.fire({
-                                text: "操作成功",
-                                icon: "success",iconColor:"#1d953f",
-                            });
-                            $("#jqGrid").trigger("reloadGrid");
-                        } else {
-                            Swal.fire({
-                                text: r.message,
-                                icon: "error",iconColor:"#f05b72",
-                            });
-                        }
+        if (flag.value) {
+            $.ajax({
+                type: "POST",
+                url: "/admin/users/lock/" + lockStatus,
+                contentType: "application/json",
+                data: JSON.stringify(ids),
+                success: function (r) {
+                    if (r.resultCode == 200) {
+                        Swal.fire({
+                            text: "Operation successful",
+                            icon: "success",
+                            iconColor:"#1d953f",
+                        });
+                        $("#jqGrid").trigger("reloadGrid");
+                    } else {
+                        Swal.fire({
+                            text: r.message,
+                            icon: "error",
+                            iconColor:"#f05b72",
+                        });
                     }
-                });
-            }
+                }
+            });
         }
-    )
-    ;
+    });
 }

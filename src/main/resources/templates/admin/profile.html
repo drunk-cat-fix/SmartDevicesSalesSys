@@ -33,16 +33,16 @@
                                         <label>Login Name</label>
                                         <input type="text" class="form-control" id="loginUserName"
                                                name="loginUserName"
-                                               placeholder="Enter login name" required="true" th:value="${loginUserName}">
+                                               placeholder="Enter login name" required="required" th:value="${loginUserName}">
                                     </div>
                                     <div class="form-group">
                                         <label>Nickname</label>
                                         <input type="text" class="form-control" id="nickName"
                                                name="nickName"
-                                               placeholder="Enter Nickname" required="true" th:value="${nickName}">
+                                               placeholder="Enter Nickname" required="required" th:value="${nickName}">
                                     </div>
                                     <div class="card-footer">
-                                        <button type="button" id="updateUserNameButton" onsubmit="return false;"
+                                        <button type="button" id="updateUserNameButton"
                                                 class="btn btn-danger float-right">Confirm Change
                                         </button>
                                     </div>
@@ -65,15 +65,15 @@
                                         <label class="control-label"><i class="fa fa-key"></i> Original Password</label>
                                         <input type="text" class="form-control" id="originalPassword"
                                                name="originalPassword"
-                                               placeholder="Enter original Password" required="true">
+                                               placeholder="Enter original Password" required="required">
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label"><i class="fa fa-key"></i> New Password</label>
                                         <input type="text" class="form-control" id="newPassword" name="newPassword"
-                                               placeholder="Enter new password" required="true">
+                                               placeholder="Enter new password" required="required">
                                     </div>
                                     <div class="card-footer">
-                                        <button type="button" id="updatePasswordButton" onsubmit="return false;"
+                                        <button type="button" id="updatePasswordButton"
                                                 class="btn btn-danger float-right">Confirm Modification
                                         </button>
                                     </div>

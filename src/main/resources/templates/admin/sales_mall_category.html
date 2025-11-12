@@ -12,13 +12,13 @@
 </style>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-    <!-- 引入页面头header-fragment -->
+    <!-- Include page header header-fragment -->
     <div th:replace="admin/header::header-nav"></div>
-    <!-- 引入工具栏sidebar-fragment -->
+    <!-- Include toolbar sidebar-fragment -->
     <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
-    <!-- Content Wrapper. Contains 图标content -->
+    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (图标header) -->
+        <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
             </div><!-- /.container-fluid -->
@@ -28,24 +28,24 @@
             <div class="container-fluid">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">分类管理</h3>
+                        <h3 class="card-title">Category Management</h3>
                     </div> <!-- /.card-body -->
                     <div class="card-body">
                         <div class="grid-btn">
                             <button class="btn btn-info" onclick="categoryAdd()"><i
-                                    class="fa fa-plus"></i>&nbsp;新增
+                                    class="fa fa-plus"></i>&nbsp;Add
                             </button>
                             <button class="btn btn-info" onclick="categoryEdit()"><i
-                                    class="fa fa-pencil-square-o"></i>&nbsp;修改
+                                    class="fa fa-pencil-square-o"></i>&nbsp;Edit
                             </button>
                             <button class="btn btn-danger" onclick="deleteCagegory()"><i
-                                    class="fa fa-trash-o"></i>&nbsp;删除
+                                    class="fa fa-trash-o"></i>&nbsp;Delete
                             </button>
                             <button class="btn btn-info" onclick="categoryManage()"><i
-                                    class="fa fa-list"></i>&nbsp;下级分类管理
+                                    class="fa fa-list"></i>&nbsp;Manage Subcategories
                             </button>
                             <button class="btn btn-info" onclick="categoryBack()"><i
-                                    class="fa fa-backward"></i>&nbsp;返回
+                                    class="fa fa-backward"></i>&nbsp;Return
                             </button>
                         </div>
                         <br>
@@ -58,7 +58,7 @@
         </div>
         <!-- /.content -->
         <div class="content">
-            <!-- 模态框（Modal） -->
+            <!-- Modal -->
             <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -71,7 +71,7 @@
                             <form id="categoryForm">
                                 <div class="form-group">
                                     <div class="alert alert-danger" id="edit-error-msg" style="display: none;">
-                                        错误信息展示栏。
+                                        Error message display area.
                                     </div>
                                 </div>
                                 <input type="hidden" class="form-control" id="categoryId" name="categoryId">
@@ -79,20 +79,20 @@
                                 <input type="hidden" id="parentId" th:value="${parentId}">
                                 <input type="hidden" id="backParentId" th:value="${backParentId}">
                                 <div class="form-group">
-                                    <label for="categoryName" class="control-label">分类名称:</label>
+                                    <label for="categoryName" class="control-label">Category Name:</label>
                                     <input type="text" class="form-control" id="categoryName" name="categoryName"
-                                           placeholder="请输入分类名称" required="true">
+                                           placeholder="Please enter category name" required="true">
                                 </div>
                                 <div class="form-group">
-                                    <label for="categoryName" class="control-label">排序值:</label>
+                                    <label for="categoryRank" class="control-label">Sort Order:</label>
                                     <input type="number" class="form-control" id="categoryRank" name="categoryRank"
-                                           placeholder="请输入分类排序值" required="true">
+                                           placeholder="Please enter sort order" required="true">
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="saveButton">Confirm</button>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
         </div>
     </div>
     <!-- /.content-wrapper -->
-    <!-- 引入页脚footer-fragment -->
+    <!-- Include footer footer-fragment -->
     <div th:replace="admin/footer::footer-fragment"></div>
 </div>
 <!-- jQuery -->
@@ -112,7 +112,7 @@
 <script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
 <!-- jqgrid -->
 <script th:src="@{/admin/plugins/jqgrid-5.7.0/jquery.jqGrid.min.js}"></script>
-<script th:src="@{/admin/plugins/jqgrid-5.7.0/grid.locale-cn.js}"></script>
+<script th:src="@{/admin/plugins/jqgrid-5.7.0/grid.locale-en.js}"></script>
 
 <!-- sweetalert -->
 <script th:src="@{/admin/plugins/sweetalert2/sweetalert2.all.min.js}"></script>

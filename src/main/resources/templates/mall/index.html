@@ -62,8 +62,10 @@
     </div>
 
     <div id="sub_banner">
+<!--        <h2>Hot Sales</h2>-->
         <!-- 已配置热销商品则显示配置内容 -->
         <th:block th:unless="${#lists.isEmpty(hotGoodses)}">
+
             <th:block th:each="hotGoodse : ${hotGoodses}">
                 <div class="hot-image">
                     <a th:href="@{'/goods/detail/'+${hotGoodse.goodsId}}">
@@ -99,7 +101,7 @@
         </th:block>
     </div>
 
-    <div id="flash">
+    <div id="flash" style="margin-bottom: 20px;">
         <h2>New Products</h2>
         <ul>
             <!-- 已配置新品则显示配置内容 -->
@@ -118,32 +120,32 @@
         </ul>
     </div>
 
-    <div id="recommend">
-        <h2>Hot Sales</h2>
-        <a href="##" class="more">More Details>></a>
-        <ul>
-            <!-- 已配置推荐商品则显示配置内容 -->
-            <th:block th:unless="${#lists.isEmpty(recommendGoodses)}">
-                <th:block th:each="recommendGoods : ${recommendGoodses}">
-                    <li>
-                        <a th:href="@{'/goods/detail/'+${recommendGoods.goodsId}}">
-                            <div class="info discount" th:text="${recommendGoods.tag}">
-                                New Product
-                            </div>
-                            <img th:src="@{${recommendGoods.goodsCoverImg}}" th:alt="${recommendGoods.goodsName}">
-                            <p class="name" th:text="${recommendGoods.goodsName}">NewBeeMall</p>
-                            <p class="item_price" th:text="${recommendGoods.sellingPrice}">NewBeeMall</p>
-                            <p class="counter">Suggestion</p>
-                            <div class="comment">
-                                <p>Featured</p>
-                                <p>Good Product No Expensive</p>
-                            </div>
-                        </a>
-                    </li>
-                </th:block>
-            </th:block>
-        </ul>
-    </div>
+<!--    <div id="recommend">-->
+<!--        <h2>Hot Sales</h2>-->
+<!--        <a href="##" class="more">More Details>></a>-->
+<!--        <ul>-->
+<!--            &lt;!&ndash; 已配置推荐商品则显示配置内容 &ndash;&gt;-->
+<!--            <th:block th:unless="${#lists.isEmpty(recommendGoodses)}">-->
+<!--                <th:block th:each="recommendGoods : ${recommendGoodses}">-->
+<!--                    <li>-->
+<!--                        <a th:href="@{'/goods/detail/'+${recommendGoods.goodsId}}">-->
+<!--                            <div class="info discount" th:text="${recommendGoods.tag}">-->
+<!--                                New Product-->
+<!--                            </div>-->
+<!--                            <img th:src="@{${recommendGoods.goodsCoverImg}}" th:alt="${recommendGoods.goodsName}">-->
+<!--                            <p class="name" th:text="${recommendGoods.goodsName}">NewBeeMall</p>-->
+<!--                            <p class="item_price" th:text="${recommendGoods.sellingPrice}">NewBeeMall</p>-->
+<!--                            <p class="counter">Suggestion</p>-->
+<!--                            <div class="comment">-->
+<!--                                <p>Featured</p>-->
+<!--                                <p>Good Product No Expensive</p>-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </th:block>-->
+<!--            </th:block>-->
+<!--        </ul>-->
+<!--    </div>-->
 </content>
 <div th:replace="mall/footer::footer-fragment"></div>
 <!-- jQuery -->

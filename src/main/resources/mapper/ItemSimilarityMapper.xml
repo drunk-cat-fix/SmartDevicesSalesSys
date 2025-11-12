@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="murray.sales.mall.dao.ItemSimilarityMapper">
+
+    <resultMap id="BaseResultMap" type="murray.sales.mall.entity.ItemSimilarity">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="goods_id_1" property="goodsId1" jdbcType="BIGINT"/>
+        <result column="goods_id_2" property="goodsId2" jdbcType="BIGINT"/>
+        <result column="similarity" property="similarity" jdbcType="DOUBLE"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- Insert batch of similarities -->
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO tb_item_similarity (goods_id_1, goods_id_2, similarity, update_time)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.goodsId1}, #{item.goodsId2}, #{item.similarity}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+    <!-- Delete all similarities -->
+    <delete id="deleteAll">
+        DELETE FROM tb_item_similarity
+    </delete>
+
+    <!-- Select top similar items for a given item -->
+    <select id="selectTopSimilarItems" resultMap="BaseResultMap">
+        SELECT id, goods_id_1, goods_id_2, similarity, update_time
+        FROM tb_item_similarity
+        WHERE goods_id_1 = #{goodsId}
+        ORDER BY similarity DESC
+        LIMIT #{limit}
+    </select>
+
+    <!-- Get user purchase history -->
+    <select id="getUserPurchaseHistory" resultType="java.util.Map">
+        SELECT DISTINCT o.user_id as userId, oi.goods_id as goodsId
+        FROM tb_order o
+                 INNER JOIN tb_order_item oi ON o.order_id = oi.order_id
+        WHERE o.order_status >= 0
+    </select>
+
+    <!-- Get recommended items for user - FIXED VERSION -->
+    <select id="getRecommendedItemsForUser" resultType="java.lang.Long">
+        SELECT s.goods_id_2
+        FROM (
+                 SELECT DISTINCT s.goods_id_2, s.similarity
+                 FROM tb_item_similarity s
+                 WHERE s.goods_id_1 IN (
+                     SELECT oi.goods_id
+                     FROM tb_order o
+                              INNER JOIN tb_order_item oi ON o.order_id = oi.order_id
+                     WHERE o.user_id = #{userId}
+                       AND o.order_status >= 0
+                 )
+                   AND s.goods_id_2 NOT IN (
+                     SELECT oi.goods_id
+                     FROM tb_order o
+                              INNER JOIN tb_order_item oi ON o.order_id = oi.order_id
+                     WHERE o.user_id = #{userId}
+                 )
+                 ORDER BY s.similarity DESC
+             ) s
+        LIMIT #{limit}
+    </select>
+
+</mapper>

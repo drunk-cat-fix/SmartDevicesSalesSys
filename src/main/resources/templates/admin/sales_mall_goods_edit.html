@@ -19,14 +19,14 @@
             <div class="container-fluid">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">商品信息编辑</h3>
+                        <h3 class="card-title">Goods Info Edit</h3>
                     </div>
                     <div class="card-body">
                         <form id="goodsForm" onsubmit="return false;">
                             <div class="form-group" style="display:flex;">
-                                <label class="control-label">请选择分类:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <label class="control-label">Select Category:&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                 <select class="form-control col-sm-3" id="levelOne"
-                                        data-placeholder="请选择分类...">
+                                        data-placeholder="Select Category...">
                                     <th:block th:unless="${null == firstLevelCategories}">
                                         <th:block th:each="c : ${firstLevelCategories}">
                                             <option th:value="${c.categoryId}" th:text="${c.categoryName}"
@@ -38,7 +38,7 @@
                                 </select>&nbsp;
                                 <select class="form-control col-sm-3"
                                         id="levelTwo"
-                                        data-placeholder="请选择分类...">
+                                        data-placeholder="Select Category...">
                                     <th:block th:unless="${null == secondLevelCategories}">
                                         <th:block th:each="c : ${secondLevelCategories}">
                                             <option th:value="${c.categoryId}" th:text="${c.categoryName}"
@@ -50,7 +50,7 @@
                                 </select>&nbsp;
                                 <select class="form-control col-sm-3"
                                         id="levelThree"
-                                        data-placeholder="请选择分类...">
+                                        data-placeholder="Select Category...">
                                     <th:block th:unless="${null == thirdLevelCategories}">
                                         <th:block th:each="c : ${thirdLevelCategories}">
                                             <option th:value="${c.categoryId}" th:text="${c.categoryName}"
@@ -65,46 +65,46 @@
                                 <input type="hidden" id="goodsId" name="goodsId"
                                        th:value="${goods!=null and goods.goodsId!=null }?${goods.goodsId}: 0">
                                 <input type="text" class="form-control col-sm-6" id="goodsName" name="goodsName"
-                                       placeholder="*请输入商品名称(必填)"
+                                       placeholder="*Enter the Name of Goods(Required)"
                                        th:value="${goods!=null and goods.goodsName!=null }?${goods.goodsName}: ''"
                                        required="true">
                                 &nbsp;&nbsp;
                                 <input type="text" class="form-control col-sm-6" id="goodsIntro" name="goodsIntro"
-                                       placeholder="*请输入商品简介(100字以内)"
+                                       placeholder="*Enter the intro of goods(within 100 words)"
                                        th:value="${goods!=null and goods.goodsIntro!=null }?${goods.goodsIntro}: ''"
                                        required="true">
                             </div>
                             <div class="form-group" style="display:flex;">
                                 <input type="number" class="form-control col-sm-6" id="originalPrice"
                                        name="originalPrice"
-                                       placeholder="*请输入商品价格"
+                                       placeholder="*Enter the price of goods"
                                        th:value="${goods!=null and goods.originalPrice!=null }?${goods.originalPrice}: 1"
                                        required="true">
                                 &nbsp;&nbsp;
                                 <input type="number" class="form-control col-sm-6" id="sellingPrice"
                                        name="sellingPrice"
-                                       placeholder="*请输入商品售卖价"
+                                       placeholder="*Enter the sale price of goods"
                                        th:value="${goods!=null and goods.sellingPrice!=null }?${goods.sellingPrice}: 1"
                                        required="true">
                             </div>
                             <div class="form-group" style="display:flex;">
                                 <input type="number" class="form-control col-sm-6" id="stockNum" name="stockNum"
-                                       placeholder="*请输入商品库存数"
+                                       placeholder="*Enter the stock of goods"
                                        th:value="${goods!=null and goods.stockNum!=null }?${goods.stockNum}: 0"
                                        required="true">
                                 &nbsp;&nbsp;
                                 <input type="text" class="form-control col-sm-6" id="tag" name="tag"
-                                       placeholder="*请输入商品小标签"
+                                       placeholder="*Enter the tag of goods"
                                        th:value="${goods!=null and goods.tag!=null }?${goods.tag}: ''"
                                        required="true">
                             </div>
                             <div class="form-group">
-                                <label class="control-label">上架状态:&nbsp;</label>
+                                <label class="control-label">Status:&nbsp;</label>
                                 <input name="goodsSellStatus" type="radio" id="goodsSellStatusTrue" checked=true
                                        th:checked="${null==goods||(null !=goods and null !=goods.goodsSellStatus and goods.goodsSellStatus==0)} ?true:false"
-                                       value="0"/>&nbsp;上架&nbsp;
+                                       value="0"/>&nbsp;Selling&nbsp;
                                 <input name="goodsSellStatus" type="radio" id="goodsSellStatusFalse" value="1"
-                                       th:checked="${null !=goods and null !=goods.goodsSellStatus and goods.goodsSellStatus==1} ?true:false"/>&nbsp;下架&nbsp;
+                                       th:checked="${null !=goods and null !=goods.goodsSellStatus and goods.goodsSellStatus==1} ?true:false"/>&nbsp;Out of Sale&nbsp;
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
@@ -124,7 +124,7 @@
                                     <div class="col-sm-4">
                                         <button class="btn btn-info" style="margin-bottom: 5px;"
                                                 id="uploadGoodsCoverImg">
-                                            <i class="fa fa-picture-o"></i>&nbsp;上传商品主图
+                                            <i class="fa fa-picture-o"></i>&nbsp;Upload Cover Of Goods
                                         </button>
                                     </div>
                                 </div>
@@ -137,10 +137,10 @@
                             <div class="form-group">
                                 <!-- 按钮 -->
                                 &nbsp;<button class="btn btn-info float-right" style="margin-left: 5px;"
-                                              id="saveButton">保存商品
+                                              id="saveButton">Save Goods
                             </button>&nbsp;
                                 &nbsp;<button class="btn btn-secondary float-right" style="margin-left: 5px;"
-                                              id="cancelButton">返回商品列表
+                                              id="cancelButton">Return To List
                             </button>&nbsp;
                             </div>
                         </form>

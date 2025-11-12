@@ -13,6 +13,7 @@
 <nav id="nav" th:fragment="nav-fragment">
     <div class="banner_x center">
         <a th:href="@{/index}" class="logo"><h1>Smart Devices Sales System</h1></a>
+
         <div class="fr">
             <div class="search">
                 <input class="text" type="text" id="keyword" autocomplete="off">
@@ -30,6 +31,12 @@
             <li><a th:href="@{/admin}">Management System</a></li>
             <li><a href="https://github.com/drunk-cat-fix/SmartDevicesSalesSys.git">GitHub Address</a></li>
             <li><a href="https://github.com/drunk-cat-fix/SmartDevicesSalesSys.git">Gitee Address</a></li>
+            <li>
+                <a class="nav-link" th:href="@{/recommendations}">
+                    <i class="fa fa-heart"></i> Recommendations
+                </a>
+            </li>
+
         </ul>
         <div class="fr">
             <th:block th:unless="${session.salesMallUser==null}">

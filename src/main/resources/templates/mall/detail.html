@@ -63,6 +63,9 @@
     </div>
 </div>
 
+
+
+
 <div th:replace="mall/footer::footer-fragment"></div>
 
 <!-- jQuery -->
@@ -159,6 +162,73 @@
             }
         });
     }
+
+    // Load similar items for product detail page
+    function loadSimilarItems(goodsId) {
+        $.ajax({
+            type: 'GET',
+            url: '/api/similar-items/' + goodsId,
+            data: { limit: 6 },
+            success: function(result) {
+                if (result.resultCode == 200 && result.data && result.data.length > 0) {
+                    displaySimilarItems(result.data);
+                }
+            },
+            error: function() {
+                console.error('Failed to load similar items');
+            }
+        });
+    }
+
+    function displaySimilarItems(goods) {
+        var html = '<div class="similar-items-section mt-5">' +
+            '<h3 class="mb-4">Similar Products</h3>' +
+            '<div class="row">';
+
+        for (var i = 0; i < goods.length; i++) {
+            var item = goods[i];
+            html += '<div class="col-lg-2 col-md-4 col-sm-6 mb-4">' +
+                '<div class="card h-100">' +
+                '<a href="/goods/detail/' + item.goodsId + '">' +
+                '<img class="card-img-top" src="' + item.goodsCoverImg + '" alt="' + item.goodsName + '">' +
+                '</a>' +
+                '<div class="card-body p-2">' +
+                '<h6 class="card-title">' +
+                '<a href="/goods/detail/' + item.goodsId + '">' + item.goodsName + '</a>' +
+                '</h6>' +
+                '<p class="card-text text-danger font-weight-bold">$' + item.sellingPrice + '</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+
+        html += '</div></div>';
+
+        // Append to detail page (adjust selector based on your detail page structure)
+        $('.detail-content').append(html);
+    }
+
+
+    // ... existing code ...
+
+    $(function() {
+        // ... existing initialization code ...
+
+        // Load similar items
+        var goodsId = getGoodsIdFromUrl();
+        if (goodsId) {
+            loadSimilarItems(goodsId);
+        }
+    });
+
+    function getGoodsIdFromUrl() {
+        var path = window.location.pathname;
+        var matches = path.match(/\/goods\/detail\/(\d+)/);
+        return matches ? matches[1] : null;
+    }
+
+    // ... rest of existing code ...
+
 </script>
 </body>
 </html>
