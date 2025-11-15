@@ -14,7 +14,7 @@ public interface SalesMallOrderService {
      * @param pageUtil
      * @return
      */
-    PageResult getNewBeeMallOrdersPage(PageQueryUtil pageUtil);
+    PageResult getSalesMallOrdersPage(PageQueryUtil pageUtil);
 
     /**
      * 订单信息修改

@@ -40,7 +40,7 @@ public class SalesMallOrderServiceImpl implements SalesMallOrderService {
     private SalesMallGoodsMapper salesMallGoodsMapper;
 
     @Override
-    public PageResult getNewBeeMallOrdersPage(PageQueryUtil pageUtil) {
+    public PageResult getSalesMallOrdersPage(PageQueryUtil pageUtil) {
         List<SalesMallOrder> salesMallOrders = salesMallOrderMapper.findNewBeeMallOrderList(pageUtil);
         int total = salesMallOrderMapper.getTotalNewBeeMallOrders(pageUtil);
         PageResult pageResult = new PageResult(salesMallOrders, total, pageUtil.getLimit(), pageUtil.getPage());

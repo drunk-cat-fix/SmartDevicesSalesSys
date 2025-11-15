@@ -46,7 +46,7 @@ public class SalesMallOrderController {
             return ResultGenerator.genFailResult("Parameter is excepted！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(salesMallOrderService.getNewBeeMallOrdersPage(pageUtil));
+        return ResultGenerator.genSuccessResult(salesMallOrderService.getSalesMallOrdersPage(pageUtil));
     }
 
     /**

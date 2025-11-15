@@ -1,6 +1,6 @@
 # Acknowledgement
 This project is for my final project.
-Thank CSDN for providing the platform.
+Thank CSDN for providing the platform and My Mentor (Ms Zuhaili) to help me.
 
 # The interface for the project
 ## The index page(Home page)
